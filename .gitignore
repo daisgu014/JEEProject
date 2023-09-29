@@ -1,0 +1,60 @@
+#git config --global core.excludesFile ~/.gitignore
+#for apply git ignore
+#add new if nessessary
+/src/main/python/
+/src/main/python_macOs/
+/src/main/python_macOs/*.*
+
+
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.idea/
+*.iml
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+.idea
+data/
+/.idea/
+ERPCoffee.iml
+/ERPCoffee.iml
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+/.idea/assetWizardSettings.xml
+/.idea/gradle.xml
+/.idea/caches
+/.idea/libraries
+/src/main/resources/
+/target/
+.env
+
+
+
