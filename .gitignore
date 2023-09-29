@@ -52,7 +52,6 @@ ERPCoffee.iml
 /.idea/gradle.xml
 /.idea/caches
 /.idea/libraries
-/src/main/resources/
 /target/
 .env
 
