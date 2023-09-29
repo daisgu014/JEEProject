@@ -1,80 +1,80 @@
 CREATE DATABASE if not EXISTS tablestore;
 use tablestore;
 
-create Table Category(
-    Id SMALLINT ZEROFILL AUTO_INCREMENT not null,
-    Name varchar(100) NOT NULL,
-    CreateAt Date DEFAULT CURRENT_DATE(),
-    DeleteAt Date DEFAULT NULL,
-    PRIMARY KEY (Id),
-    UNIQUE(Name)
+create Table categories(
+    id SMALLINT ZEROFILL AUTO_INCREMENT not null,
+    name varchar(100) NOT NULL,
+    create_at Date DEFAULT CURRENT_DATE(),
+    delete_at Date DEFAULT NULL,
+    PRIMARY KEY (id),
+    UNIQUE(name)
 );
-create Table Provider(
-    Id SMALLINT ZEROFILL AUTO_INCREMENT Not NULL,
-    Name varchar(200) NOT NULL,
-    CreateAt Date DEFAULT CURRENT_DATE(),
-    DeleteAt Date DEFAULT NULL,
-    PRIMARY KEY(Id),
-    UNIQUE(Name)
+create Table providers(
+    id SMALLINT ZEROFILL AUTO_INCREMENT Not NULL,
+    name varchar(200) NOT NULL,
+    create_at Date DEFAULT CURRENT_DATE(),
+    delete_at Date DEFAULT NULL,
+    PRIMARY KEY(id),
+    UNIQUE(name)
 
 );
-create Table Product(
-    Id Int ZEROFILL AUTO_INCREMENT not NULL,
-    Name VARCHAR(300) NOT NULL,
-    Color varchar(50)NOT NULL,
-    Price int NOT NULL check(Price >0),
-    Instock int not NULL check(Instock >= 0),
-    Status varchar(50) not NULL,
-    CategoryId SMALLINT ZEROFILL NOT NULL,
-    ProviderId SMALLINT ZEROFILL NOT NULL,
-    CreateAt Date DEFAULT CURRENT_DATE(),
-    DeleteAt Date DEFAULT NULL,
-    UNIQUE(Name),
-    PRIMARY KEY (Id),
-    FOREIGN KEY(CategoryId) REFERENCES Category(Id),
-    FOREIGN KEY(ProviderId) REFERENCES Provider(Id)
+create Table products(
+    id Int ZEROFILL AUTO_INCREMENT not NULL,
+    name VARCHAR(300) NOT NULL,
+    color varchar(50)NOT NULL,
+    price int NOT NULL check(price >0),
+    in_stock int not NULL check(in_stock >= 0),
+    status varchar(50) not NULL,
+    category_id SMALLINT ZEROFILL NOT NULL,
+    provider_id SMALLINT ZEROFILL NOT NULL,
+    create_at Date DEFAULT CURRENT_DATE(),
+    delete_at Date DEFAULT NULL,
+    UNIQUE(name),
+    PRIMARY KEY (id),
+    FOREIGN KEY(category_id) REFERENCES categories(id),
+    FOREIGN KEY(provider_id) REFERENCES providers(id)
 );   
-create Table User(
-    Id INT ZEROFILL AUTO_INCREMENT NOT NULL,
-    UserName varchar(200) NOT  NULL,
-    Password VARCHAR(500) NOT NULL,
-    Role VARCHAR(50) NOT NULL,
-    Phone VARCHAR(12) NOT NULL,
-    Email VARCHAR(100) NOT NULL,
-    Address VARCHAR(500) NOT NULL,
-    CreateAt Date DEFAULT CURRENT_DATE(),
-    DeleteAt Date DEFAULT NULL,
-    UNIQUE(Phone),
+create Table users(
+    id INT ZEROFILL AUTO_INCREMENT NOT NULL,
+    username varchar(200) NOT  NULL,
+    password VARCHAR(500) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    phone VARCHAR(12) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    address VARCHAR(500) NOT NULL,
+    create_at Date DEFAULT CURRENT_DATE(),
+    delete_at Date DEFAULT NULL,
+    UNIQUE(phone),
     UNIQUE(userName),
-    PRIMARY KEY(Id)
+    PRIMARY KEY(id)
 );
-CREATE TABLE CartInfo(
-    UserId INT ZEROFILL NOT NULL,
-    ProductId INT ZEROFILL NOT NULL,
-    Qty INT NOT NULL CHECK( Qty > 0),
-    PRIMARY KEY(ProductId, UserId),
-    FOREIGN KEY(ProductId) REFERENCES Product(Id),
-    FOREIGN KEY(UserId) REFERENCES User(Id)
+CREATE TABLE cart_infos(
+    user_id INT ZEROFILL NOT NULL,
+    product_id INT ZEROFILL NOT NULL,
+    qty INT NOT NULL CHECK( qty > 0),
+    PRIMARY KEY(user_id, product_id),
+    FOREIGN KEY(product_id) REFERENCES products(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
-CREATE TABLE Orders(
-    Id INT ZEROFILL AUTO_INCREMENT NOT NULL,
-    TotalPrice INT NOT NULL check(TotalPrice > 0),
-    BillFileName VARCHAR(100) DEFAULT NULL,
-    createAt DATETIME DEFAULT CURRENT_DATE(),
-    DeleteAt Date DEFAULT NULL,
-    Place VARCHAR(500) NOT Null,
-    ConfirmId INT ZEROFILL NOT NULL,
-    ConfirmDate DATE DEFAULT NULL,
-    UserId INT ZEROFILL NOT NULL,
-    PRIMARY KEY(Id),
-    FOREIGN KEY(UserId) REFERENCES User(Id),
-    FOREIGN KEY(ConfirmId) REFERENCES User(Id)
+CREATE TABLE orders(
+    id INT ZEROFILL AUTO_INCREMENT NOT NULL,
+    total_price INT NOT NULL check(total_price > 0),
+    bill_file_name VARCHAR(100) DEFAULT NULL,
+    create_at Date DEFAULT CURRENT_DATE(),
+    delete_at Date DEFAULT NULL,
+    place VARCHAR(500) NOT Null,
+    confirm_id INT ZEROFILL NOT NULL,
+    confirm_date DATE DEFAULT NULL,
+    user_id INT ZEROFILL NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(confirm_id) REFERENCES users(id)
 );
-create table OrderDetails(
-    OrderId Int ZEROFILL NOT NULL,
-    ProductId int ZEROFILL NOT NULL,
-    Qty INT NOT NULL check(Qty > 0),
-    PRIMARY KEY(OrderId, ProductId),
-    FOREIGN KEY(OrderId) REFERENCES Orders(Id),
-    FOREIGN KEY(ProductId) REFERENCES Product(Id)
+create table orderDetails(
+    order_id Int ZEROFILL NOT NULL,
+    product_id int ZEROFILL NOT NULL,
+    qty INT NOT NULL check(qty > 0),
+    PRIMARY KEY(order_id, product_id),
+    FOREIGN KEY(order_id) REFERENCES orders(id),
+    FOREIGN KEY(product_id) REFERENCES products(id)
 );
