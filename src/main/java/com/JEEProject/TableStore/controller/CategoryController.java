@@ -24,7 +24,7 @@ public class CategoryController {
         modelMap.addAttribute("category",name);
         modelMap.addAttribute("categories",categories);
 
-        return"index";
+        return"adminCategory";
     }
 
 }

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
+    <link type="text/css" href="../css/style.css" rel="stylesheet">
     <title>Hello Spring MVC</title>
 </head>
 <body>
