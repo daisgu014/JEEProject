@@ -31,7 +31,7 @@
 html{
     font-size: 14px;
 }
-body{
+.container{
     height: 100vh;
     width: 100vm;
     display: flex;
@@ -193,6 +193,14 @@ span{
 .search-box i:hover{
     transform: scale(1.2);
 }
+.title-table{
+    width: 100%;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+
+}
+
 h3.main-title{
     color: var(--color-dark);
     font-size: 1.5rem;
@@ -203,6 +211,11 @@ h3.main-title{
     margin-top: 1rem;
     border-radius: 10px;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1rem;
 }
 .table-container{
     width: 100%;
@@ -245,4 +258,146 @@ tfoot td{
     color: #1B9C85;
     background: none;
     cursor: pointer;
+}
+
+/* ----OVERPLAY-------- */
+#overlay{
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(132, 139, 200, 0.6);
+    cursor: pointer;
+    z-index: 1;
+}
+/* ---------Add Form--------------- */
+.Add-popup{
+    position: fixed;
+    width: 400px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-white);
+    box-shadow: var(--box-shadow);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    z-index: 2;
+}
+.title {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: var(--color-primary);
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    line-height: 40px;
+
+}
+.title .close-btn {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    width: 20px;
+    height: 30px;
+    transition: transform 0.2s ease;
+
+}
+
+.title .close-btn i{
+    color: var(--color-white);
+}
+
+.title .close-btn:hover {
+    transform: rotate(360deg);
+
+}
+.title .close-btn:hover i{
+    color: var(--color-danger);
+}
+.title p{
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: 500;
+}
+.formPopup{
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+}
+.nameInput{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+.nameInput .nameLabel{
+    width: 140px;
+    height: 40px;
+    background-color: var(--color-primary);
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    color: white;
+}
+.txtName {
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--color-primary);
+}
+.txtName input{
+    width: 100%;
+    border-radius: 15px;
+    padding: 5px;
+}
+.saveBtn {
+    padding: 10px 15px;
+    background: var(--color-primary);
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    color: var(--color-white);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.saveBtn:hover{
+    background-color: var(--color-success);
+    box-shadow: none;
+}
+.addbtn{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    background: var(--color-primary);
+    line-height: 50px;
+    margin: 10px;
+    transition: all 0.5s ease;
+}
+
+.addbtn i{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-white);
+}
+.addbtn:hover i{
+    color: var(--color-primary);
+}
+.addbtn:hover{
+    border: solid 1px var(--color-primary);
+    background: var(--color-white);
 }
