@@ -1,5 +1,5 @@
-CREATE DATABASE if not EXISTS tablestore;
-use tablestore;
+CREATE DATABASE if not EXISTS TableStore;
+use TableStore;
 
 create Table categories(
     id SMALLINT ZEROFILL AUTO_INCREMENT not null,
