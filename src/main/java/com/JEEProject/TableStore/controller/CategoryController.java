@@ -38,11 +38,12 @@ public class CategoryController {
         return "redirect:/admin/categories";
     }
     @RequestMapping(value = "/edit/{id}")
-public String UpdateCategory(@PathVariable Integer id, @RequestParam("editedCategoryName") String updatedName){
+public String UpdateCategory(ModelMap modelMap,@PathVariable Integer id, @RequestParam("editedCategoryName") String updatedName){
         Category category = categoryRepository.findById(id).orElse(null);
         if(category==null){
             System.err.println("khong co");
         }else{
+            modelMap.addAttribute("category",category);
             category.setName(updatedName);
             categoryRepository.save(category);
         }

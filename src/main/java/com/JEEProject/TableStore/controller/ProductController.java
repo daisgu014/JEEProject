@@ -15,6 +15,6 @@ public class ProductController {
     public String getProduct(ModelMap modelMap){
         modelMap.addAttribute("controller","products");
         modelMap.addAttribute("name","Nguyễn Hữu Đại");
-        return"adminCategory";
+        return"adminProduct";
     }
 }
