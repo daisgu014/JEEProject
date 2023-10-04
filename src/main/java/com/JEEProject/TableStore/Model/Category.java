@@ -46,5 +46,19 @@ public class Category {
         Name = name;
     }
 
+    public Date getCreateAt() {
+        return CreateAt;
+    }
 
+    public void setCreateAt(Date createAt) {
+        CreateAt = createAt;
+    }
+
+    public Date getDeleteAt() {
+        return DeleteAt;
+    }
+
+    public void setDeleteAt(Date deleteAt) {
+        DeleteAt = deleteAt;
+    }
 }
