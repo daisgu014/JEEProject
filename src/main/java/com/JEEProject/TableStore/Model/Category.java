@@ -13,6 +13,7 @@ import java.util.Date;
 public class Category {
     @Id
     @Column(name = "id")
+
     private int Id;
     @Column(name = "name")
     private String Name;
