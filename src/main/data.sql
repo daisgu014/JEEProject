@@ -25,6 +25,7 @@ create Table products(
     price int NOT NULL check(price >0),
     in_stock int not NULL check(in_stock >= 0),
     status varchar(50) not NULL,
+    img_path varchar(300) default NULL,
     category_id SMALLINT ZEROFILL NOT NULL,
     provider_id SMALLINT ZEROFILL NOT NULL,
     create_at Date DEFAULT CURRENT_DATE(),

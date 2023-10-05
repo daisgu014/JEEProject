@@ -23,57 +23,54 @@
             </div>
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Tên thể loại</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Bàn công thái học</td>
-                    <td>Hết</td>
-                    <td><button>Edit</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Bàn học sinh</td>
-                    <td>Còn hàng</td>
-                    <td><button>Edit</button></td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <td colspan="4">Tổng số thể loại: 2</td>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-</div>
-</div>
+        <table>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Tên thể loại</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
 
-<div class="Add-popup" style="display: none;">
-    <div class="title">
-        <p>Thêm thể loại mới</p>
-        <div class="close-btn">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-    </div>
-    <div class="formPopup">
-        <div class="nameInput">
-            <div class="nameLabel">
-                <p>Nhập tên thể loại</p>
-            </div>
-            <div class="txtName">
-                <input type="text" placeholder="Nhập tên thể loại">
-            </div>
-        </div>
-        <div class="saveBtn">
-            <p>Lưu</p>
+            <tbody>
+            <c:forEach var="category" items="${categories}">
+                <tr>
+                    <td>${category.getId()}</td>
+                    <td>${category.getName()}</td>
+                    <c:choose>
+                        <c:when test="${not empty category.getDeleteAt() }">
+                            <td style="color: #FF0060">Hết hàng</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td style="color: #1B9C85">Còn hàng</td>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                    <td>    <button onclick="toggleEditForm(${category.getId()} , '${category.getName()}','${category.getDeleteAt()}' )" >Edit</button>
+                        <button onclick="confirmDelete(${category.getId()})">Delete</button>
+                    </td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+            <tfoot>
+            <td colspan="4">Tổng số thể loại: 2</td>
+            </tfoot>
+        </table>
+        <div id="form"></div>
+        <script type="text/javascript">
+            function toggleEditForm(categoryId,categoryName,DeleteAt){
+                document.querySelector('#form').innerHTML=`
+            <form action="<c:url value='/admin/categories/edit/' />`+categoryId+`" method="post" style="display: block;">
+                    <input type="text" name="editedCategoryName" value="`+categoryName+`" required>
+                    <input type="text" name="ediStatus" value="`+DeleteAt+`" required>
+                    <input type="submit" value="Update">
+                </form>
+    `;
+            }
+        </script>
         </div>
     </div>
 </div>
