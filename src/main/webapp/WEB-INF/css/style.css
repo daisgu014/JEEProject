@@ -200,7 +200,29 @@ span{
     justify-content: space-between;
 
 }
+.addbtn{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    background: var(--color-primary);
+    line-height: 50px;
+    margin: 10px;
+    transition: all 0.5s ease;
+}
 
+.addbtn i{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-white);
+}
+.addbtn:hover i{
+    color: var(--color-primary);
+}
+.addbtn:hover{
+    border: solid 1px var(--color-primary);
+    background: var(--color-white);
+}
 h3.main-title{
     color: var(--color-dark);
     font-size: 1.5rem;
@@ -337,6 +359,15 @@ tfoot td{
     align-content: center;
 
 }
+.formPopup form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 2rem;
+
+}
 .nameInput{
     display: flex;
     flex-direction: row;
@@ -354,6 +385,14 @@ tfoot td{
     text-align: center;
     color: white;
 }
+.txtFiled{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 14px;
+    height: 40px;
+    line-height: 40px;
+}
 .txtName {
     width: 150px;
     height: 40px;
@@ -363,7 +402,7 @@ tfoot td{
 .txtName input{
     width: 100%;
     border-radius: 15px;
-    padding: 5px;
+    padding-left: 10px;
 }
 .saveBtn {
     padding: 10px 15px;
@@ -374,30 +413,11 @@ tfoot td{
     transition: transform 0.3s ease;
     cursor: pointer;
 }
+.saveBtn input{
+    background: transparent;
+    color: #ebe9e9;
+}
 .saveBtn:hover{
     background-color: var(--color-success);
     box-shadow: none;
-}
-.addbtn{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    background: var(--color-primary);
-    line-height: 50px;
-    margin: 10px;
-    transition: all 0.5s ease;
-}
-
-.addbtn i{
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--color-white);
-}
-.addbtn:hover i{
-    color: var(--color-primary);
-}
-.addbtn:hover{
-    border: solid 1px var(--color-primary);
-    background: var(--color-white);
 }
