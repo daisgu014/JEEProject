@@ -4,13 +4,13 @@
     <div class="header-wrapper">
         <div class="header--title">
             <span>Riêng tư</span>
-            <h2>Quản lý</h2>
+            <h2>Quản lý Thể loại</h2>
         </div>
         <div class="user--info">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search"/>
-            </div>
+<%--            <div class="search-box">--%>
+<%--                <i class="fa-solid fa-magnifying-glass"></i>--%>
+<%--                <input type="text" placeholder="Search"/>--%>
+<%--            </div>--%>
             <img src="./image/img.jpg" alt="">
         </div>
 
