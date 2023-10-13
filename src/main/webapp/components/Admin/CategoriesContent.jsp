@@ -18,7 +18,7 @@
     <div class="tabular--wrapper">
         <div class="title-table">
             <h3 class="main-title">Thể loại</h3>
-            <div class="addbtn" id="addBtn">
+            <div class=" btn addbtn" id="addBtn">
                 <i class="fa-solid fa-plus"></i>
             </div>
         </div>
