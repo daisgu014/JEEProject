@@ -2,7 +2,11 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
+import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.repositories.ProductRepository;
+import com.JEEProject.TableStore.services.CategoryService;
+import com.JEEProject.TableStore.services.ProductService;
+import com.JEEProject.TableStore.services.ProviderService;
 import com.JEEProject.TableStore.validation.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,17 +17,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(path = "admin")
+@RequestMapping(path = "admin/products")
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CategoryService categoryService;
+    @Autowired
+    ProviderService providerService;
+
     @Autowired
     private ProductValidator productValidator;
     @InitBinder
     protected void initBinder(WebDataBinder binder){
         binder.setValidator(productValidator);
     }
-    @RequestMapping( value = "/products" ,method = RequestMethod.GET)
+    @RequestMapping( value = "" ,method = RequestMethod.GET)
     public String getProduct(ModelMap modelMap){
         modelMap.addAttribute("controller","products");
         Iterable<Product> products = productRepository.findAll();
@@ -33,8 +42,9 @@ public class ProductController {
 
     @PostMapping(value = "/create")
     public String insertCategory(ModelMap modelMap,@ModelAttribute("category") Category category) {
-        modelMap.addAttribute("category", new Category());
-        modelMap.addAttribute("Cotroller","Categories");
+        modelMap.addAttribute("product", new Product());
+        modelMap.addAttribute("categories",categoryService.getAll());
+        modelMap.addAttribute("providers",providerService.getAll());
         return "redirect:/admin/products";
 
     }
