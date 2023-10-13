@@ -23,10 +23,15 @@ public class CategoryController {
         modelMap.addAttribute("categories", categories);
         return "adminCategory";
     }
+    public boolean checkName(Category category){
+
+        return false;
+    }
 
     @PostMapping(value = "/create")
     public String insertCategory(ModelMap modelMap,@ModelAttribute("category") Category category) {
         modelMap.addAttribute("category", new Category());
+        modelMap.addAttribute("Cotroller","Categories");
         categoryRepository.save(category);
         return "redirect:/admin/categories";
 
