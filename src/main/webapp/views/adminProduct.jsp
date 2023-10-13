@@ -169,6 +169,7 @@
                         <th><input type="checkbox" class="check_box"></th>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
+                        <th>Màu sắc</th>
                         <th>Thể loại</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
@@ -177,77 +178,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><input type="checkbox" class="sub_checkbox"></td>
-                        <td>1</td>
-                        <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
-                            <span>Bàn công thái học</span></td></td>
-                        <td>Bàn</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Hoạt động</td>
-                        <td><button>Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="sub_checkbox"></td>
-                        <td>1</td>
-                        <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
-                            <span>Bàn công thái học</span></td></td>
-                        <td>Bàn</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Hoạt động</td>
-                        <td><button>Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="sub_checkbox"></td>
-                        <td>1</td>
-                        <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
-                            <span>Bàn công thái học</span></td></td>
-                        <td>Bàn</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Hoạt động</td>
-                        <td><button>Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="sub_checkbox"></td>
-                        <td>1</td>
-                        <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
-                            <span>Bàn công thái học</span></td></td>
-                        <td>Bàn</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Hoạt động</td>
-                        <td><button>Edit</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="sub_checkbox"></td>
-                        <td>1</td>
-                        <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
-                            <span>Bàn công thái học</span></td></td>
-                        <td>Bàn</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Hoạt động</td>
-                        <td><button>Edit</button></td>
-                    </tr>
+                    <c:forEach var="product" items="${products}">
+                        <tr>
+                            <td><input type="checkbox" class="sub_checkbox"></td>
+                            <td>${product.getId()}</td>
+                            <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
+                                <span>${product.getName()}</span></td>
+                            <td>${product.getColor()}</td>
+                            <td>${product.getName()}</td>
+                            <td>${product.getName()}</td>
+                            <td>${product.getPrice()}</td>
+                            <td>${product.getName()}</td>
+                            <td><button>Edit</button></td>
+                        </tr>
+                    </c:forEach>
 
-                    <tr>
-                        <td><input type="checkbox" class="sub_checkbox"></td>
-                        <td>1</td>
-                        <td class="info_product">
-                            <img src="./image/img.jpg" alt="" class="info_avt">
-                            <span>Bàn công thái học</span></td>
-                        <td>Bàn</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Hoạt động</td>
-                        <td><button>Edit</button></td>
-                    </tr>
+
                     </tbody>
                     <tfoot>
-                    <td colspan="8">Tổng số thể loại: 2</td>
+                    <td colspan="9">Tổng số thể loại: 2</td>
                     </tfoot>
                 </table>
             </div>
