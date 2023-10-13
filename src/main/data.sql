@@ -49,6 +49,23 @@ create Table users(
     UNIQUE(userName),
     PRIMARY KEY(id)
 );
+CREATE TABLE import_history(
+    id INT ZEROFILL NOT NULL,
+    user_id INT ZEROFILL NOT NULL,
+    time_import TIMESTAMP DEFAULT CURRENT_TIME(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE import_details(
+    id INT ZEROFILL NOT NULL,
+    import_id INT ZEROFILL NOT NULL,
+    product_id INT ZEROFILL NOT NULL,
+    qty_import INT NOT NULL check ( qty_import >0 ),
+    PRIMARY KEY (id),
+    FOREIGN KEY (import_id) REFERENCES import_history(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
 CREATE TABLE cart_infos(
     user_id INT ZEROFILL NOT NULL,
     product_id INT ZEROFILL NOT NULL,
