@@ -1,17 +1,5 @@
 
     function Init() {
-        document.getElementById("addBtn").addEventListener("click", function() {
-            document.querySelector(".Add-popup").style.display="block";
-            document.querySelector("#overlay").style.display="block";
-        });
-        document.querySelector("#overlay").addEventListener("click", ()=>{
-            document.querySelector(".Add-popup").style.display="none";
-            document.querySelector("#overlay").style.display="none";
-        })
-        document.querySelector(".close-btn").addEventListener("click", ()=>{
-            document.querySelector(".Add-popup").style.display="none";
-            document.querySelector("#overlay").style.display="none";
-        })
         let avt = document.querySelector('.user--info')
         avt.addEventListener('click', function(){
             let modal = document.getElementById('user-modal');

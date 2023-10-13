@@ -22,28 +22,10 @@
 
 </div>
 <div class="Add-popup" style="display: none;">
-    <div class="title">
-        <p>Thêm thể loại mới</p>
-        <div class="close-btn">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-    </div>
-    <div class="formPopup">
-        <form action="<c:url value='/admin/categories/create' />" method="post" modelAttribute="category">
 
-            <div class="txtFiled">
-                <label for="name">Name:</label>
-                <div class="txtName">
-                <input type="text" id="name" name="name" required></div>
-            </div>
-            <div class="saveBtn">
-                <input type="submit" value="Create">
-            </div>
-
-        </form>
-    </div>
 </div>
 <script type="text/javascript" src="/js/event.js"></script>
+<script type="text/javascript" src="/js/CategoryEvent.js"></script>
 </body>
 
 
