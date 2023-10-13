@@ -2,6 +2,7 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
+import com.JEEProject.TableStore.services.CategoryService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,13 @@ import java.util.Optional;
 @RequestMapping(path = "admin/categories")
 public class CategoryController {
     @Autowired
+    private CategoryService categoryService;
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getAllCategory(ModelMap modelMap) {
-        Iterable<Category> categories = categoryRepository.findAll();
+        Iterable<Category> categories = categoryService.getAll();
         modelMap.addAttribute("categories", categories);
         return "adminCategory";
     }
