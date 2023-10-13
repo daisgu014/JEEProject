@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="left">
     <div class="logo">
-        <h1>LOGO IMAGE</h1>
+       <a href="#" style="    display: flex;
+    justify-content: center;">
+           <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
+       </a>
     </div>
     <div class="sidebar">
 

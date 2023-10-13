@@ -143,13 +143,30 @@ span{
     padding: 1rem;
 
 
+
+}
+.user--info{
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: solid red;
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+    -webkit-transition: box-shadow 0.25s;
+    transition: box-shadow 0.25s;
 }
 .user--info img{
     width: 50px;
     height: 50px;
-    cursor: pointer;
+    object-fit: cover;
     border-radius: 50%;
 }
+.user--info:hover{
+
+    box-shadow: 0 12px 24px rgba(128, 128, 128, 0.1);
+
+}
+
 .header-wrapper{
     display: flex;
     justify-content: space-between;
@@ -159,7 +176,43 @@ span{
     border-radius: 10px;
     padding: 10px 2rem;
     margin-bottom: 1rem;
+    position: relative;
 }
+.header-wrapper .user-modal{
+    width: 160px;
+    position: fixed;
+    right: 30px;
+    height:120px ;
+    color: var(--color-white);
+    font-size: 16px;
+    background-color: #6C9BCF;
+    border-radius: 15px;
+    transition: all 0.5s ease;
+    top: -150px;
+
+}
+.user-modal::before{
+    content:"" ;
+    border-bottom: 11px solid var(--color-primary);
+    border-right: 11px solid transparent;
+    border-left: 11px solid transparent;
+    position: absolute;
+    top: -6px;
+    left: 70%;
+    z-index: 1;
+
+}
+.user_sub span{
+    color: var(--color-white);
+    transition: all 0,3s ease;
+}
+.user-sub-menu{
+    display: flex;
+    margin: 10px;
+    gap:10px;
+    color: var(--color-white);
+}
+
 .header--title{
     color: rgba(113,99,186,255);
 }
@@ -200,11 +253,40 @@ span{
     justify-content: space-between;
 
 }
+.btn{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    background: var(--color-primary);
+    line-height: 50px;
+    margin: 10px;
+    transition: all 0.5s ease;
+}
 
+.btn i{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-white);
+}
+.btn:hover i{
+    color: var(--color-primary);
+}
+.btn:hover{
+    border: solid 1px var(--color-primary);
+    background: var(--color-white);
+}
 h3.main-title{
     color: var(--color-dark);
     font-size: 1.5rem;
     padding: 1rem;
+}
+.event{
+    display: flex;
+    flex-direction: row;
+}
+.deleteBtn{
+    display: none;
 }
 .tabular--wrapper{
     background-color: var(--color-background);
@@ -214,7 +296,6 @@ h3.main-title{
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 1rem;
 }
 .table-container{
@@ -259,6 +340,7 @@ tfoot td{
     background: none;
     cursor: pointer;
 }
+
 
 /* ----OVERPLAY-------- */
 #overlay{
@@ -337,6 +419,15 @@ tfoot td{
     align-content: center;
 
 }
+.formPopup form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 2rem;
+
+}
 .nameInput{
     display: flex;
     flex-direction: row;
@@ -354,6 +445,14 @@ tfoot td{
     text-align: center;
     color: white;
 }
+.txtFiled{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 14px;
+    height: 40px;
+    line-height: 40px;
+}
 .txtName {
     width: 150px;
     height: 40px;
@@ -363,7 +462,7 @@ tfoot td{
 .txtName input{
     width: 100%;
     border-radius: 15px;
-    padding: 5px;
+    padding-left: 10px;
 }
 .saveBtn {
     padding: 10px 15px;
@@ -374,30 +473,59 @@ tfoot td{
     transition: transform 0.3s ease;
     cursor: pointer;
 }
+.saveBtn input{
+    background: transparent;
+    color: #ebe9e9;
+}
 .saveBtn:hover{
     background-color: var(--color-success);
     box-shadow: none;
 }
-.addbtn{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    background: var(--color-primary);
-    line-height: 50px;
-    margin: 10px;
-    transition: all 0.5s ease;
+.info_product{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
 }
+.info_avt{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.filter{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
 
-.addbtn i{
-    font-size: 20px;
-    font-weight: bold;
+}
+.filterBtn{
+    background: var(--color-primary);
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    line-height: 50px;
+    border-radius: 15px;
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+
+}
+.filter span{
     color: var(--color-white);
 }
-.addbtn:hover i{
+.filterBtn:hover{
+    background-color: var(--color-white);
     color: var(--color-primary);
-}
-.addbtn:hover{
     border: solid 1px var(--color-primary);
-    background: var(--color-white);
+}
+.filterBtn:hover span{
+    color: var(--color-primary);
 }
