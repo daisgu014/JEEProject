@@ -59,6 +59,15 @@
             background-color: var(--color-primary);
 
         }
+        .btn-addProvider{
+            margin-top: 5%;
+            margin-left: 45%;
+            width: 200px;
+            height: 50px;
+            color: #fff;
+            border-radius: var(--border-radius-1);
+            background-color: var(--color-primary);
+        }
         #supplierName{
             border: 1px solid var(--color-info-dark);
         }
@@ -76,8 +85,19 @@
 <div class="container">
     <jsp:include page="../components/sidebar.jsp"/>
     <div class="main--content">
-        <div class="header-provider">
-            <h1>Quản lý nhà cung cấp</h1>
+        <div class="header-wrapper">
+            <div class="header--title">
+                <span>Riêng tư</span>
+                <h2>Quản lý Nhà Cung Cấp</h2>
+            </div>
+            <div class="user--info">
+                <%--            <div class="search-box">--%>
+                <%--                <i class="fa-solid fa-magnifying-glass"></i>--%>
+                <%--                <input type="text" placeholder="Search"/>--%>
+                <%--            </div>--%>
+                <img src="./image/img.jpg" alt="">
+            </div>
+
         </div>
         <div class="container-provider" style="width: 100%">
             <table id="supplierTable">
@@ -91,7 +111,7 @@
                 </thead>
             </table>
 
-            <button id="addSupplierButton">Thêm nhà cung cấp</button>
+            <button id="addSupplierButton" class="btn-addProvider">Thêm nhà cung cấp</button>
 
             <div id="overlay"></div>
 
