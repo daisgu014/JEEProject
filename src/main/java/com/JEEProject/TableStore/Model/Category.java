@@ -4,7 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 
 import java.util.Date;
 
@@ -13,53 +12,52 @@ import java.util.Date;
 public class Category {
     @Id
     @Column(name = "id")
-
-    private int Id;
+    private  int id;
     @Column(name = "name")
-    private String Name;
+    private  String name;
     @Column(name = "create_at")
-    private Date CreateAt;
+    private  Date createAt;
     @Column(name = "delete_at")
-    private Date DeleteAt;
+    private Date deleteAt;
+    public  Category(){
 
-    public Category(String name, Date createAt, Date deleteAt) {
-        this.Name = name;
-        CreateAt = createAt;
-        DeleteAt = deleteAt;
     }
-    public Category(){
-
+    public Category(int id, String name, Date createAt, Date deleteAt) {
+        this.id = id;
+        this.name = name;
+        this.createAt = createAt;
+        this.deleteAt = deleteAt;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public Date getCreateAt() {
-        return CreateAt;
+        return createAt;
     }
 
     public void setCreateAt(Date createAt) {
-        CreateAt = createAt;
+        this.createAt = createAt;
     }
 
     public Date getDeleteAt() {
-        return DeleteAt;
+        return deleteAt;
     }
 
     public void setDeleteAt(Date deleteAt) {
-        DeleteAt = deleteAt;
+        this.deleteAt = deleteAt;
     }
 }

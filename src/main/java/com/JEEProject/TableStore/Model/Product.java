@@ -1,12 +1,10 @@
 package com.JEEProject.TableStore.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 
 import java.util.Date;
 
@@ -16,11 +14,17 @@ public class Product {
     @Id
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "name")
+    @NotNull
     @NotBlank (message = "Tên sản phẩm không được để trống")
     private String name;
+
     @Column(name="color")
+    @NotNull
+    @NotBlank (message = "Màu không được để trống")
     private String color;
+
     @Column(name = "status")
     private String Status;
 
@@ -28,37 +32,37 @@ public class Product {
     private Integer inStock;
     @Column(name = "img_path")
     private String imgPath;
-
+    @Min(0)
     @Column(name = "price")
-    @NotNull(message = "Giá trị sản phẩm không được để trống")
+    @NotNull(message = "Giá tiền sản phẩm không được để trống")
     private Integer price;
     @Column(name = "create_at")
     private Date CreateAt;
     @Column(name = "delete_at")
     private Date DeleteAt;
 
-    @Column(name = "category_id")
-    @NotNull(message = "Vui lòng chọn thể loại")
-    private Integer categoryId;
-    @Column(name = "provider_id")
-    @NotNull(message = "Vui lòng chọn nhà cung cấp")
-    private Integer providerId;
-
-    public Product(String name, String color, String status, Integer inStock, String imgPath, Integer price, Date createAt, Date deleteAt, Integer categoryId, Integer providerId) {
-        this.name = name;
-        this.color = color;
-        Status = status;
-        this.inStock = inStock;
-        this.imgPath = imgPath;
-        this.price = price;
-        CreateAt = createAt;
-        DeleteAt = deleteAt;
-        this.categoryId = categoryId;
-        this.providerId = providerId;
+    public Category getCategory() {
+        return category;
     }
 
-    public Product() {
+    public void setCategory(Category category) {
+        this.category = category;
     }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
 
     public Integer getId() {
         return id;
@@ -85,9 +89,8 @@ public class Product {
     }
 
     public String getStatus() {
-        return Status;
+       return Status;
     }
-
     public void setStatus(String status) {
         Status = status;
     }
@@ -131,20 +134,15 @@ public class Product {
     public void setDeleteAt(Date deleteAt) {
         DeleteAt = deleteAt;
     }
-
-    public Integer getCategoryId() {
-        return categoryId;
+    public Product(String name, String color, String status, Integer price, com.JEEProject.TableStore.Model.Category category, Provider provider) {
+        this.name = name;
+        this.color = color;
+        Status = status;
+        this.price = price;
+        this.category = category;
+        this.provider = provider;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Integer getProviderId() {
-        return providerId;
-    }
-
-    public void setProviderId(Integer providerId) {
-        this.providerId = providerId;
+    public Product() {
     }
 }
