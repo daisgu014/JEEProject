@@ -54,6 +54,8 @@ ERPCoffee.iml
 /.idea/libraries
 /target/
 .env
+/node_modules
 
 
 
+/src/main/webapp/node_modules/
