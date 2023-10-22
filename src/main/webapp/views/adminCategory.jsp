@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title> Quản lý sản phẩm</title>
+    <title> Quản lý thể loại</title>
     <link rel="stylesheet"  href="/css/productStyle.css">
     <link rel="stylesheet"  href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -31,14 +31,14 @@
                         <p>Quản lý</p>
                     </a>
                 </li>
-                <li class="categories ">
+                <li class="categories active">
                     <a href="categories" >
                         <i class="fa-solid fa-bars"></i>
                         <p>Thể loại</p>
                     </a>
                 </li>
 
-                <li class="products active ">
+                <li class="products  ">
                     <a href="products" >
                         <i class="fa-solid fa-shop"></i>
                         <p>Sản phẩm</p>
@@ -64,7 +64,7 @@
         <div class="header-wrapper">
             <div class="header--title">
                 <span>Riêng tư</span>
-                <h2>Quản lý sản phẩm</h2>
+                <h2>Quản lý thể loại</h2>
             </div>
             <div class="user--info">
                 <img src="./image/img.jpg" alt="">
@@ -113,19 +113,11 @@
                 </div>
 
                 <div class="event" id="event">
-                    <div class="btn addbtn" id="addBtn">
+                    <div class="btn addBtnCategory" id="addBtnCategory">
                         <i class="fa-solid fa-plus"></i>
                     </div>
-                    <div class="btn importBtn">
-                        <i class="fas fa-file-import"></i>
-                    </div>
-                    <a href="/admin/products/import-history">
-                        <div class="btn historyBtn">
-                            <i class="fas fa-history"></i>
-                        </div>
-                    </a>
                 </div>
-                <div class="btn deleteBtn" id="deleteBtn">
+                <div class="btn deleteBtn" id="deleteBtnCategory">
                     <i class="fa-solid fa-trash fa-beat-fade"></i>
                 </div>
 
@@ -176,49 +168,42 @@
                     </tr>
                     </thead>
                     <tbody>
-<%--                    <c:forEach var="product" items="${productPage.content}">--%>
-<%--                        <tr>--%>
-<%--                            <c:choose>--%>
-<%--                                <c:when test="${product.getDeleteAt()==null}">--%>
-<%--                                    <td><input type="checkbox" class="sub_checkbox"></td>--%>
-<%--                                </c:when>--%>
-<%--                                <c:otherwise>--%>
-<%--                                    <td><input type="hidden" class=""></td>--%>
-<%--                                </c:otherwise>--%>
-<%--                            </c:choose>--%>
+                    <c:forEach var="category" items="${categoryPage.content}">
+                        <tr>
+                            <c:choose>
+                                <c:when test="${category.getDeleteAt()==null}">
+                                    <td><input type="checkbox" class="sub_checkbox"></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><input type="hidden" class=""></td>
+                                </c:otherwise>
+                            </c:choose>
 
-<%--                            <td class="product-id">${product.getId()}</td>--%>
-<%--                            <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">--%>
-<%--                                <span>${product.getName()}</span></td>--%>
-<%--                            <td>${product.getColor()}</td>--%>
-<%--                            <td>${product.getCategory().getName()}</td>--%>
-<%--                            <td>${product.getProvider().getName()}</td>--%>
-<%--                            <td>${product.getPrice()}</td>--%>
-<%--                            <td>${product.getInStock()}</td>--%>
-<%--                            <td>${product.getStatus()}</td>--%>
-<%--                            <td><button>Chỉnh sửa</button>--%>
-<%--                                <button>Nhập hàng</button></td>--%>
-<%--                        </tr>--%>
-<%--                    </c:forEach>--%>
+                            <td class="product-id">${category.getId()}</td>
+                            <td>
+                                <span>${category.getName()}</span></td>
+                            <td><button>Chỉnh sửa</button></td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
-<%--            <div class="pagination">--%>
-<%--                <c:if test="${productPage.totalPages > 1}">--%>
-<%--                    <ul>--%>
-<%--                        <c:forEach begin="0" end="${productPage.totalPages - 1}" varStatus="page">--%>
-<%--                            <c:set var="pageIndex" value="${page.index}"/>--%>
-<%--                            <li class="<c:if test='${pageIndex == productPage.number}'>active</c:if>">--%>
-<%--                                <c:url value="/admin/products" var="pageUrl">--%>
-<%--                                    <c:param name="page" value="${pageIndex}"/>--%>
-<%--                                    <c:param name="size" value="${productPage.size}"/>--%>
-<%--                                </c:url>--%>
-<%--                                <a href="${pageUrl}">${pageIndex + 1}</a>--%>
-<%--                            </li>--%>
-<%--                        </c:forEach>--%>
-<%--                    </ul>--%>
-<%--                </c:if>--%>
-<%--            </div>--%>
+            <div class="pagination">
+                <c:if test="${categoryPage.totalPages > 1}">
+                    <ul>
+                        <c:forEach begin="0" end="${categoryPage.totalPages - 1}" varStatus="page">
+                            <c:set var="pageIndex" value="${page.index}"/>
+                            <li class="<c:if test='${pageIndex == categoryPage.number}'>active</c:if>">
+                                <c:url value="/admin/products" var="pageUrl">
+                                    <c:param name="page" value="${pageIndex}"/>
+                                    <c:param name="size" value="${categoryPage.size}"/>
+                                </c:url>
+                                <a href="${pageUrl}">${pageIndex + 1}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+            </div>
         </div>
     </div>
 </div>
@@ -274,12 +259,6 @@
         </div>
     </form>
 </div>
-<script src="/js/productEvent.js" type="module"></script>
-<script src="/js/adminProducts/_request.js" type="module"></script>
-<script src="/js/adminProducts/validation.js" type="module"></script>
-<script src="/js/adminProducts/_model.js" type="module"></script>
 <script src="/js/event.js" type="text/javascript"></script>
-
-
 </body>
 </html>
