@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <html>
 <head>
     <title> Quản lý sản phẩm</title>
@@ -11,7 +12,6 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
-
 <body>
 <div id="overlay"></div>
 <div class="container" >
@@ -119,9 +119,11 @@
                     <div class="btn importBtn">
                         <i class="fas fa-file-import"></i>
                     </div>
-                    <div class="btn historyBtn">
-                        <i class="fas fa-history"></i>
-                    </div>
+                   <a href="/admin/products/import-history">
+                       <div class="btn historyBtn">
+                           <i class="fas fa-history"></i>
+                       </div>
+                   </a>
                 </div>
                 <div class="btn deleteBtn" id="deleteBtn">
                     <i class="fa-solid fa-trash fa-beat-fade"></i>
@@ -162,15 +164,17 @@
                     </div>
                 </div>
             </div>
+
             <div class="table-container">
                 <table>
                     <thead>
                     <tr>
-                        <th><input type="checkbox" class="check_box"></th>
+                        <th><input type="checkbox" class="check_box" ></th>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
                         <th>Màu sắc</th>
                         <th>Thể loại</th>
+                        <th>Nhà cung cấp</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Trạng thái</th>
@@ -178,61 +182,139 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="product" items="${products}">
+                    <c:forEach var="product" items="${productPage.content}">
                         <tr>
-                            <td><input type="checkbox" class="sub_checkbox"></td>
-                            <td>${product.getId()}</td>
+                            <c:choose>
+                                <c:when test="${product.getDeleteAt()==null}">
+                                    <td><input type="checkbox" class="sub_checkbox"></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><input type="hidden" class=""></td>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <td class="product-id">${product.getId()}</td>
                             <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
                                 <span>${product.getName()}</span></td>
                             <td>${product.getColor()}</td>
-                            <td>${product.getName()}</td>
-                            <td>${product.getName()}</td>
+                            <td>${product.getCategory().getName()}</td>
+                            <td>${product.getProvider().getName()}</td>
                             <td>${product.getPrice()}</td>
-                            <td>${product.getName()}</td>
-                            <td><button>Edit</button></td>
+                            <td>${product.getInStock()}</td>
+                            <td>${product.getStatus()}</td>
+                            <td><button>Chỉnh sửa</button>
+                                <button>Nhập hàng</button></td>
                         </tr>
                     </c:forEach>
-
-
                     </tbody>
-                    <tfoot>
-                    <td colspan="9">Tổng số thể loại: 2</td>
-                    </tfoot>
                 </table>
+            </div>
+            <div class="pagination">
+                <c:if test="${productPage.totalPages > 1}">
+                    <ul>
+                        <c:forEach begin="0" end="${productPage.totalPages - 1}" varStatus="page">
+                            <c:set var="pageIndex" value="${page.index}"/>
+                            <li class="<c:if test='${pageIndex == productPage.number}'>active</c:if>">
+                                <c:url value="/admin/products" var="pageUrl">
+                                    <c:param name="page" value="${pageIndex}"/>
+                                    <c:param name="size" value="${productPage.size}"/>
+                                </c:url>
+                                <a href="${pageUrl}">${pageIndex + 1}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
             </div>
         </div>
     </div>
 </div>
 
-<div class="Add-popup" style="display: none;">
+<div class="products_popup" style="display: none;">
     <div class="title">
-        <p>Thêm thể loại mới</p>
+        <p>Thêm sản phẩm mới</p>
         <div class="close-btn">
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-    <div class="formPopup">
-
-        <form action="<c:url value='/admin/categories/edit/' />">
-            <div class="txtFiled">
-                <div class="nameLabel">
-                    <p>Nhập tên thể loại</p>
+    <form id="productForm" enctype="multipart/form-data">
+        <div class="popup-add-content">
+            <div class="input input-name">
+                <div>
+                    <p class="info-input">Tên sản phẩm</p>
+                    <input type="text" name="name" id="name">
                 </div>
-                <div class="txtName">
-                    <input type="text" placeholder="Nhập tên thể loại">
+                <div id="name-error" class="error">
+
                 </div>
             </div>
-            <div class="saveBtn">
-                <input type="submit" value="Cập nhật">
+            <div class="input input-color">
+                <div>
+                    <p class="info-input">Màu sắc</p>
+                    <input type="text" name="color" id="color">
+                </div>
+                <div id="color-error" class="error">
+
+                </div>
             </div>
-        </form>
+            <div class="input input-price">
+                <div>
+                    <p class="info-input">Giá tiền</p>
+                    <input type="text" name="price" id="price">
+                </div>
+                <div id="price-error" class="error">
 
+                </div>
+            </div>
+            <div class="input input-image">
+                <div>
+                    <p class="info-input">Hình ảnh</p>
+                    <input type="file" name="image" id="image" accept="image/*">
+                </div>
+                <div id="image-error" class="error">
 
-
-    </div>
+                </div>
+            </div>
+            <div class="input input-status">
+                <p>Trạng thái: </p>
+                <select class="input-status" name="status" id="status">
+                    <option value="Hoạt động"> Hoạt động</option>
+                    <option value="Không hoạt động"> Không hoạt động</option>
+                </select>
+            </div>
+            <div class="input input-category">
+                <p>Thể loại: </p>
+                <select path="category" name="category" id="category">
+                    <c:forEach var="category" items="${categories}">
+                        <option value="${category.getId()}">
+                                ${category.getName()}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="input input-provider">
+                <div class="input-form provider-input">
+                    <p>Nhà cung cấp: </p>
+                    <select path="provider" name="provider" id="provider">
+                        <c:forEach var="provider" items="${providers}">
+                            <option value="${provider.getId()}">
+                                    ${provider.getName()}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="insert-submit">
+                    <button type="button" id="insert-button">Thêm sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
+<script src="/js/productEvent.js" type="module"></script>
+<script src="/js/adminProducts/_request.js" type="module"></script>
+<script src="/js/adminProducts/validation.js" type="module"></script>
+<script src="/js/adminProducts/_model.js" type="module"></script>
 <script src="/js/event.js" type="text/javascript"></script>
-<script src="/js/productEvent.js" type="text/javascript"></script>
+
 
 </body>
 </html>
