@@ -23,7 +23,7 @@ create Table products(
     name VARCHAR(300) NOT NULL,
     color varchar(50)NOT NULL,
     price int NOT NULL check(price >0),
-    in_stock int not NULL check(in_stock >= 0),
+    in_stock int DEFAULT NULL check(in_stock >= 0),
     status varchar(50) not NULL,
     img_path varchar(300) default NULL,
     category_id SMALLINT ZEROFILL NOT NULL,

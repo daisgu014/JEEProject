@@ -21,16 +21,8 @@ const AddForm = ()=>{
             </form>
         </div>
     `
-    document.getElementById("addBtn").addEventListener("click", function() {
-        document.querySelector(".Add-popup").innerHTML=AddForm();
-        document.querySelector("#overlay").style.display="block";
-    });
-    document.querySelector("#overlay").addEventListener("click", ()=>{
-        document.querySelector(".Add-popup").innerHTML="";
-        document.querySelector("#overlay").style.display="none";
-    })
-    document.querySelector(".close-btn").addEventListener("click", ()=>{
-        document.querySelector(".Add-popup").innerHTML="";
-        document.querySelector("#overlay").style.display="none";
-    })
 }
+document.getElementById("addBtn").addEventListener("click", function() {
+  //  document.querySelector(".Add-popup").innerHTML=AddForm();
+    document.querySelector("#overlay").style.display="block";
+});

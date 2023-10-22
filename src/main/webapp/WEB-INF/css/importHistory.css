@@ -1,0 +1,17 @@
+.pageBefore {
+    font-size: 14px;
+    margin-left: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+}
+.pageBefore a{
+    text-decoration: none;
+}
+.pageBefore i{
+    color: var( --color-danger);
+}
+.pageBefore a:hover{
+    color: var(--color-primary);
+}

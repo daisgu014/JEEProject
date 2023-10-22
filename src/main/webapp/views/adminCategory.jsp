@@ -1,32 +1,285 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title> Quản lý sản phẩm</title>
+    <link rel="stylesheet"  href="/css/productStyle.css">
+    <link rel="stylesheet"  href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
 <div id="overlay"></div>
 <div class="container" >
-    <jsp:include page="../components/sidebar.jsp"/>
-    <jsp:include page="../components/Admin/CategoriesContent.jsp">
-        <jsp:param name="categpries" value="${categories}"/>
-    </jsp:include>
+    <div class="left">
+        <div class="logo">
+            <a href="#" style="    display: flex;
+    justify-content: center;">
+                <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
+            </a>
+        </div>
+        <div class="sidebar">
 
-</div>
-<div class="Add-popup" style="display: none;">
+            <ul class="menu">
+                <li >
+                    <a href="#">
+                        <i class="fa-sharp fa-solid fa-gauge"></i>
+                        <p>Quản lý</p>
+                    </a>
+                </li>
+                <li class="categories ">
+                    <a href="categories" >
+                        <i class="fa-solid fa-bars"></i>
+                        <p>Thể loại</p>
+                    </a>
+                </li>
 
+                <li class="products active ">
+                    <a href="products" >
+                        <i class="fa-solid fa-shop"></i>
+                        <p>Sản phẩm</p>
+                    </a>
+                </li>
+                <li class="users ">
+                    <a href="users" >
+                        <i class="fa-solid fa-user"></i>
+                        <p>Người dùng</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <p>Đăng xuất</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main--content">
+        <div class="header-wrapper">
+            <div class="header--title">
+                <span>Riêng tư</span>
+                <h2>Quản lý sản phẩm</h2>
+            </div>
+            <div class="user--info">
+                <img src="./image/img.jpg" alt="">
+            </div>
+            <div class="user-modal" id="user-modal">
+                <ul>
+                    <l1 class="user_sub">
+                        <a class="user-sub-menu">
+                            <div>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span>Hồ sơ</span>
+                        </a>
+                    </l1>
+                    <l1 class="user_sub">
+                        <a class="user-sub-menu">
+                            <div>
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                            <span>Đơn hàng</span>
+                        </a>
+                    </l1>
+                    <l1 class="user_sub">
+                        <a class="user-sub-menu">
+                            <div>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </div>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </l1>
+                </ul>
+            </div>
+
+        </div>
+        <div class="tabular--wrapper">
+            <div class="title-table">
+                <div class="filter">
+                    <div class="filterBtn">
+                        <i class="fa-solid fa-filter"></i>
+                        <span>Bộ lọc</span>
+                    </div>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Tìm kiếm"/>
+                    </div>
+                </div>
+
+                <div class="event" id="event">
+                    <div class="btn addbtn" id="addBtn">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="btn importBtn">
+                        <i class="fas fa-file-import"></i>
+                    </div>
+                    <a href="/admin/products/import-history">
+                        <div class="btn historyBtn">
+                            <i class="fas fa-history"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="btn deleteBtn" id="deleteBtn">
+                    <i class="fa-solid fa-trash fa-beat-fade"></i>
+                </div>
+
+            </div>
+            <div class="filter-modal">
+                <div class="category-filter">
+                    <span>Thể loại</span>
+                    <input type="text" id="myComboBox" class="combobox" list="values">
+                    <datalist id="values">
+                        <option value="Option 1">
+                        <option value="Option 2">
+                        <option value="Option 3">
+                        <option value="Option 4">
+                    </datalist>
+                </div>
+                <div class="price-range">
+                    <div class="min-price-input">
+                        <span>Từ: </span>
+                        <input type="number" value="0" min="0" name="min-price" id="minpice">
+                    </div>
+                    <div class="max-price-input">
+                        <span>Đến: </span>
+                        <input type="number" value="0" max="0" name="max-price" id="maxprice" >
+                    </div>
+
+                </div>
+                <div class="status-filter">
+                    Trạng thái:
+                </div>
+                <div class="btnFilter">
+                    <div class="ResetBtn">
+                        Đặt lại
+                    </div>
+                    <div class="filter-Btn">
+                        Lọc
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" class="check_box" ></th>
+                        <th>Mã thể loại</th>
+                        <th>Tên thể loại </th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+<%--                    <c:forEach var="product" items="${productPage.content}">--%>
+<%--                        <tr>--%>
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${product.getDeleteAt()==null}">--%>
+<%--                                    <td><input type="checkbox" class="sub_checkbox"></td>--%>
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <td><input type="hidden" class=""></td>--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
+
+<%--                            <td class="product-id">${product.getId()}</td>--%>
+<%--                            <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">--%>
+<%--                                <span>${product.getName()}</span></td>--%>
+<%--                            <td>${product.getColor()}</td>--%>
+<%--                            <td>${product.getCategory().getName()}</td>--%>
+<%--                            <td>${product.getProvider().getName()}</td>--%>
+<%--                            <td>${product.getPrice()}</td>--%>
+<%--                            <td>${product.getInStock()}</td>--%>
+<%--                            <td>${product.getStatus()}</td>--%>
+<%--                            <td><button>Chỉnh sửa</button>--%>
+<%--                                <button>Nhập hàng</button></td>--%>
+<%--                        </tr>--%>
+<%--                    </c:forEach>--%>
+                    </tbody>
+                </table>
+            </div>
+<%--            <div class="pagination">--%>
+<%--                <c:if test="${productPage.totalPages > 1}">--%>
+<%--                    <ul>--%>
+<%--                        <c:forEach begin="0" end="${productPage.totalPages - 1}" varStatus="page">--%>
+<%--                            <c:set var="pageIndex" value="${page.index}"/>--%>
+<%--                            <li class="<c:if test='${pageIndex == productPage.number}'>active</c:if>">--%>
+<%--                                <c:url value="/admin/products" var="pageUrl">--%>
+<%--                                    <c:param name="page" value="${pageIndex}"/>--%>
+<%--                                    <c:param name="size" value="${productPage.size}"/>--%>
+<%--                                </c:url>--%>
+<%--                                <a href="${pageUrl}">${pageIndex + 1}</a>--%>
+<%--                            </li>--%>
+<%--                        </c:forEach>--%>
+<%--                    </ul>--%>
+<%--                </c:if>--%>
+<%--            </div>--%>
+        </div>
+    </div>
 </div>
-<script type="text/javascript" src="/js/event.js"></script>
-<script type="text/javascript" src="/js/CategoryEvent.js"></script>
+
+<div class="products_popup" style="display: none;">
+    <div class="title">
+        <p>Thêm sản phẩm mới</p>
+        <div class="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+    <form id="productForm" enctype="multipart/form-data">
+        <div class="popup-add-content">
+            <div class="input input-name">
+                <div>
+                    <p class="info-input">Tên sản phẩm</p>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div id="name-error" class="error">
+
+                </div>
+            </div>
+            <div class="input input-color">
+                <div>
+                    <p class="info-input">Màu sắc</p>
+                    <input type="text" name="color" id="color">
+                </div>
+                <div id="color-error" class="error">
+
+                </div>
+            </div>
+            <div class="input input-price">
+                <div>
+                    <p class="info-input">Giá tiền</p>
+                    <input type="text" name="price" id="price">
+                </div>
+                <div id="price-error" class="error">
+
+                </div>
+            </div>
+            <div class="input input-image">
+                <div>
+                    <p class="info-input">Hình ảnh</p>
+                    <input type="file" name="image" id="image" accept="image/*">
+                </div>
+                <div id="image-error" class="error">
+
+                </div>
+            </div>
+                <div class="insert-submit">
+                    <button type="button" id="insert-button">Thêm sản phẩm</button>
+                </div>
+        </div>
+    </form>
+</div>
+<script src="/js/productEvent.js" type="module"></script>
+<script src="/js/adminProducts/_request.js" type="module"></script>
+<script src="/js/adminProducts/validation.js" type="module"></script>
+<script src="/js/adminProducts/_model.js" type="module"></script>
+<script src="/js/event.js" type="text/javascript"></script>
+
+
 </body>
-
-
 </html>
