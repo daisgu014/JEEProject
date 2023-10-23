@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="product-detail-wrapper">
-        <div><img src="/images/${product.getImgPath()}" alt="" class="product-detail-img"></div>
+        <div><img src="/images/products/${product.getImgPath()}" alt="" class="product-detail-img"></div>
         <div id="product-detail-content">
             <h1 class="product-title">${product.getName()}</h1>
 

@@ -40,14 +40,12 @@
             <div class="catalog--filter-side-bar-item catalog--filter-side-bar-category">
                 <span>Theo danh mục</span>
                 <div class="checkbox-list">
-                    <div>
-                        <input type="checkbox" id="ktable" name="category" value="bàn chữ K">
-                        <label for="ktable">Bàn chữ K</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="gamingchair" name="category" value="ghế gaming">
-                        <label for="gamingchair">Ghế gaming</label>
-                    </div>
+                    <c:forEach var="category" items="${categories}">
+                        <div>
+                            <input type="checkbox" id="${category.getId()}" name="categories" value="${category.getName()}">
+                            <label for="${category.getId()}">${category.getName()}</label>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="separating-line"></div>
@@ -90,7 +88,7 @@
                 <c:forEach var="product" items="${products}">
                     <div href="/detail-product/${product.getId()}" class="item">
                         <a href="productDetail/${product.getId()}">
-                            <img src="/images/${product.getImgPath()}"/>
+                            <img src="/images/products/${product.getImgPath()}"/>
                         </a>
                         <a href="productDetail/${product.getId()}" class="item--name">${product.getName()}</a>
                         <a href="productDetail/${product.getId()}" class="item--price">${product.getPrice()}₫</a>
