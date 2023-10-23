@@ -1,0 +1,125 @@
+.header-provider, .container-provider, .header-account, .container-account {
+    width: 100%;
+    height: 10%;
+    /* border: black solid 1px; */
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    background-color: #fff;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+}
+.container-provider, .container-account {
+    height: 90%;
+
+}
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.form-addSupplier, .popup-account, .form-updateSupplier{
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 45%;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius-2);
+    z-index: 2;
+}
+.popup-account{
+    top: 10%;
+}
+.form-addSupplier>form, .form-updateSupplier>form{
+    text-align: center;
+}
+.popup-account>form{
+    text-align: left;
+}
+.form-addSupplier>form>h2,.form-updateSupplier>form>h2, .popup-account>form>h2{
+    color: var(--color-primary);
+    margin-bottom: 30px;
+}
+.form-addSupplier>form>input,.form-updateSupplier>form>input, .popup-account>form>input, .popup-account>form>select{
+    margin-bottom: 10px;
+    width: 100% ;
+    border: 1px solid var(--color-info-dark);
+    border-radius: var(--border-radius-2);
+}
+.form-addSupplier>form>button,.form-updateSupplier>form>button, .popup-account>form>div>button{
+    margin-top: 10%;
+    width: 100px;
+    color: #fff;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-primary);
+
+}
+.btn-addAccountForm{
+    text-align: center;
+}
+.btn-addProvider, .btn-addAccount{
+    margin-top: 5%;
+    margin-left: 45%;
+    width: 200px;
+    height: 50px;
+    color: #fff;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-primary);
+}
+#supplierName{
+    border: 1px solid var(--color-info-dark);
+}
+#addSupplierButton, #addAccountButton {
+    cursor: pointer;
+}
+
+#addSupplierButton:hover, #addAccountButton:hover {
+    text-decoration: underline;
+}
+.search-container-dai {
+    display: flex;
+    align-items: center;
+    border: #6C9BCF solid 1px;
+    border-radius: 20px;
+    width: 350px;
+    margin: 20px;
+    padding: 5px;
+}
+
+#search-input-dai {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    /* border-radius: 5px; */
+    font-size: 16px;
+    outline: none;
+}
+#search-button-dai {
+    background-color: #ffffff;
+    display: block;
+    /* position: fixed; */
+    color: #0056b3;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#search-button-dai:hover {
+    background-color: #cacaca;
+}
+
+.fa-search-dai {
+    font-size: 20px;
+}
+tbody>tr:hover {
+    background-color:#B0C4DE;
+    cursor: pointer;
+}

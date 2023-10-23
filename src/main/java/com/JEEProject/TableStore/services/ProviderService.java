@@ -12,4 +12,7 @@ public class ProviderService {
     public Iterable<Provider> getAll(){
         return providerRepository.findAll();
     }
+    public void create(Provider provider){
+        providerRepository.save(provider);
+    }
 }
