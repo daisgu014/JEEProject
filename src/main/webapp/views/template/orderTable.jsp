@@ -35,7 +35,7 @@
                                 </c:choose>
                             </td>
                             <td>${String.format("%,d",order.getTotal_price())}</td>
-                            <td><button>Edit</button></td>
+                            <td><a href="/admin/orders/confirm/?id=${order.getId()}">Edit</a></td>
                         </tr>
                         <tr>
                             <td colspan="6">
