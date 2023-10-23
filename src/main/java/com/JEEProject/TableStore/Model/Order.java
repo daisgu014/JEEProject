@@ -39,7 +39,7 @@ public class Order implements Serializable {
 
 
     public boolean isConfirm(){
-        return this.confirm_date!=null;
+        return this.confirm_id!=null;
     }
 
     public List<OrderDetail> getDetails() {
