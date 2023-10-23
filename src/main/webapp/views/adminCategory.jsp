@@ -194,7 +194,7 @@
                         <c:forEach begin="0" end="${categoryPage.totalPages - 1}" varStatus="page">
                             <c:set var="pageIndex" value="${page.index}"/>
                             <li class="<c:if test='${pageIndex == categoryPage.number}'>active</c:if>">
-                                <c:url value="/admin/products" var="pageUrl">
+                                <c:url value="/admin/categories" var="pageUrl">
                                     <c:param name="page" value="${pageIndex}"/>
                                     <c:param name="size" value="${categoryPage.size}"/>
                                 </c:url>
