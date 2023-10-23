@@ -7,6 +7,8 @@ import com.JEEProject.TableStore.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CatalogService {
     @Autowired
@@ -19,5 +21,8 @@ public class CatalogService {
     }
     public Iterable<Category> findAllCategories() {
         return categoryRepository.findAll();
+    }
+    public Optional<Product> findProductByID(Integer ProductID) {
+        return catalogRepository.findById(ProductID);
     }
 }
