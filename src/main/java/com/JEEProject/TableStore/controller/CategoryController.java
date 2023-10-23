@@ -5,6 +5,10 @@ import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.services.CategoryService;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,9 +25,12 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getAllCategory(ModelMap modelMap) {
-        Iterable<Category> categories = categoryService.getAll();
-        modelMap.addAttribute("categories", categories);
+    public String getAllCategory(ModelMap modelMap,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "6") int size) {
+        Pageable pageable = PageRequest.of(page,size, Sort.by("id"));
+        Page<Category> categoryPage = categoryService.getAllCategoriesWhereDeleteAtIsNull(pageable);
+        modelMap.addAttribute("categoryPage",categoryPage);
         return "adminCategory";
     }
     public boolean checkName(Category category){
