@@ -207,15 +207,15 @@
                             </c:choose>
 
                             <td class="product-id">${product.getId()}</td>
-                            <td class="info_product"> <img src="/images/products/${product.getImgPath()}" alt="" class="info_avt">
-                                <span>${product.getName()}</span></td>
-                            <td>${product.getColor()}</td>
-                            <td>${product.getCategory().getName()}</td>
-                            <td>${product.getProvider().getName()}</td>
-                            <td>${product.getPrice()}</td>
-                            <td>${product.getInStock()}</td>
-                            <td>${product.getStatus()}</td>
-                            <td><button>Chỉnh sửa</button>
+                            <td class="info_product"> <img src="/images/products/${product.getImgPath()} " alt="" class="product-img">
+                                <span>${product.getName()}</span class="product-name"></td>
+                            <td class="product-color">${product.getColor()}</td>
+                            <td class="product-category">${product.getCategory().getName()}</td>
+                            <td class="product-provider">${product.getProvider().getName()}</td>
+                            <td class="product-price"> ${product.getPrice()}</td>
+                            <td class="product-inStock">${product.getInStock()}</td>
+                            <td class="product-status">${product.getStatus()}</td>
+                            <td><button class="edit_btn_sub">Chỉnh sửa</button>
                                 <button>Nhập hàng</button></td>
                         </tr>
                     </c:forEach>
@@ -318,6 +318,87 @@
                 </div>
                 <div class="insert-submit">
                     <button type="submit" id="insert-button">Thêm sản phẩm</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="edit_propuct_popup" style="display: none;">
+    <div class="title">
+        <p>Chỉnh sửa sản phẩm</p>
+        <div class="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+    <form id="edit_propuct_popup" enctype="multipart/form-data">
+        <div class="popup-add-content">
+            <div class="input input-name">
+                <div>
+                    <p class="info-input">Tên sản phẩm</p>
+                    <input type="text" name="name" id="name-edit">
+                </div>
+                <div id="name-error-edit" class="error">
+
+                </div>
+            </div>
+            <div class="input input-color">
+                <div>
+                    <p class="info-input">Màu sắc</p>
+                    <input type="text" name="color" id="color-edit">
+                </div>
+                <div id="color-error-edit" class="error">
+
+                </div>
+            </div>
+            <div class="input input-price">
+                <div>
+                    <p class="info-input">Giá tiền</p>
+                    <input type="text" name="price" id="price-edit">
+                </div>
+                <div id="price-error-edit" class="error">
+
+                </div>
+            </div>
+            <div class="input input-image">
+                <div>
+                    <p class="info-input">Hình ảnh</p>
+                    <input type="file" name="image" id="image-edit" accept="image/*">
+                    <div id="imagePreview-edit" class="imagePre"> </div>
+                </div>
+                <div id="image-error-edit" class="error">
+
+                </div>
+            </div>
+            <div class="input input-status">
+                <p>Trạng thái: </p>
+                <select class="input-status" name="status" id="status-edit">
+                    <option value="Hoạt động"> Hoạt động</option>
+                    <option value="Không hoạt động"> Không hoạt động</option>
+                </select>
+            </div>
+            <div class="input input-category">
+                <p>Thể loại: </p>
+                <select path="category" name="category" id="category-edit">
+                    <c:forEach var="category" items="${categories}">
+                        <option value="${category.getId()}">
+                                ${category.getName()}
+                        </option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="input input-provider">
+                <div class="input-form provider-input">
+                    <p>Nhà cung cấp: </p>
+                    <select path="provider" name="provider" id="provider-edit">
+                        <c:forEach var="provider" items="${providers}">
+                            <option value="${provider.getId()}">
+                                    ${provider.getName()}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="insert-submit">
+                    <button type="submit" id="update-button">Chỉnh sửa</button>
                 </div>
             </div>
         </div>
