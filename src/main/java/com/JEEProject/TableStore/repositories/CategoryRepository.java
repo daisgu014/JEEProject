@@ -15,9 +15,8 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
     @Modifying
     @Query("UPDATE Category c SET c.deleteAt = NOW() WHERE c.id = :category_id")
     @Transactional
-    void deleteCategoryUpCreateAt(@Param("category_id") Integer id);
+    void deleteCategoryUpDeleteAt(@Param("category_id") Integer id);
 
     @Query("SELECT c FROM Category c where c.deleteAt IS null ")
     Page<Category> findCategoriesWhereDeleteAtIsNull(Pageable pageable);
-
 }

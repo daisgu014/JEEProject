@@ -50,6 +50,12 @@
                         <p>Người dùng</p>
                     </a>
                 </li>
+                <li class=order">
+                    <a href="orders" >
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Đơn hàng</p>
+                    </a>
+                </li>
                 <li>
                     <a href="#">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -67,7 +73,7 @@
                 <h2>Quản lý sản phẩm</h2>
             </div>
             <div class="user--info">
-                <img src="./image/img.jpg" alt="">
+                <img src="/images/products/user1_a.jpg" alt="">
             </div>
             <div class="user-modal" id="user-modal">
                 <ul>
@@ -128,7 +134,6 @@
                 <div class="btn deleteBtn" id="deleteBtn">
                     <i class="fa-solid fa-trash fa-beat-fade"></i>
                 </div>
-
             </div>
             <div class="filter-modal">
                 <div class="category-filter">
@@ -169,7 +174,15 @@
                 <table>
                     <thead>
                     <tr>
-                        <th><input type="checkbox" class="check_box" ></th>
+                        <c:choose>
+                            <c:when test="${not empty productPage.content}">
+
+                                <th><input type="checkbox" class="check_box" ></th>
+                            </c:when>
+                            <c:otherwise>
+                                <th><input type="hidden" ></th>
+                            </c:otherwise>
+                        </c:choose>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
                         <th>Màu sắc</th>
@@ -194,7 +207,7 @@
                             </c:choose>
 
                             <td class="product-id">${product.getId()}</td>
-                            <td class="info_product"> <img src="./image/img.jpg" alt="" class="info_avt">
+                            <td class="info_product"> <img src="/images/products/${product.getImgPath()}" alt="" class="info_avt">
                                 <span>${product.getName()}</span></td>
                             <td>${product.getColor()}</td>
                             <td>${product.getCategory().getName()}</td>
@@ -269,6 +282,7 @@
                 <div>
                     <p class="info-input">Hình ảnh</p>
                     <input type="file" name="image" id="image" accept="image/*">
+                    <div id="imagePreview" class="imagePre"> </div>
                 </div>
                 <div id="image-error" class="error">
 
@@ -303,17 +317,18 @@
                     </select>
                 </div>
                 <div class="insert-submit">
-                    <button type="button" id="insert-button">Thêm sản phẩm</button>
+                    <button type="submit" id="insert-button">Thêm sản phẩm</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script src="/js/event.js" type="text/javascript"></script>
 <script src="/js/productEvent.js" type="module"></script>
 <script src="/js/adminProducts/_request.js" type="module"></script>
 <script src="/js/adminProducts/validation.js" type="module"></script>
 <script src="/js/adminProducts/_model.js" type="module"></script>
-<script src="/js/event.js" type="text/javascript"></script>
+
 
 
 </body>
