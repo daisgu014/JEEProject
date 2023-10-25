@@ -1,5 +1,6 @@
 package com.JEEProject.TableStore.services;
 
+import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 @Service
 public class ProductService {
@@ -36,4 +38,8 @@ public class ProductService {
     public Page<Product> getAllWhereDeleteAtIsNull(Pageable pageable){
     return productRepository.findProductsWhereDeleteAtIsNull(pageable);
     }
+    public void addProduct(Product product){
+        productRepository.save(product);
+    }
+
 }

@@ -25,4 +25,5 @@ public class CatalogService {
     public Optional<Product> findProductByID(Integer ProductID) {
         return catalogRepository.findById(ProductID);
     }
+
 }

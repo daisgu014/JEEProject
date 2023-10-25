@@ -34,6 +34,12 @@
                     <p>Người dùng</p>
                 </a>
             </li>
+            <li class=order">
+                <a href="orders" >
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Đơn hàng</p>
+                </a>
+            </li>
             <li>
                 <a href="#">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>

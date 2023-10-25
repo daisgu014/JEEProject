@@ -2,8 +2,10 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
+import com.JEEProject.TableStore.Model.Provider;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.repositories.ProductRepository;
+import com.JEEProject.TableStore.repositories.ProviderRepository;
 import com.JEEProject.TableStore.services.CategoryService;
 import com.JEEProject.TableStore.services.ProductService;
 import com.JEEProject.TableStore.services.ProviderService;
@@ -46,6 +48,8 @@ public class ProductController {
     @Autowired
     ProviderService providerService;
     @Autowired
+    ProviderRepository providerRepository;
+    @Autowired
     ServletContext servletContext;
     @RequestMapping( value = "" ,method = RequestMethod.GET)
     public String getProduct(ModelMap modelMap,
@@ -62,7 +66,7 @@ public class ProductController {
         modelMap.addAttribute("product", new Product());
         return"adminProduct";
     }
-    public String upLoadImage(MultipartFile img){
+    public String upLoadImage(MultipartFile img,String name, String color){
         String uploadDir = servletContext.getRealPath("/WEB-INF/images/products/");
         List<String> allowedExtensions = Arrays.asList(".png",".jpeg",".jpg");
         if(!img.isEmpty()){
@@ -70,14 +74,15 @@ public class ProductController {
                 String originalFileName = img.getOriginalFilename().toLowerCase();
                 String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
                 if(allowedExtensions.contains(fileExtension)){
-                    String filePath = uploadDir +originalFileName;
+                    String filePath = uploadDir +name+"_"+color+fileExtension;
+                    String filePath2 = name+"_"+color+fileExtension;
                     File uploadPath = new File(uploadDir);
                     if (!uploadPath.exists()) {
                         uploadPath.mkdirs();
                     }
                     File imageFile = new File(filePath);
                     img.transferTo(imageFile);
-                    return filePath;
+                    return filePath2;
                 }else{
                     return "Chỉ nhận các file PNG, JPEG và JPG";
                 }
@@ -89,18 +94,47 @@ public class ProductController {
             return "Vui lòng chọn ảnh";
         }
     }
-    @PostMapping(value = "/create")
-    @ResponseBody
-    public ResponseEntity<?> addProduct (@RequestBody  Product product
-                                         ){
-        try {
-            product.setImgPath("123.png");
-           System.err.println(product.getCategory().getName());
-            productRepository.save(product);
-            return new ResponseEntity<>("Product added successfully", HttpStatus.CREATED);
-        }catch (Exception e){
-            return new ResponseEntity<>("Failed to add product", HttpStatus.INTERNAL_SERVER_ERROR);
+    Provider providerById(Integer id){
+        if(providerRepository.findById(id).isPresent()){
+            return providerRepository.findById(id).get();
         }
+        return null;
+    }
+    @PostMapping(value = "/create-product/")
+    public ResponseEntity<?> addProduct (@RequestParam("name") String name,
+                                         @RequestParam("color") String color,
+                                         @RequestParam("price") Integer price,
+                                         @RequestParam("image") MultipartFile file,
+                                         @RequestParam("status") String status,
+                                         @RequestParam("category") Integer categoryId,
+                                         @RequestParam("provider") Integer providerId
+                                         ){
+          try{
+              Category category= categoryService.findByIds(categoryId);
+              Provider provider =providerById(providerId);
+              Product product = new Product(name,
+                      color,
+                      status,
+                      upLoadImage(file,name,color),
+                      price,category,
+                      provider);
+              System.err.println(
+                      product.getName()+"\n"+
+                              product.getColor()+"\n"+
+                              product.getStatus()+"\n"+
+                              product.getImgPath()+"\n"+
+                              product.getPrice()+"\n"+
+                              product.getInStock()+"\n"+
+                              product.getCategory().getName()+"\n"+
+                              product.getProvider().getName()
+              );
+              productService.addProduct(product);
+
+              return new ResponseEntity<>("Thêm sản phẩm thành công", HttpStatus.CREATED);
+
+          }catch (Exception e){
+              return new ResponseEntity<>("Lỗi không thêm được sản phẩm", HttpStatus.INTERNAL_SERVER_ERROR);
+          }
     }
     @PostMapping(value = "/edit/{id}")
     @ResponseBody
