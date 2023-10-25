@@ -1,20 +1,55 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Model.Product;
+import com.JEEProject.TableStore.Model.ProductSearchCriteria;
 import com.JEEProject.TableStore.services.CatalogService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 
 @Controller
 public class CatalogController {
     @Autowired
     private CatalogService catalogService;
+    private ProductSearchCriteria criteria = new ProductSearchCriteria();
     @GetMapping(path = {"/catalog"})
-    public String getCatalog(ModelMap modelMap){
-        modelMap.addAttribute("products", catalogService.findAllProducts());
+    public String getCatalog(ModelMap modelMap,
+                             @RequestParam("page")Optional<Integer> page
+    ){
+        Pageable pageable = PageRequest.of(page.orElse(0), 4);
+        Page<Product> products = catalogService.searchProducts(criteria, pageable);
+        modelMap.addAttribute("productPages", products);
         modelMap.addAttribute("categories", catalogService.findAllCategories());
+        modelMap.addAttribute("colors", catalogService.findAllColors());
+        modelMap.addAttribute("criteria", criteria);
+        return "catalog";
+    }
+
+    @PostMapping("/catalog")
+    public String searchProducts(ModelMap modelMap,
+                                 @Valid @ModelAttribute("criteria") ProductSearchCriteria criteria,
+                                 @RequestParam("page")Optional<Integer> page
+    ){
+        Pageable pageable = PageRequest.of(page.orElse(0), 4);
+        Page<Product> products = catalogService.searchProducts(criteria, pageable);
+        modelMap.addAttribute("productPages", products);
+        modelMap.addAttribute("categories", catalogService.findAllCategories());
+        modelMap.addAttribute("colors", catalogService.findAllColors());
+        this.criteria = criteria;
         return "catalog";
     }
 }
