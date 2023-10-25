@@ -33,9 +33,6 @@ public class CatalogService {
     public Optional<Product> findProductByID(Integer ProductID) {
         return catalogRepository.findById(ProductID);
     }
-<<<<<<< HEAD
-
-=======
     public Page<Product> findProductsNotDeleted(Pageable pageable) {
         return catalogRepository.findProductsNotDeleted(pageable);
     }
@@ -78,5 +75,4 @@ public class CatalogService {
             return cb.and(predicates.toArray(new Predicate[0]));
         }, pageable);
     }
->>>>>>> main
 }
