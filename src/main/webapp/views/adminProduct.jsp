@@ -207,8 +207,10 @@
                             </c:choose>
 
                             <td class="product-id">${product.getId()}</td>
-                            <td class="info_product"> <img src="/images/products/${product.getImgPath()} " alt="" class="product-img">
-                                <span>${product.getName()}</span class="product-name"></td>
+                            <td class="info_product">
+                                <img src="/images/products/${product.getImgPath()} " alt="" class="product-img">
+                                <span class="product-name" >${product.getName()}</span >
+                            </td>
                             <td class="product-color">${product.getColor()}</td>
                             <td class="product-category">${product.getCategory().getName()}</td>
                             <td class="product-provider">${product.getProvider().getName()}</td>
@@ -323,14 +325,14 @@
         </div>
     </form>
 </div>
-<div class="edit_propuct_popup" style="display: none;">
+<div class="edit_product_popup" style="display: none;">
     <div class="title">
         <p>Chỉnh sửa sản phẩm</p>
         <div class="close-btn">
             <i class="fa-solid fa-xmark"></i>
         </div>
     </div>
-    <form id="edit_propuct_popup" enctype="multipart/form-data">
+    <form id="edit_product_form" enctype="multipart/form-data">
         <div class="popup-add-content">
             <div class="input input-name">
                 <div>

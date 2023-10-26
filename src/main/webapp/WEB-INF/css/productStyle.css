@@ -108,7 +108,7 @@
     border-radius: 50%;
     object-fit: cover;
 }
-.edit_propuct_popup{
+.edit_product_popup{
     position: fixed;
     width: 400px;
     height: 600px;
