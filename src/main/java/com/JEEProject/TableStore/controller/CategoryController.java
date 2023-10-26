@@ -1,6 +1,7 @@
 package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Category;
+import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,22 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private CategoryRepository categoryRepository;
-
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getAllCategory(ModelMap modelMap,
                                  @RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "6") int size) {
         Pageable pageable = PageRequest.of(page,size, Sort.by("id"));
         Page<Category> categoryPage = categoryService.getAllCategoriesWhereDeleteAtIsNull(pageable);
+        if (!categoryPage.hasContent()) {
+            Pageable previousPageable = pageable.previousOrFirst();
+            Page<Category> previousPage = categoryService.getAllCategoriesWhereDeleteAtIsNull(previousPageable);
+            if (previousPage.hasContent()) {
+                return "redirect:/admin/categories?page=" + previousPageable.getPageNumber();
+            }
+        }
         modelMap.addAttribute("categoryPage",categoryPage);
         return "adminCategory";
     }
-    public boolean checkName(Category category){
-
-        return false;
-    }
-
     @PostMapping(value = "/create")
     @ResponseBody
     public ResponseEntity<?> addCategory (@RequestBody Category category

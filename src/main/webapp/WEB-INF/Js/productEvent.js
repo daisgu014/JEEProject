@@ -1,10 +1,29 @@
-import {create,deleteId, deleteProducts} from "./adminProducts/_request.js";
+import {create,edit,deleteId, deleteProducts} from "./adminProducts/_request.js";
 import {
     validationName,
     validationColor,
     validationPrice,
     validationInputFile,
-    inputName, inputColor, inputPrice, inputFile, errorName, errorPrice, errorColor, errorFile
+    validationNameEdit,
+    validationColorEdit,
+    validationPriceEdit,
+    validationInputFileEdit,
+    inputName,
+    inputColor,
+    inputPrice,
+    inputFile,
+    errorName,
+    errorPrice,
+    errorColor,
+    errorFile,
+    inputColorEdit,
+    inputNameEdit,
+    inputPriceEdit,
+    inputFileEdit,
+    categoryEdit,
+    preImage,
+    providerEdit,
+    statusEdit, errorNameEdit, errorColorEdit, errorPriceEdit,
 } from "./adminProducts/validation.js";
 function addValueToArray(array, value) {
     if(!array.includes(value)){
@@ -18,7 +37,7 @@ function removeFromArray(arr, value) {
     }
 }
 let selectedProductIds=[]
-
+let editFormProduct = document.querySelector(".edit_product_popup");
 function Init() {
 
 
@@ -29,6 +48,7 @@ function Init() {
 
     document.querySelector("#overlay").addEventListener("click", ()=>{
         document.querySelector(".products_popup").style.display="none";
+        editFormProduct.style.display="none";
         document.querySelector("#overlay").style.display="none";
 
     })
@@ -135,13 +155,13 @@ inputImage.addEventListener('change', function (e) {
     }
 });
 let insertBtn = document.getElementById('insert-button');
-
+inputName.addEventListener('input',validationName);
+inputColor.addEventListener('input',validationColor);
+inputPrice.addEventListener('input',validationPrice);
+inputFile.addEventListener('change',validationInputFile);
 document.getElementById('productForm').addEventListener('submit',function (e){
     e.preventDefault();
-    inputName.addEventListener('input',validationName);
-    inputColor.addEventListener('input',validationColor);
-    inputPrice.addEventListener('input',validationPrice);
-    inputFile.addEventListener('change',validationInputFile);
+
     validationName()
     validationColor()
     validationPrice()
@@ -161,24 +181,84 @@ document.getElementById('productForm').addEventListener('submit',function (e){
     }
 
 })
+const findOptionValue=(selectElement, optionName)=>{
+    var options=selectElement.options;
+    let value=null;
+    for(var i=0;i<options.length;i++){
+        if(options[i].textContent.localeCompare(optionName)){
+            value=options[i].value
+        }
+    }
+    return value;
+}
+let btnEdits = document.querySelectorAll(".edit_btn_sub");
+let id=0;
+btnEdits.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        id=btn.closest('tr').querySelector('.product-id').textContent;
+        editFormProduct.style.display="block";
+        inputNameEdit.value = btn.closest('tr').querySelector('.info_product .product-name').textContent;
+        inputColorEdit.value=btn.closest('tr').querySelector('.product-color').textContent;
+        inputPriceEdit.value=btn.closest('tr').querySelector('.product-price').textContent;
+        statusEdit.value=findOptionValue(statusEdit,(btn.closest('tr').querySelector('.product-status').textContent));
+        categoryEdit.value=findOptionValue(categoryEdit,(btn.closest('tr').querySelector('.product-category').textContent));
+        providerEdit.value=findOptionValue(providerEdit,(btn.closest('tr').querySelector('.product-provider').textContent))
+        preImage.innerHTML=
+            `
+            <img src="${btn.closest('tr').querySelector('.product-img').getAttribute('src')}"></img>
+            `
+        document.querySelector('#overlay').style.display="block";
+    })
+})
+inputNameEdit.addEventListener('input',validationNameEdit);
+inputColorEdit.addEventListener('input',validationColorEdit);
+inputPriceEdit.addEventListener('input',validationPriceEdit);
+function updateProduct(id){
+    inputFileEdit.addEventListener('change', function (e) {
+        const file = e.target.files[0];
 
-// insertBtn.addEventListener("click", ()=>{
-//         inputName.addEventListener('input',validationName);
-//         inputColor.addEventListener('input',validationColor);
-//         inputPrice.addEventListener('input',validationPrice);
-//         inputFile.addEventListener('change',validationInputFile);
-//             validationName()
-//             validationColor()
-//             validationPrice()
-//             validationInputFile()
-//         if(errorName.textContent===''&&
-//             errorPrice.textContent===''&&
-//             errorColor.textContent===''&&
-//             errorFile.textContent==='') {
-//             createProduct().then(data => {
-//                 location.reload();
-//             }).catch(error => {
-//                 alert(error.message); // Hiển thị thông báo lỗi nếu có lỗi
-//             });
-//         }
-//     })
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                preImage.innerHTML = ''; // Xóa bất kỳ ảnh trước đó
+                preImage.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preImage.innerHTML = 'Không có ảnh được chọn.';
+        }
+    });
+    validationNameEdit();
+    validationColorEdit();
+    validationPriceEdit();
+
+
+}
+inputFileEdit.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const img = document.createElement('img');
+            img.src = event.target.result;
+            preImage.innerHTML = ''; // Xóa bất kỳ ảnh trước đó
+            preImage.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preImage.innerHTML = 'Không có ảnh được chọn.';
+    }
+});
+document.getElementById('edit_product_form').addEventListener('submit',function (e){
+    e.preventDefault();
+    updateProduct(id)
+    if(errorNameEdit.textContent===''
+        && errorColorEdit.textContent===''
+        && errorPriceEdit.textContent===''){
+        const formData = new FormData(this);
+        edit(formData,id).then(data=>location.reload()).catch(error=>alert(error))
+    }
+})

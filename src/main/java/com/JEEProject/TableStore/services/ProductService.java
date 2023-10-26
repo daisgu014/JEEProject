@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -37,6 +39,37 @@ public class ProductService {
     }
     public Page<Product> getAllWhereDeleteAtIsNull(Pageable pageable){
     return productRepository.findProductsWhereDeleteAtIsNull(pageable);
+    }
+    public boolean updateProduct(Integer id, Product product){
+        Optional<Product> p = productRepository.findById(id);
+        if(p.isPresent()){
+            if(!p.get().getName().equalsIgnoreCase(product.getName())){
+                p.get().setName(product.getName());
+            }
+            if(!p.get().getColor().equalsIgnoreCase(product.getColor())){
+                p.get().setColor(product.getColor());
+            }
+            if(p.get().getPrice()!=product.getPrice()){
+               p.get().setPrice(product.getPrice());
+            }
+            if(!p.get().getStatus().equalsIgnoreCase(product.getStatus())){
+                p.get().setStatus(product.getStatus());
+            }
+            if(!p.get().getImgPath().equalsIgnoreCase(product.getImgPath())
+                && !product.getImgPath().equalsIgnoreCase("Vui lòng chọn ảnh")){
+                p.get().setImgPath(product.getImgPath());
+            }
+            if(p.get().getCategory()!=product.getCategory()){
+                p.get().setCategory(product.getCategory());
+            }
+            if(p.get().getProvider()!=product.getProvider()){
+                p.get().setProvider(product.getProvider());
+            }
+            productRepository.save(p.get());
+            return true;
+        }
+        return false;
+
     }
     public void addProduct(Product product){
         productRepository.save(product);
