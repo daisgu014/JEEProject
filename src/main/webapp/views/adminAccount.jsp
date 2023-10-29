@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Quản lý Nhà cung cấp</title>
+    <title>Quản lý Tài khoản</title>
 
 </head>
 <body>
@@ -34,6 +34,7 @@
             <table id="accountTable">
                 <thead>
                 <tr>
+                    <th><input type="checkbox" id="checkAll"></th>
                     <th>Mã</th>
                     <th>Username</th>
                     <th>Loại</th>
@@ -44,34 +45,43 @@
                 <tbody>
                 <c:forEach var="account" items="${accounts}">
                     <tr>
-                        <td>${account.getId()}</td>>
-                        <td>${account.getUsername()}</td>>
-                        <td>${account.getRole()}</td>>
-                        <td>${account.getCreateAt()}</td>>
-                        <td>${account.getDeleteAt()}</td>>
-                        <td>Xóa</td>>
+                        <td><input type="checkbox" class="account-checkbox"></td>
+                        <td>${account.getId()}</td>
+                        <td>${account.getUsername()}</td>
+                        <td style="display: none">${account.getPassword()}</td>
+                        <td style="display: none">${account.getFullname()}</td>
+                        <td>${account.getRole()}</td>
+                        <td style="display: none">${account.getPhone()}</td>
+                        <td style="display: none">${account.getEmail()}</td>
+                        <td style="display: none">${account.getAddress()}</td>
+                        <td>${account.getCreateAt()}</td>
+                        <td>${account.getDeleteAt()}</td>
+                        <td>Xóa</td>
                     </tr>
                 </c:forEach>
                 </tbody>
                 </thead>
             </table>
 
-            <button id="addAccountButton" class="btn-addAccount">Thêm tài khoản</button>
+            <div style="width: 100%;text-align: center;">
+                <button id="addAccountButton" class="btn-addAccount">Thêm tài khoản</button>
+            </div>>
 
             <div id="overlay"></div>
 
             <div id="addAccountForm" class="popup-account">
-                <form action="">
+                <form action="" id="AccountForm">
                     <h2>Thêm tài khoản</h2>
-
                     Username: <input type="text" id="accountName" placeholder="Nhập username"><br>
                     <span id="usernameError" style="color: red;"></span><br>
                     Password: <input type="password" id="accountPass" placeholder="Nhập password"><br>
                     <span id="passwordError" style="color: red;"></span><br>
+                    Fullname: <input type="text" id="accountFullname" placeholder="Nhập tên"><br>
+                    <span id="fullnameError" style="color: red;"></span><br>
                     Loại: <select id="accountRole">
-                        <option value="apple">Customer</option>
-                        <option value="banana">Employee</option>
-                        <option value="cherry">Admin</option>
+                        <option value="level1">Level 1</option>
+                        <option value="level2">Level 2</option>
+                        <option value="level3">Level 3</option>
                     </select> <br>
                     Số điện thoại: <input type="text" id="accountPhone" placeholder="Nhập số điện thoại"><br>
                     <span id="phoneError" style="color: red;"></span><br>
@@ -80,10 +90,39 @@
                     Địa chỉ: <input type="text" id="accountAddress" placeholder="Nhập địa chỉ"><br>
                     <span id="addressError" style="color: red;"></span><br>
                     <div class="btn-addAccountForm">
-                        <button id="saveAccountButton">Lưu</button>
-                        <button id="closeFormButton">Đóng</button>
+                        <button type="submit" id="saveAccountButton">Lưu</button>
+                        <button type="button" id="closeFormButton">Đóng</button>
                     </div>
                 </form>
+                <div id="add-success"></div>
+            </div>
+            <div id="updateAccountForm" class="popup-updateAccount">
+                <form action="" id="AccountFormUpdate">
+                    <h2>Chỉnh sửa tài khoản</h2>
+                    ID: <input type="text" id="accountIdUpdate" placeholder=""><br>
+                    Username: <input type="text" id="accountNameUpdate" placeholder="Nhập username"><br>
+                    <span id="usernameUpdateError" style="color: red;"></span><br>
+                    Password: <input type="password" id="accountPassUpdate" placeholder="Nhập password"><br>
+                    <span id="passwordUpdateError" style="color: red;"></span><br>
+                    Fullname: <input type="text" id="accountFullnameUpdate" placeholder="Nhập tên"><br>
+                    <span id="fullnameUpdateError" style="color: red;"></span><br>
+                    Loại: <select id="accountRoleUpdate">
+                    <option value="level1">Level 1</option>
+                    <option value="level2">Level 2</option>
+                    <option value="level3">Level 3</option>
+                </select> <br>
+                    Số điện thoại: <input type="text" id="accountPhoneUpdate" placeholder="Nhập số điện thoại"><br>
+                    <span id="phoneUpdateError" style="color: red;"></span><br>
+                    Email: <input type="text" id="accountEmailUpdate" placeholder="Nhập email"><br>
+                    <span id="emailUpdateError" style="color: red;"></span><br>
+                    Địa chỉ: <input type="text" id="accountAddressUpdate" placeholder="Nhập địa chỉ"><br>
+                    <span id="addressUpdateError" style="color: red;"></span><br>
+                    <div class="btn-updateAccountForm">
+                        <button type="submit" id="updateAccountButton">Lưu</button>
+                        <button type="button" id="closeFormUpdateButton">Đóng</button>
+                    </div>
+                </form>
+                <div id="update-success"></div>
             </div>
         </div>
     </div>

@@ -1,9 +1,6 @@
 package com.JEEProject.TableStore.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -17,6 +14,8 @@ public class Account {
     private  String username;
     @Column(name = "password")
     private  String password;
+    @Column(name = "full_name")
+    private  String fullname;
     @Column(name = "role")
     private  String role;
     @Column(name = "phone")
@@ -25,6 +24,7 @@ public class Account {
     private String email;
     @Column(name = "address")
     private  String address;
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date createAt;
     @Column(name = "delete_at")
@@ -32,10 +32,11 @@ public class Account {
     public Account(){
 
     }
-    public Account(int id, String username, String password, String role, String phone, String email, String address, Date createAt, Date deleteAt) {
+    public Account(int id, String username, String password,String fullname, String role, String phone, String email, String address, Date createAt, Date deleteAt) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.fullname = fullname;
         this.role = role;
         this.phone = phone;
         this.email = email;
@@ -66,6 +67,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getRole() {

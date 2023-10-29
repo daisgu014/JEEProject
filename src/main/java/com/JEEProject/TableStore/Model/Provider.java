@@ -1,9 +1,6 @@
 package com.JEEProject.TableStore.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -15,6 +12,7 @@ public class Provider {
     private  int id;
     @Column(name = "name")
     private  String name;
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private  Date createAt;
     @Column(name = "delete_at")

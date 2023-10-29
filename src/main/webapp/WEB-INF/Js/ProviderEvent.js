@@ -29,29 +29,75 @@ closeUpdateFormButton.addEventListener("click", function() {
     supplierNameError.textContent = "";
     supplierNameInput.value = "";
 });
-/*saveSupplierButton.addEventListener("click",function (event){
-    event.preventDefault();
-    if (supplierNameInput.value===""){
-        supplierNameError.textContent = "Tên nhà cung cấp không được bỏ trống.";
-    }else {
+document.addEventListener("DOMContentLoaded", function() {
+    var table = document.getElementById("supplierTable");
+    var rows = table.getElementsByTagName("tr");
 
-        overlay.style.display = "none";
-        addSupplierForm.style.display = "none";
+
+    for (var i = 1; i < rows.length; i++) {
+        rows[i].addEventListener("dblclick", function() {
+            var cells = this.getElementsByTagName("td");
+            supplierNameUpdate.value = cells[2].textContent;
+            updateSupplierForm.style.display = "block";
+            overlay.style.display = "block";
+        });
     }
-});*/
-// myfile.js
+
+});
+const itemsPerPage = 5; // Số lượng mục trên mỗi trang
+const dataTable = document.getElementById('supplierTable');
+const pagination = document.getElementById('pagination');
+const tableBody = dataTable.querySelector('tbody');
+const rows = tableBody.querySelectorAll('tr');
+const pageCount = Math.ceil(rows.length / itemsPerPage);
+
+function displayPage(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    rows.forEach((row, index) => {
+        if (index >= start && index < end) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function createPaginationButtons() {
+    for (let i = 1; i <= pageCount; i++) {
+        const button = document.createElement('button');
+        button.innerText = i;
+        button.addEventListener('click', () => {
+            displayPage(i);
+        });
+        pagination.appendChild(button);
+    }
+}
+
+createPaginationButtons();
+displayPage(1); // Hiển thị trang đầu tiên khi tải trang
+
+// Thêm nhà cung cấp
 document.addEventListener("DOMContentLoaded", function() {
     var dataForm = document.getElementById("supplierForm");
-    var resultMessage = document.getElementById("result-message");
+    var resultMessage = document.getElementById("add-success");
 
     dataForm.addEventListener("submit", function(event) {
         event.preventDefault();
-        var data = document.getElementById("supplierName").value;
-        postData(data.toString());
+        if (supplierNameInput.value===""){
+            supplierNameError.textContent = "Tên nhà cung cấp không được bỏ trống.";
+        }else {
+            var data = document.getElementById("supplierName").value;
+            postData(data.toString());/*
+            overlay.style.display = "none";
+            addSupplierForm.style.display = "none";*/
+        }
+
     });
 
     function postData(data) {
-        fetch("/add-data", {
+        fetch("/admin/provider/add-provider", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -67,28 +113,49 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     }
 });
-
-updateSupplierButton.addEventListener("click",function (event){
-    event.preventDefault();
-    if (supplierNameUpdate.value===""){
-        supplierNameUpdateError.textContent = "Tên nhà cung cấp không được bỏ trống.";
-    }else {
-        overlay.style.display = "none";
-        updateSupplierForm.style.display = "none";
-    }
-});
+// Chỉnh sửa nhà cung cấp
 document.addEventListener("DOMContentLoaded", function() {
+    var dataForm = document.getElementById("updateSupplier");
+    var resultMessage = document.getElementById("update-success");
     var table = document.getElementById("supplierTable");
     var rows = table.getElementsByTagName("tr");
-
-
+    var cells;
     for (var i = 1; i < rows.length; i++) {
         rows[i].addEventListener("click", function() {
-            var cells = this.getElementsByTagName("td");
-            supplierNameUpdate.value = cells[1].textContent;
-            updateSupplierForm.style.display = "block";
-            overlay.style.display = "block";
+            cells = this.getElementsByTagName("td");
         });
     }
+    dataForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        if (supplierNameUpdate.value===""){
+            supplierNameUpdateError.textContent = "Tên nhà cung cấp không được bỏ trống.";
+        }else {
+            var data = {
+                "id": cells[0].textContent,
+                "name": supplierNameUpdate.value,
+                "create_at": "",
+                "delete_at":"",
+            }
+            postDataJson(data,"/admin/provider/update-provider",resultMessage);/*
+            overlay.style.display = "none";
+            addSupplierForm.style.display = "none";*/
 
+        }
+    });
 });
+function postDataJson(data,path,resultMessage) {
+    fetch(path, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.text())
+        .then(message => {
+            resultMessage.innerText = message;
+        })
+        .catch(error => {
+            console.error("Lỗi: " + error);
+        });
+}

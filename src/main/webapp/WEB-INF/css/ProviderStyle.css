@@ -23,7 +23,7 @@
     z-index: 1;
 }
 
-.form-addSupplier, .popup-account, .form-updateSupplier{
+.form-addSupplier, .popup-account, .form-updateSupplier, .popup-updateAccount{
     display: none;
     position: fixed;
     top: 25%;
@@ -34,7 +34,7 @@
     border-radius: var(--border-radius-2);
     z-index: 2;
 }
-.popup-account{
+.popup-account,  .popup-updateAccount{
     top: 10%;
 }
 .form-addSupplier>form, .form-updateSupplier>form{
@@ -43,17 +43,21 @@
 .popup-account>form{
     text-align: left;
 }
-.form-addSupplier>form>h2,.form-updateSupplier>form>h2, .popup-account>form>h2{
+.form-addSupplier>form>h2,.form-updateSupplier>form>h2, .popup-account>form>h2,  .popup-updateAccount>form>h2{
     color: var(--color-primary);
     margin-bottom: 30px;
 }
-.form-addSupplier>form>input,.form-updateSupplier>form>input, .popup-account>form>input, .popup-account>form>select{
+.form-addSupplier>form>input,.form-updateSupplier>form>input,
+.popup-account>form>input, .popup-account>form>select,
+.popup-updateAccount>form>input,  .popup-updateAccount>form>select
+{
     margin-bottom: 10px;
     width: 100% ;
     border: 1px solid var(--color-info-dark);
     border-radius: var(--border-radius-2);
 }
-.form-addSupplier>form>button,.form-updateSupplier>form>button, .popup-account>form>div>button{
+.form-addSupplier>form>button,.form-updateSupplier>form>button,
+.popup-account>form>div>button,  .popup-updateAccount>form>div>button{
     margin-top: 10%;
     width: 100px;
     color: #fff;
@@ -61,12 +65,12 @@
     background-color: var(--color-primary);
 
 }
-.btn-addAccountForm{
+.btn-addAccountForm, .btn-updateAccountForm{
     text-align: center;
 }
 .btn-addProvider, .btn-addAccount{
     margin-top: 5%;
-    margin-left: 45%;
+   /* margin-left: 45%;*/
     width: 200px;
     height: 50px;
     color: #fff;
@@ -122,4 +126,21 @@
 tbody>tr:hover {
     background-color:#B0C4DE;
     cursor: pointer;
+}
+.page{
+    width: 100%;
+    text-align: center;
+}
+.page>button{
+    width: 50px;
+    height: 30px;
+    color: white;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    margin: 5px;
+}
+.page>button:active, .page>button:focus{
+    background-color: #e74c3c;
+    outline: none;
 }
