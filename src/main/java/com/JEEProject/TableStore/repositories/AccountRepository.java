@@ -8,7 +8,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepository extends CrudRepository<Account,Integer> {
+public interface AccountRepository extends CrudRepository<Account, Integer> {
+    Account findByUsername(String username);
+    Account findByPhone(String phone);
+    Account findByEmail(String email);
+
     @Modifying
     @Query("UPDATE Account a " +
             "SET a.password = :#{#account.password}," +
@@ -18,10 +22,8 @@ public interface AccountRepository extends CrudRepository<Account,Integer> {
             " a.email = :#{#account.email}  " +
             "WHERE a.id = :#{#account.id}")
     void update (@Param("account") Account account);
-//    @Param("newPassword") String newPassword,
-//    @Param("newFullname") String newFullname,
-//    @Param("newRole") String newRole,
-//    @Param("newAddress") String newAddress,
-//    @Param("newEmail") String newEmail,
-//    @Param("id") int id
+    @Modifying
+    @Query("UPDATE Account a " +
+            "SET a.deleteAt = :#{#account.deleteAt} WHERE a.id = :#{#account.id}")
+    void delete (@Param("account") Account account);
 }

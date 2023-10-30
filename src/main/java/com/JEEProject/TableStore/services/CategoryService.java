@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -23,12 +25,42 @@ public class CategoryService {
     public void deleteAll(ArrayList<Integer> ids){
         if(ids!=null){
             ids.forEach(id->{
-                categoryRepository.deleteCategoryUpCreateAt(id);
+                categoryRepository.deleteCategoryUpDeleteAt(id);
             });
         }
     }
     public void updateCategory(){}
     public Page<Category> getAllCategoriesWhereDeleteAtIsNull(Pageable pageable){
         return categoryRepository.findCategoriesWhereDeleteAtIsNull(pageable);
+    }
+    public Category findByIds(Integer id){
+        if(categoryRepository.findById(id).isPresent()){
+            return categoryRepository.findById(id).get();
+        }
+        return null;
+    }
+    public void addCategory(Category category){
+        Date currentDate = new Date();
+        category.setCreateAt(currentDate);
+        categoryRepository.save(category);
+    }
+    public Optional<Category> findById(Integer id){
+        return categoryRepository.findById(id);
+    }
+    public void updateCategory(Integer id, Category category){
+        Optional<Category> categoryOptional = findById(id);
+        if(categoryOptional.isPresent()){
+            if(category.getName()!=null && !category.getName().equalsIgnoreCase("")){
+                categoryOptional.get().setName(category.getName());
+                categoryRepository.save(categoryOptional.get());
+            }
+        }
+    }
+    public boolean DeletebyId(Integer id){
+        if(id!=null && id>0){
+            categoryRepository.deleteCategoryUpDeleteAt(id);
+            return  true;
+        }
+        return  false;
     }
 }

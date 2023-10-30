@@ -12,7 +12,20 @@ var closeUpdateFormButton = document.getElementById("closeUpdateFormButton");
 var supplierTable = document.getElementById("supplierTable");
 var supplierNameError = document.getElementById("supplierNameError");
 var supplierNameUpdateError = document.getElementById("supplierNameUpdateError");
+const checkboxes = document.querySelectorAll('.provider-checkbox');
+const checkAll = document.getElementById('checkAll');
 
+checkAll.addEventListener('change', function () {
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+    });
+});
+
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        checkAll.checked = checkboxes.length === document.querySelectorAll('.product-checkbox:checked').length;
+    });
+});
 addSupplierButton.addEventListener("click", function() {
     addSupplierForm.style.display = "block";
     overlay.style.display = "block";
@@ -22,12 +35,14 @@ closeAddFormButton.addEventListener("click", function() {
     overlay.style.display = "none";
     supplierNameError.textContent = "";
     supplierNameInput.value = "";
+    window.location.reload();
 });
 closeUpdateFormButton.addEventListener("click", function() {
     updateSupplierForm.style.display = "none";
     overlay.style.display = "none";
     supplierNameError.textContent = "";
     supplierNameInput.value = "";
+    window.location.reload();
 });
 document.addEventListener("DOMContentLoaded", function() {
     var table = document.getElementById("supplierTable");
@@ -65,18 +80,20 @@ function displayPage(page) {
 }
 
 function createPaginationButtons() {
-    for (let i = 1; i <= pageCount; i++) {
-        const button = document.createElement('button');
-        button.innerText = i;
-        button.addEventListener('click', () => {
-            displayPage(i);
-        });
-        pagination.appendChild(button);
+    if (pageCount > 1){
+        for (let i = 1; i <= pageCount; i++) {
+            const button = document.createElement('button');
+            button.innerText = i;
+            button.addEventListener('click', () => {
+                displayPage(i);
+            });
+            pagination.appendChild(button);
+        }
     }
 }
 
 createPaginationButtons();
-displayPage(1); // Hiển thị trang đầu tiên khi tải trang
+displayPage(1);
 
 // Thêm nhà cung cấp
 document.addEventListener("DOMContentLoaded", function() {
@@ -106,7 +123,13 @@ document.addEventListener("DOMContentLoaded", function() {
         })
             .then(response => response.text())
             .then(message => {
-                resultMessage.innerText = message;
+                if (message === "success"){
+                    resultMessage.innerText = "Thành công!";
+                    resultMessage.style.color = "green";
+                }else {
+                    resultMessage.innerText = message;
+                    resultMessage.style.color = "red";
+                }
             })
             .catch(error => {
                 console.error("Lỗi: " + error);
@@ -131,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function() {
             supplierNameUpdateError.textContent = "Tên nhà cung cấp không được bỏ trống.";
         }else {
             var data = {
-                "id": cells[0].textContent,
+                "id": cells[1].textContent,
                 "name": supplierNameUpdate.value,
                 "create_at": "",
                 "delete_at":"",
@@ -153,9 +176,28 @@ function postDataJson(data,path,resultMessage) {
     })
         .then(response => response.text())
         .then(message => {
-            resultMessage.innerText = message;
+            if (message === "success"){
+                resultMessage.innerText = "Thành công!";
+                resultMessage.style.color = "green";
+            }else {
+                resultMessage.innerText = message;
+                resultMessage.style.color = "red";
+            }
         })
         .catch(error => {
             console.error("Lỗi: " + error);
         });
+}
+function deleteProvider(id){
+    var resultMessage = document.getElementById("delete-success");
+    const confirmation = window.confirm("Bạn có chắc chắn muốn xóa tài khoản: ?");
+    if (confirmation) {
+        var data = {"id":id};
+        postDataJson(data,"/admin/provider/delete-provider",resultMessage);
+        alert("Xóa thành công!");
+        window.location.reload();
+    } else {
+        alert("Xóa thất bại!");
+        window.location.reload();
+    }
 }

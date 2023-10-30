@@ -27,6 +27,7 @@ public class Account {
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date createAt;
+    @Temporal(TemporalType.DATE)
     @Column(name = "delete_at")
     private Date deleteAt;
     public Account(){

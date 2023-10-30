@@ -36,9 +36,10 @@ create Table products(
     FOREIGN KEY(provider_id) REFERENCES providers(id)
 );   
 create Table users(
-    id INT ZEROFILL AUTO_INCREMENT NOT NULL,
+    id INT ZEROFILL AUTO_INCREMENT,
     username varchar(200) NOT  NULL,
     password VARCHAR(500) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
     role VARCHAR(50) NOT NULL,
     phone VARCHAR(12) NOT NULL,
     email VARCHAR(100) NOT NULL,
@@ -51,7 +52,7 @@ create Table users(
 );
 CREATE TABLE import_history(
     id INT ZEROFILL NOT NULL,
-    user_id INT ZEROFILL NOT NULL,
+    user_id INT ZEROFILL,
     time_import TIMESTAMP DEFAULT CURRENT_TIME(),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
@@ -67,7 +68,7 @@ CREATE TABLE import_details(
 );
 
 CREATE TABLE cart_infos(
-    user_id INT ZEROFILL NOT NULL,
+    user_id INT ZEROFILL,
     product_id INT ZEROFILL NOT NULL,
     qty INT NOT NULL CHECK( qty > 0),
     PRIMARY KEY(user_id, product_id),
@@ -81,9 +82,9 @@ CREATE TABLE orders(
     create_at Date DEFAULT CURRENT_DATE(),
     delete_at Date DEFAULT NULL,
     place VARCHAR(500) NOT Null,
-    confirm_id INT ZEROFILL NOT NULL,
+    confirm_id INT ZEROFILL,
     confirm_date DATE DEFAULT NULL,
-    user_id INT ZEROFILL NOT NULL,
+    user_id INT ZEROFILL,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(confirm_id) REFERENCES users(id)

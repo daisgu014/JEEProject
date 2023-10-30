@@ -9,22 +9,58 @@ var closeFormButton = document.getElementById("closeFormButton");
 var closeFormUpdateButton = document.getElementById("closeFormUpdateButton");
 var accountTable = document.getElementById("accountTable");
 
+const itemsPerPage = 5;
+const pagination = document.getElementById('pagination');
+const tableBody = accountTable.querySelector('tbody');
+const rows = tableBody.querySelectorAll('tr');
+const pageCount = Math.ceil(rows.length / itemsPerPage);
 
+function displayPage(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    rows.forEach((row, index) => {
+        if (index >= start && index < end) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function createPaginationButtons() {
+    if (pageCount > 1){
+        for (let i = 1; i <= pageCount; i++) {
+            const button = document.createElement('button');
+            button.innerText = i;
+            button.addEventListener('click', () => {
+                displayPage(i);
+            });
+            pagination.appendChild(button);
+        }
+    }
+}
+
+createPaginationButtons();
+displayPage(1);
 document.addEventListener("DOMContentLoaded", function() {
     var rows = accountTable.getElementsByTagName("tr");
 
     var id = document.getElementById("accountIdUpdate");
-    id.disabled = true;
     var username = document.getElementById("accountNameUpdate");
-    username.disabled = true;
     var password = document.getElementById("accountPassUpdate");
     var fullname = document.getElementById("accountFullnameUpdate");
     var phone = document.getElementById("accountPhoneUpdate");
     var email = document.getElementById("accountEmailUpdate");
     var address = document.getElementById("accountAddressUpdate");
     var role = document.getElementById("accountRoleUpdate");
+
+    id.disabled = true;
+    username.disabled = true;
+    phone.disabled = true;
+
     for (var i = 1; i < rows.length; i++) {
-        rows[i].addEventListener("click", function() {
+        rows[i].addEventListener("dblclick", function() {
             var cells = this.getElementsByTagName("td");
             id.value = cells[1].textContent;
             username.value = cells[2].textContent;
@@ -38,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function() {
             overlay.style.display = "block";
         });
     }
-
 });
 
 addAccountButton.addEventListener("click", function() {
@@ -48,31 +83,49 @@ addAccountButton.addEventListener("click", function() {
 closeFormButton.addEventListener("click", function() {
     addAccountForm.style.display = "none";
     overlay.style.display = "none";
+    var form = document.getElementById("AccountForm");
+    var inputElements = form.querySelectorAll("input[type='text']");
+    inputElements.forEach(function(input) {
+        input.value = null;
+    });
+    var spanElements = form.querySelectorAll("span");
+    spanElements.forEach(function (span){
+        span.textContent = null;
+    })
+    window.location.reload();
 });
 closeFormUpdateButton.addEventListener("click", function() {
     updateAccountForm.style.display = "none";
     overlay.style.display = "none";
+    var form = document.getElementById("AccountFormUpdate");
+    var inputElements = form.querySelectorAll("input[type='text']");
+    inputElements.forEach(function(input) {
+        input.value = "";
+    });
+    var spanElements = form.querySelectorAll("span");
+    spanElements.forEach(function (span){
+        span.textContent = null;
+    });
+    window.location.reload();
 });
-
+var isValid = true;
+function validateField(inputId, errorId, errorMessage) {
+    var input = document.getElementById(inputId);
+    var error = document.getElementById(errorId);
+    if (input.value.trim() === "") {
+        error.textContent = errorMessage;
+        isValid = false;
+    } else {
+        error.textContent = "";
+    }
+}
+//Thêm tài khoản
 document.addEventListener("DOMContentLoaded", function() {
     var dataForm = document.getElementById("AccountForm");
     var resultMessage = document.getElementById("add-success");
 
     dataForm.addEventListener("submit", function(event) {
         event.preventDefault();
-
-        var isValid = true;
-        function validateField(inputId, errorId, errorMessage) {
-            var input = document.getElementById(inputId);
-            var error = document.getElementById(errorId);
-
-            if (input.value.trim() === "") {
-                error.textContent = errorMessage;
-                isValid = false;
-            } else {
-                error.textContent = "";
-            }
-        }
 
         validateField("accountName", "usernameError", "Vui lòng nhập tên người dùng.");
         validateField("accountPass", "passwordError", "Vui lòng nhập mật khẩu.");
@@ -101,11 +154,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 "phone": phone.value,
                 "email": email.value,
                 "address": address.value,
-                "create_at":""
+                "create_at":"",
+                "delete_dat":""
             }
-            postDataJson(data,"/admin/account/add-account",resultMessage);/*
-            overlay.style.display = "none";
-            addSupplierForm.style.display = "none";*/
+            postDataJson(data,"/admin/account/add-account",resultMessage);
 
         }
     });
@@ -119,19 +171,6 @@ document.addEventListener("DOMContentLoaded", function() {
     dataForm.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        var isValid = true;
-        function validateField(inputId, errorId, errorMessage) {
-            var input = document.getElementById(inputId);
-            var error = document.getElementById(errorId);
-
-            if (input.value.trim() === "") {
-                error.textContent = errorMessage;
-                isValid = false;
-            } else {
-                error.textContent = "";
-            }
-        }
-
         validateField("accountNameUpdate", "usernameUpdateError", "Vui lòng nhập tên tài khoản.");
         validateField("accountPassUpdate", "passwordUpdateError", "Vui lòng nhập mật khẩu.");
         validateField("accountFullnameUpdate", "fullnameUpdateError", "Vui lòng nhập tên người dùng.");
@@ -140,7 +179,6 @@ document.addEventListener("DOMContentLoaded", function() {
         validateField("accountAddressUpdate", "addressUpdateError", "Vui lòng nhập địa chỉ.");
 
         if (!isValid) {
-            alert("Click");
             return false;
         } else {
 
@@ -163,14 +201,25 @@ document.addEventListener("DOMContentLoaded", function() {
                 "email": email.value,
                 "address": address.value
             }
-
-            postDataJson(data,"/admin/account/update-account",resultMessage);/*
-            overlay.style.display = "none";
-            addSupplierForm.style.display = "none";*/
-
+            postDataJson(data,"/admin/account/update-account",resultMessage);
         }
     });
 });
+//Xóa tài khoản
+function deleteAccount(id){
+    var resultMessage = document.getElementById("delete-success");
+    const confirmation = window.confirm("Bạn có chắc chắn muốn xóa tài khoản: ?");
+    if (confirmation) {
+        var data = {"id":id};
+        postDataJson(data,"/admin/account/delete-account",resultMessage);
+        alert("Xóa thành công!");
+        window.location.reload();
+    } else {
+        alert("Xóa thất bại!");
+        window.location.reload();
+    }
+
+}
 function postDataJson(data,path,resultMessage) {
     fetch(path, {
         method: "POST",
@@ -181,7 +230,14 @@ function postDataJson(data,path,resultMessage) {
     })
         .then(response => response.text())
         .then(message => {
-            resultMessage.innerText = message;
+            if (message === "success"){
+                resultMessage.innerText = "Thành công";
+                resultMessage.style.color = "green";
+            }else {
+                resultMessage.innerText = message;
+                resultMessage.style.color = "red";
+            }
+
         })
         .catch(error => {
             console.error("Lỗi: " + error);
@@ -192,6 +248,9 @@ document.getElementById("accountName").addEventListener("input", function() {
 });
 document.getElementById("accountPass").addEventListener("input", function() {
     document.getElementById("passwordError").textContent = "";
+});
+document.getElementById("accountFullname").addEventListener("input", function() {
+    document.getElementById("fullnameError").textContent = "";
 });
 document.getElementById("accountPhone").addEventListener("input", function() {
     document.getElementById("phoneError").textContent = "";

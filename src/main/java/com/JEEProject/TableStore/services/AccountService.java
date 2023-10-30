@@ -20,6 +20,12 @@ public class AccountService {
     public Optional<Account> getAccountById(Account account){
         return accountRepository.findById(account.getId());
     }
+    public Account getAccountByName(Account account){
+        return accountRepository.findByUsername(account.getUsername());
+    }
+    public Account getAccountByPhone(Account account){
+        return accountRepository.findByPhone(account.getPhone());
+    }
     public void create(Account account){
         accountRepository.save(account);
     }
@@ -27,8 +33,9 @@ public class AccountService {
     public void update(Account account){
         accountRepository.update(account);
     }
+    @Transactional
     public void delete(Account account){
-        accountRepository.save(account);
+        accountRepository.delete(account);
     }
 
 }

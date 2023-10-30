@@ -42,27 +42,37 @@
                         <th>Mã</th>
                         <th>Tên</th>
                         <th>Ngày Tạo</th>
-                        <th>Ngày Xóa</th>
+<%--                        <th>Ngày Xóa</th>--%>
                         <th>Thao tác</th>
                     </tr>
                 <tbody>
                     <c:forEach var="provider" items="${providers}">
+                        <c:choose>
+                        <c:when test="${empty provider.deleteAt}">
                         <tr>
                             <td><input type="checkbox" class="provider-checkbox"></td>
                             <td>${provider.getId()}</td>
                             <td>${provider.getName()}</td>
                             <td>${provider.getCreateAt()}</td>
-                            <td>${provider.getDeleteAt()}</td>
-                            <td>Xóa</td>
+<%--                            <td>${provider.getDeleteAt()}</td>--%>
+                            <td> <button class="deleteProviderBtn" onclick="deleteProvider(${provider.getId()})">Xóa</button> </td>
                         </tr>
+                        </c:when>
+                        </c:choose>
                     </c:forEach>
+
                 </tbody>
                 </thead>
             </table>
+            <div id="delete-success"></div>
             <div id="pagination" class="page"></div>
-            <div style="text-align: center;width: 100%">
-                <button id="addSupplierButton" class="btn-addProvider">Thêm nhà cung cấp</button>
-            </div>
+
+            <div style="width: 100%;text-align: center;">
+                <button id="addSupplierButton" class="btn-addProvider">
+                    <i class="fa-solid fa-plus fa-beat"></i><br>
+                    <span>Thêm tài khoản</span>
+                </button>
+            </div>>
             <div id="overlay"></div>
 
             <div id="addSupplierForm" class="form-addSupplier">
@@ -89,24 +99,7 @@
             </div>
         </div>
     </div>
-
+    <script type="text/javascript" src="/js/ProviderEvent.js"></script>
 </div>
-<script type="text/javascript" src="/js/ProviderEvent.js"  > </script>
-<script>
-    const checkboxes = document.querySelectorAll('.provider-checkbox');
-    const checkAll = document.getElementById('checkAll');
-
-    checkAll.addEventListener('change', function () {
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = this.checked;
-        });
-    });
-
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            checkAll.checked = checkboxes.length === document.querySelectorAll('.product-checkbox:checked').length;
-        });
-    });
-</script>
 </body>
 </html>

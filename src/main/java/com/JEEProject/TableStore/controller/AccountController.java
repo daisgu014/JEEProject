@@ -27,18 +27,28 @@ public class AccountController {
     @RequestMapping(value = "/add-account",method = RequestMethod.POST)
     @ResponseBody
     public String addAccount(@RequestBody Account data) {
-//        Account account = new Account();
-//        account = data;
-        data.setCreateAt(new Date());
-        accountService.create(data);
-        return "Success !";
+        try {
+            data.setCreateAt(new Date());
+            if (accountService.getAccountByName(data) == null){
+                if (accountService.getAccountByPhone(data)==null){
+                    accountService.create(data);
+                    return "success";
+                }else {
+                    return "Số điện thoại đã tồn tại";
+                }
+            }else {
+                return "Username đã tồn tại";
+            }
+        }catch (Exception e){
+            return "Thất bại";
+        }
     }
     @RequestMapping(value = "/update-account",method = RequestMethod.POST)
     @ResponseBody
     public String updateAccount(@RequestBody Account data) {
         try{
             accountService.update(data);
-            return "Thành công !";
+            return "success";
         }catch (Exception e){
             return e.toString();
         }
@@ -46,11 +56,8 @@ public class AccountController {
     @RequestMapping(value = "/delete-account", method = RequestMethod.POST)
     @ResponseBody
     public  String deleteAccount(@RequestBody Account data){
-        Account account = new Account();
-        account.setId(data.getId());
-        account.setCreateAt(null);
-        account.setDeleteAt(new Date());
-        accountService.delete(account);
+        data.setDeleteAt(new Date());
+        accountService.delete(data);
         return "Success !";
     }
 }

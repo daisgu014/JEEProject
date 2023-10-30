@@ -31,30 +31,44 @@ public class ProviderController {
     @RequestMapping(value = "/add-provider",method = RequestMethod.POST)
     @ResponseBody
     public String addProvider(@RequestParam("data") String data) {
-
-        if (providerService.getProviderByName(data).isEmpty()){
+        try{
             Provider provider = new Provider();
             provider.setName(data);
             provider.setCreateAt(new Date());
-            try{
+            if (providerService.getProviderByName(data).isEmpty()){
                 providerService.create(provider);
-                return "Data added successfully!";
-            }catch (Exception e){
-                return e.toString();
+                return "success";
+            }else {
+                return "Nhà cung cấp đã tồn tại!";
             }
-
-        }else {
-            return "Data added fail!";
+        }catch (Exception e){
+            return "Thêm thất bại!";
         }
+
     }
     @RequestMapping(value = "/update-provider",method = RequestMethod.POST)
     @ResponseBody
     public String updateProvider(@RequestBody Provider data) {
-        Provider provider = new Provider();
-        provider.setId(data.getId());
-        provider.setName(data.getName());
-        providerService.update(provider);
-        return "Data added successfully!";
+        try{
+            if (providerService.getProviderByName(data.getName()).isEmpty()){
+                providerService.update(data);
+                return "success";
+            }else {
+                return "Nhà cung cấp đã tồn tại!";
+            }
+        }catch (Exception e){
+            return "Chỉnh sửa thất bại!";
+        }
     }
-
+    @RequestMapping(value = "/delete-provider",method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteProvider(@RequestBody Provider data) {
+        try{
+            data.setDeleteAt(new Date());
+            providerService.delete(data);
+            return "success";
+        }catch (Exception e){
+            return "Thất bại!";
+        }
+    }
 }
