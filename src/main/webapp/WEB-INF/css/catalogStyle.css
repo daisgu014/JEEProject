@@ -51,7 +51,7 @@ input[type="checkbox"] {
 /*    z-index: 9999;*/
 /*}*/
 
-.catalog--search-bar, .catalog--search-bar input{
+.catalog--search-bar, .catalog--search-bar input {
     position: relative;
     width: 190px;
     /*max-width: 250px;*/
@@ -187,10 +187,33 @@ input[type="checkbox"] {
     background: var(--color-primary);
     font-size: 1.2rem;
     color: var(--color-background);
+    transition: 0.4ms;
 }
 
 .catalog--filter-side-bar-search-btn:hover {
     opacity: 0.8;
+    cursor: pointer;
+}
+
+.catalog--filter-side-bar-cancel-btn {
+    display: inline-flex;
+    margin-top: 20px;
+    width: 194px;
+    max-height: 45px;
+    padding: 10px 0;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px var(--color-primary);
+    border-radius: var(--border-radius-2);
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    background-color: #fff;
+}
+
+.catalog--filter-side-bar-cancel-btn:hover {
+    transition: 0.3ms;
+    background: var(--color-primary);
+    color: var(--color-background);
     cursor: pointer;
 }
 
@@ -206,7 +229,8 @@ input[type="checkbox"] {
 
 .catalog--sort-top-bar {
     padding: 4px 0;
-    display: flex;
+    /*display: flex;*/
+    display: none;
     justify-content: flex-end;
     align-items: center;
     max-height: 50px;
@@ -271,20 +295,22 @@ input[type="checkbox"] {
 }
 
 .catalog--products-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    column-gap: 16px;
+    grid-template-columns: auto auto auto auto;
 }
 
 .catalog--products-content .item {
     /*width: calc(100% / 4);*/
-    width: 238px;
-    max-height: 450px;
+    /*width: 238px;*/
+    max-width: 280px;
+    max-height: 500px;
     margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+    border-radius: 14px;
 }
 
 .catalog--products-content .item img {
@@ -299,6 +325,13 @@ input[type="checkbox"] {
 
 .catalog--products-content .item a:first-child {
     overflow: hidden;
+}
+
+.catalog--products-content .item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
 }
 
 .item--name, .item--price {
@@ -318,6 +351,10 @@ input[type="checkbox"] {
     font-weight: 400;
 }
 
+.item--name:hover, .item--price:hover {
+    color: var(--color-primary);
+    transition: 0.4ms;
+}
 .catalog--cart-button {
     display: flex;
     max-width: 190px;
@@ -396,7 +433,3 @@ input[type="checkbox"] {
     font-size: 2rem;
     opacity: 0.4;
 }
-
-
-
-
