@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "productDetail")
-public class ProductDetailController {
+public class    ProductDetailController {
     @Autowired
     private CatalogService catalogService;
     @GetMapping(path = "/{productID}")
