@@ -355,6 +355,7 @@ input[type="checkbox"] {
     color: var(--color-primary);
     transition: 0.4ms;
 }
+
 .catalog--cart-button {
     display: flex;
     max-width: 190px;
@@ -366,10 +367,10 @@ input[type="checkbox"] {
     border-radius: 100px;
     border: 1px solid #111;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .catalog--cart-button:hover {
-    border-radius: 20px;
     background: var(--color-primary, #213555);
     border: none;
     transition: 0.4s;

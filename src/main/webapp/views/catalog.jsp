@@ -97,10 +97,13 @@
                                 <div class="item-content">
                                     <a href="productDetail/${product.getId()}" class="item--name">${product.getName()}</a>
                                     <a href="productDetail/${product.getId()}" class="item--price">${product.getPrice()}₫</a>
-                                    <a href="/huyen" class="catalog--cart-button">
-                                        <i class='bx bx-cart-add'></i>
-                                        <span>Thêm vào giỏ hàng</span>
-                                    </a>
+                                    <form action="/cart/add" method="post">
+                                        <input hidden="hidden" name="productID" value="${product.getId()}">
+                                        <button type="submit" class="catalog--cart-button">
+                                            <i class='bx bx-cart-add'></i>
+                                            <span>Thêm vào giỏ hàng</span>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </c:forEach>

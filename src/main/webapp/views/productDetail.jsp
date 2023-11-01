@@ -42,17 +42,26 @@
                 <div class="product-detail-quantity-stock">
                     <div class="product-input-quantity">
                         <i class='bx bx-minus' id="btnMinus"></i>
-                        <input type="number" value="1" min="1" max="10" id="quantityInput">
+                        <input type="number" value="1" min="1" max="10" id="quantityInput" name="quantityInput">
                         <i class='bx bx-plus' id="btnPlus"></i>
                     </div>
                     <p>Còn ${product.getInStock()} sản phẩm</p>
                 </div>
                 <div class="product-detail-buttons">
-                    <a href="" class="product-buy-button">Mua hàng</a>
-                    <a href="" class="product-add-to-cart-button">
-                        <i class='bx bx-cart-add'></i>
-                        Thêm vào giỏ hàng
-                    </a>
+                    <form action="" method="post" id="orderForm">
+                        <input name="productID" hidden="hidden" value="${product.getId()}">
+                        <input name="quantityInput" id="quantityInput1" hidden="hidden" value="1">
+                        <button type="submit" class="product-buy-button">Mua hàng</button>
+                    </form>
+
+                    <form action="../cart/add" method="post" id="addToCartForm">
+                        <input name="productID" hidden="hidden" value="${product.getId()}">
+                        <input name="quantityInput" id="quantityInput2" hidden="hidden">
+                        <button type="submit" class="product-add-to-cart-button">
+                            <i class='bx bx-cart-add'></i>
+                            Thêm vào giỏ hàng
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -66,27 +75,37 @@
                         <div class="item-content">
                             <a href="../productDetail/${product.getId()}" class="item--name">${product.getName()}</a>
                             <a href="../productDetail/${product.getId()}" class="item--price">${product.getPrice()}₫</a>
-                            <a href="/huyen" class="catalog--cart-button">
-                                <i class='bx bx-cart-add'></i>
-                                <span>Thêm vào giỏ hàng</span>
-                            </a>
+                            <form action="/cart/add" method="post">
+                                <input hidden="hidden" name="productID" value="${product.getId()}">
+                                <button type="submit" class="catalog--cart-button">
+                                    <i class='bx bx-cart-add'></i>
+                                    <span>Thêm vào giỏ hàng</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </c:forEach>
             </div>
     </div>
     <script>
+        const quantityInput = document.getElementById("quantityInput");
+        const addToCartForm = document.getElementById("addToCartForm");
+        const orderForm = document.getElementById("orderForm");
         document.getElementById("btnMinus").addEventListener("click", () => {
-            const quantityInput = document.getElementById("quantityInput");
             if(quantityInput.value > 1) {
                 quantityInput.value = (parseInt(quantityInput.value) - 1).toString();
             }
         });
         document.getElementById("btnPlus").addEventListener("click", () => {
-            const quantityInput = document.getElementById("quantityInput");
             if(quantityInput.value < 10) {
                 quantityInput.value = (parseInt(quantityInput.value) + 1).toString();
             }
+        });
+        addToCartForm.addEventListener("submit", () => {
+            document.getElementById("quantityInput2").value = quantityInput.value;
+        });
+        orderForm.addEventListener("submit", () => {
+            document.getElementById("quantityInput1").value = quantityInput.value;
         })
     </script>
 </body>

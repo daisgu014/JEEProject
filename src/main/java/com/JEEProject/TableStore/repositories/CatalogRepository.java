@@ -9,13 +9,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CatalogRepository extends CrudRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
 
-//    @Query("SELECT p FROM Product p WHERE p.DeleteAt IS NULL")
-//    Page<Product> findProductsNotDeleted(Pageable pageable);
     @Query("select DISTINCT p.color FROM Product p WHERE p.DeleteAt IS NULL")
     Iterable<String> findAllColors();
     @Query(value = "SELECT p FROM Product p WHERE p.DeleteAt IS NULL ORDER BY RAND() LIMIT 4")

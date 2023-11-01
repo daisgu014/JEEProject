@@ -1,7 +1,11 @@
 package com.JEEProject.TableStore.repositories;
 
 import com.JEEProject.TableStore.Model.Cart;
+import com.JEEProject.TableStore.Model.CartKey;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CartRepository {
+@Repository
+public interface CartRepository extends CrudRepository<Cart, CartKey> {
+
 }
