@@ -15,21 +15,35 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <c:set var="count" value="0" scope="page"></c:set>
+                    <c:forEach var="order" items="${orders}">
+                        <c:set var="count" value="${count + 1}" scope="page"/>
                         <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1/1/2023</td>
-                            <td>Chờ xác nhận</td>
-                            <td>100000</td>
-                            <td><button>Edit</button></td>
+                            <td>${count}</td>
+                            <td>${order.getId()}</td>
+                            <td>${order.getCreate_at()}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${!order.isConfirm()}">
+                                        "Đang chờ xác nhận"
+                                        <br />
+                                    </c:when>
+                                    <c:otherwise>
+                                        "Đã xác nhận"
+                                        <br />
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>${String.format("%,d",order.getTotal_price())}</td>
+                            <td><a href="/admin/orders/confirm/?id=${order.getId()}">Edit</a></td>
                         </tr>
                         <tr>
                             <td colspan="6">
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td colspan="3">Mã khách hàng: 1</td>
-                                            <td colspan="3">Tên khách hàng: llll lll lll</td>
+                                            <td colspan="3">Mã khách hàng: ${order.getUser().getId()}</td>
+                                            <td colspan="3">Tên khách hàng: ${order.getUser().getUsername()}l</td>
                                         </tr>
                                         <tr>
                                             <td colspan="6"><h3>Chi tiết sản phẩm</h1></td>
@@ -41,21 +55,27 @@
                                             <th >Số lượng</th>
                                             <th >Đơn giá</th>
                                         </tr>
-                                        <tr>
-                                            <th >1</th>
-                                            <td >llll lll lll</td>
-                                            <td >llll lll lll</td>
-                                            <td >1</td>
-                                            <td >100.000</td>
-                                        </tr>
+                                        <c:forEach var="od" items="${order.getDetails()}">
+                                            <c:set var="p" value="${od.getProduct()}" />
+                                            <tr>
+                                                <th >${p.getId()}</th>
+                                                <td >${p.getName()}</td>
+                                                <td >${p.getColor()}</td>
+                                                <td >${od.getQty()}</td>
+                                                <td >${String.format("%,d",p.getPrice())}</td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
-
+                    </c:forEach>
+                    <c:if test = "${count == 0}">
+                        <p>No order</p>
+                    </c:if>
                     </tbody>
                     <tfoot>
-                        <td colspan="6">Tổng số thể loại: 2</td>
+                        <td colspan="6">Tổng số Đơn hàng: ${count}</td>
                     </tfoot>
                 </table>
             </div>

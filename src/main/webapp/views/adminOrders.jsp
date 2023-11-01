@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title> Quản lý thể loại</title>
+    <title> Quản lý Đơn hàng</title>
     <link rel="stylesheet"  href="/css/productStyle.css">
     <link rel="stylesheet"  href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"

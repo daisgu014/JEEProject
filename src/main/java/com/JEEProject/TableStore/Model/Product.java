@@ -12,6 +12,7 @@ import java.util.Date;
 @Table(name = "products")
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -36,8 +37,10 @@ public class Product {
     @Column(name = "price")
     @NotNull(message = "Giá tiền sản phẩm không được để trống")
     private Integer price;
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date CreateAt;
+    @Temporal(TemporalType.DATE)
     @Column(name = "delete_at")
     private Date DeleteAt;
 
@@ -134,11 +137,23 @@ public class Product {
     public void setDeleteAt(Date deleteAt) {
         DeleteAt = deleteAt;
     }
-    public Product(String name, String color, String status, Integer price, com.JEEProject.TableStore.Model.Category category, Provider provider) {
+    public Product(String name, String color, String status, Integer price, Category category, Provider provider) {
         this.name = name;
         this.color = color;
         Status = status;
         this.price = price;
+        this.category = category;
+        this.provider = provider;
+    }
+
+    public Product(String name, String color, String status, String imgPath, Integer price, Category category, Provider provider) {
+        this.name = name;
+        this.color = color;
+        Status = status;
+        this.inStock = 0;
+        this.imgPath = imgPath;
+        this.price = price;
+        CreateAt = new Date();
         this.category = category;
         this.provider = provider;
     }
