@@ -9,6 +9,8 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +32,11 @@ public class CatalogService {
     public Iterable<Category> findAllCategories() {
         return categoryRepository.findAll();
     }
+    public Optional<Category> findCategoryByID(Integer CategoryID){
+        return categoryRepository.findById(CategoryID);
+    }
     public Optional<Product> findProductByID(Integer ProductID) {
         return catalogRepository.findById(ProductID);
-    }
-    public Page<Product> findProductsNotDeleted(Pageable pageable) {
-        return catalogRepository.findProductsNotDeleted(pageable);
     }
     public Iterable<String> findAllColors() {
         return catalogRepository.findAllColors();
@@ -43,6 +45,8 @@ public class CatalogService {
     public Page<Product> searchProducts(ProductSearchCriteria criteria, Pageable pageable) {
         return catalogRepository.findAll((root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
+
+            predicates.add(cb.isNull(root.get("DeleteAt")));
 
             if (criteria.getName() != null && !criteria.getName().isEmpty()) {
                 predicates.add(cb.like(root.get("name"), "%" + criteria.getName() + "%"));
@@ -74,5 +78,9 @@ public class CatalogService {
 
             return cb.and(predicates.toArray(new Predicate[0]));
         }, pageable);
+    }
+
+    public List<Product> getRandomProducts() {
+        return catalogRepository.findRandomProducts();
     }
 }

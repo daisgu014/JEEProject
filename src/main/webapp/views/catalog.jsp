@@ -4,7 +4,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello Spring MVC</title>
+    <title>Table Shop</title>
     <link type="text/css" href="css/style.css" rel="stylesheet">
     <link type="text/css" href="css/catalogStyle.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -72,7 +72,8 @@
                     </div>
                 </c:forEach>
             </div>
-            <input type="submit" value="Tìm kiếm" class="catalog--filter-side-bar-search-btn"/>
+            <button type="submit" name="btnSubmit" value="submit" class="catalog--filter-side-bar-search-btn">Tìm kiếm</button>
+            <button type="submit" name="btnSubmit" value="cancel" class="catalog--filter-side-bar-cancel-btn">Xóa tất cả</button>
         </form:form>
         <div id="catalog--right-container">
             <div class="catalog--sort-top-bar">
@@ -85,33 +86,38 @@
                     </div>
                 </div>
             </div>
-            <div class="catalog--products-content">
-                <c:choose>
-                    <c:when test="${productPages.totalElements > 0}">
+            <c:choose>
+                <c:when test="${productPages.totalElements > 0}">
+                    <div class="catalog--products-content">
                         <c:forEach var="product" items="${productPages.content}">
-                            <div href="/detail-product/${product.getId()}" class="item">
+                            <div class="item">
                                 <a href="productDetail/${product.getId()}">
                                     <img src="/images/products/${product.getImgPath()}"/>
                                 </a>
-                                <a href="productDetail/${product.getId()}" class="item--name">${product.getName()}</a>
-                                <a href="productDetail/${product.getId()}" class="item--price">${product.getPrice()}₫</a>
-                                <a href="/huyen" class="catalog--cart-button">
-                                    <i class='bx bx-cart-add'></i>
-                                    <span>Thêm vào giỏ hàng</span>
-                                </a>
+                                <div class="item-content">
+                                    <a href="productDetail/${product.getId()}" class="item--name">${product.getName()}</a>
+                                    <a href="productDetail/${product.getId()}" class="item--price">${product.getPrice()}₫</a>
+                                    <form action="/cart/add" method="post">
+                                        <input hidden="hidden" name="productID" value="${product.getId()}">
+                                        <button type="submit" class="catalog--cart-button">
+                                            <i class='bx bx-cart-add'></i>
+                                            <span>Thêm vào giỏ hàng</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- Hiển thị thông báo khi 'end' < 0 -->
-                        <p class="catalog--product-notfound">
-                            <i class='bx bx-sad' style="font-size: 8rem"></i> Không tìm thấy sản phẩm phù hợp.
-                        </p>
-                    </c:otherwise>
-                </c:choose>
-            </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <!-- Hiển thị thông báo khi 'end' < 0 -->
+                    <p class="catalog--product-notfound">
+                        <i class='bx bx-sad' style="font-size: 8rem"></i> Không tìm thấy sản phẩm phù hợp.
+                    </p>
+                </c:otherwise>
+            </c:choose>
             <div class="catalog--paging">
-                <c:if test="${productPages.totalPages > 0}">
+                <c:if test="${productPages.totalPages > 1}">
                     <c:forEach begin="0" end="${productPages.totalPages - 1}" varStatus="page">
                         <a href="/catalog?page=${page.index}"
                            class="<c:if test='${page.index == productPages.number}'>active</c:if>">
