@@ -21,6 +21,10 @@ let categoryEdit =document.getElementById('category-edit');
 let providerEdit = document.getElementById('provider-edit');
 let preImage = document.getElementById('imagePreview-edit');
 let statusEdit = document.getElementById('status-edit');
+let qty = document.getElementById('qty');
+let qtyError = document.getElementById('qty-error');
+let nameFilter = document.getElementById("nameFilter");
+let  nameFilterError = document.getElementById("error-nameFilter")
 const validationName=()=>{
     const nameValue = inputName.value.trim();
     if (nameValue === '') {
@@ -85,7 +89,24 @@ const validationInputFileEdit=()=>{
     }
 
 }
-export {validationName,validationColor,validationPrice,validationInputFile,validationNameEdit,validationColorEdit,validationInputFileEdit,validationPriceEdit,
+const validationQty=()=>{
+    const vndValue = qty.value.trim();
+    if (!(/^\d+(\.\d{1,2})?$/.test(vndValue) && parseFloat(vndValue) > 0)) {
+        qtyError.textContent = 'Vui lòng nhập một số lớn hơn 0.';
+    } else {
+        qtyError.textContent = '';
+    }
+
+}
+const validationNameFilter=()=>{
+    const nameValue = nameFilter.value.trim();
+    if (nameValue === '') {
+        nameFilterError.textContent = 'Tên sản phẩm là bắt buộc nhập.';
+    } else {
+        nameFilterError.textContent = '';
+    }
+}
+export {validationName,validationColor,validationPrice,validationInputFile,validationNameEdit,validationColorEdit,validationInputFileEdit,validationPriceEdit,validationQty,validationNameFilter,
     inputName,
     errorName,
     inputColor,
@@ -107,4 +128,6 @@ export {validationName,validationColor,validationPrice,validationInputFile,valid
     preImage,
     providerEdit,
     categoryEdit,
-    statusEdit}
+    statusEdit,
+    qty,
+    qtyError}
