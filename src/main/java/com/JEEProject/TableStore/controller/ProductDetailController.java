@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "productDetail")
 public class    ProductDetailController {
@@ -20,8 +22,12 @@ public class    ProductDetailController {
     @GetMapping(path = "/{productID}")
     public String getDetail(ModelMap modelMap, @PathVariable Integer productID) {
         if(catalogService.findProductByID(productID).isPresent()) {
-            modelMap.addAttribute("product",catalogService.findProductByID(productID).get());
+            Product p = catalogService.findProductByID(productID).get();
+            modelMap.addAttribute("product", p);
+            modelMap.addAttribute("category", catalogService.findCategoryByID(p.getCategory().getId()).get());
         }
+        List<Product> randomProducts = catalogService.getRandomProducts();
+        modelMap.addAttribute("products", randomProducts);
         return "productDetail";
     }
 }
