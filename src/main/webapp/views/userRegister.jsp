@@ -58,7 +58,6 @@
                     <input class="input-log-content" type="password" name="password" id="inputPassword"  placeholder="Mật khẩu">
                     <label class="lab-log-content">Nhập lại mật khẩu</label>
                     <input class="input-log-content" type="password" id="inputRePassword"  placeholder="Nhập lại mật khẩu">
-                    <input type="hidden" name="role" value="customer">
                     <p class="error-log-text" id="labError">${error}</p>
                     <button class="btn-log-submit" type="submit">Đăng ký</button>
                 </form>
