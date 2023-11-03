@@ -1,0 +1,257 @@
+.header-provider, .container-provider, .header-account, .container-account {
+    width: 100%;
+    height: 10%;
+    /* border: black solid 1px; */
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    background-color: #fff;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+}
+.container-provider, .container-account {
+    height: 90%;
+
+}
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.form-addSupplier,.form-updateSupplier{
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 45%;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius-2);
+    z-index: 2;
+}
+.form-addAccount,  .form-updateAccount{
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    background-color: white;
+    /*padding-top: 20px;*/
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius-2);
+    z-index: 2;
+}
+.form-addSupplier>form, .form-updateSupplier>form{
+    text-align: center;
+}
+.form-addSupplier>form>h2,.form-updateSupplier>form>h2{
+    color: var(--color-primary);
+    margin-bottom: 30px;
+}
+.form-addSupplier>form>input,.form-updateSupplier>form>input
+{
+    margin-bottom: 10px;
+    width: 100% ;
+    border: 1px solid var(--color-info-dark);
+    border-radius: var(--border-radius-2);
+}
+.form-addSupplier>form>button,.form-updateSupplier>form>button{
+    margin-top: 10%;
+    width: 100px;
+    color: #fff;
+    border-radius: var(--border-radius-1);
+    background-color: var(--color-primary);
+
+}
+.btn-addAccountForm, .btn-updateAccountForm{
+    text-align: center;
+}
+
+.btn-addAccount, .btn-addProvider{
+    margin-top: 20px;
+    width: 112px;
+    height: 112px;
+    border: none;
+    color: #ccc;
+    background-color: transparent;
+}
+.btn-addAccount>i, .btn-addProvider>i{
+    font-size: 30px;
+}
+.btn-addAccount:hover,.btn-addProvider:hover{
+    /*background-color: #6c9acfa8;*/
+    color: #6C9BCF;
+}
+#supplierName{
+    border: 1px solid var(--color-info-dark);
+}
+#addSupplierButton{
+    cursor: pointer;
+}
+
+#addSupplierButton:hover{
+    text-decoration: underline;
+}
+.search-container-dai {
+    display: flex;
+    align-items: center;
+    border: #6C9BCF solid 1px;
+    border-radius: 20px;
+    width: 350px;
+    margin: 20px;
+    padding: 5px;
+}
+
+#search-input-dai {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    /* border-radius: 5px; */
+    font-size: 16px;
+    outline: none;
+}
+#search-button-dai {
+    background-color: #ffffff;
+    display: block;
+    /* position: fixed; */
+    color: #0056b3;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#search-button-dai:hover {
+    background-color: #cacaca;
+}
+
+.fa-search-dai {
+    font-size: 20px;
+}
+tbody>tr:hover {
+    background-color:#B0C4DE;
+    cursor: pointer;
+}
+
+/*Account */
+.deleteAccountBtn, .deleteProviderBtn{
+    width: 70px;
+    height: 20px;
+    border: none;
+    border-radius: 15px;
+    text-align: center;
+    background-color: #cccccc;
+}
+.deleteAccountBtn:hover , .deleteProviderBtn:hover{
+    background-color: red;
+}
+#AccountForm,#AccountFormUpdate{
+    width: 700px;
+    border: 1px solid #6C9BCF;
+    border-radius: 1.2rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+#AccountForm>div{
+    padding: 20px;
+}
+.inputContentAddAccount, .inputContentUpdateAccount{
+    width: 700px;
+    display: flex;
+}
+.inputContentAddAccount>div{
+    text-align: center;
+}
+.inputContentAddAccount>div>input{
+    border: none;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+}
+
+.title-addAccountForm{
+    width: 300px;
+    border: 1px solid green;
+    border-radius: 0 30px 30px 0;
+    background-color: #6C9BCF;
+    color: white;
+}
+.btn-addAccountForm, .btn-updateAccountForm{
+    text-align: center;
+
+}
+.btn-addAccountForm>button , .btn-updateAccountForm>button{
+    background-color: #6C9BCF;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    width: 150px;
+    height: 30px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.btn-addAccountForm>button:hover,  .btn-updateAccountForm>button:hover{
+    background-color: #ccc;
+}
+.fixedAccountField{
+    width: 300px;
+    border: 1px solid #6C9BCF ;
+    background-color: #6C9BCF;
+    border-radius: 1.2rem;
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+}
+.fixedAccountField>input{
+    border: none;
+    margin-top: 20px;
+    background-color: transparent;
+}
+.updateAccountField{
+    padding: 20px;
+    width: 400px;
+}
+.updateAccountField>input{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding-top: 10px;
+}
+.updateAccountField>select{
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+#closeFormButton, #closeFormUpdateButton{
+    background-color: #808080;
+    color: rgb(255, 255, 255);
+}
+#closeFormButton:hover, #closeFormUpdateButton:hover{
+
+    background-color: #ccc;
+}
+.page{
+    width: 100%;
+    text-align: center;
+}
+.page>button{
+    width: 50px;
+    height: 30px;
+    color: white;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius-1);
+    cursor: pointer;
+    margin: 5px;
+}
+.page>button:active, .page>button:focus{
+    background-color: #e74c3c;
+    outline: none;
+}
+#update-success, #add-success{
+    text-align: center;
+    width: 100%;
+}
