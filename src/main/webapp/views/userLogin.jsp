@@ -37,7 +37,7 @@
                 <div class="log-footer-frm">
                     <hr class="log-hr">
                     <label class="lab-log-content">Bạn chưa có tài khoản?</label>
-                    <button class="btn-log-button" type="button">Đăng ký</button>
+                    <a href="/user/register" style="text-decoration: none;"><button class="btn-log-button" type="button">Đăng ký</button></a>
                 </div>
             </div>
         </div>

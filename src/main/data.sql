@@ -16,7 +16,6 @@ create Table providers(
     delete_at Date DEFAULT NULL,
     PRIMARY KEY(id),
     UNIQUE(name)
-
 );
 create Table products(
     id Int ZEROFILL AUTO_INCREMENT not NULL,

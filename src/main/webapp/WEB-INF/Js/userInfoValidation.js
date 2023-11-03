@@ -40,16 +40,16 @@ function ClearInputColor(){
     }
 }
 
-function ValidateRegister(){
+function ValidateFirstPage(){
     ClearInputColor();
     ClearError();
-    var isNull = false;
     var username = document.getElementById("inputUsername");
+    var full_name = document.getElementById("inputFull_Name");
     var email = document.getElementById("inputEmail");
     var phone = document.getElementById("inputPhone");
     var address = document.getElementById("inputAddress");
-    var password = document.getElementById("inputPassword");
-    var repassword = document.getElementById("inputRePassword");
+    
+    var isNull = false;
 
     var attention = document.getElementById("labError");
 
@@ -57,6 +57,11 @@ function ValidateRegister(){
        username.style.borderColor = 'var(--color-danger)';
        isNull = true;
     }
+
+    if (full_name.value === ""){
+        full_name.style.borderColor = 'var(--color-danger)';
+        isNull = true;
+     }
 
     if (email.value === ""){
        email.style.borderColor = 'var(--color-danger)';
@@ -73,30 +78,52 @@ function ValidateRegister(){
         isNull = true;
     }
 
-    if (password.value === ""){
-        password.style.borderColor = 'var(--color-danger)';
-        isNull = true;
+    if (!isValidEmail(email.value)){
+        email.style.borderColor = 'var(--color-danger)';
+        attention.textContent = "Email không hợp lệ!";
+        return;
     }
-
-    if (repassword.value === ""){
-        repassword.style.borderColor = 'var(--color-danger)';
-        isNull = true;
+        
+    if(!isValidPhoneNumber(phone.value)){
+        phone.style.borderColor = 'var(--color-danger)';
+        attention.textContent = "Số điện thoại phải có 10 chữ số và bất đầu bằng số 0!";
+        return;
     }
 
     if (isNull){
         attention.textContent = "Xin hãy điền đầy đủ thông tin!";
         return false;
     }
+    OpenPage2();
+}
 
-    if (!isValidEmail(email.value)){
-        email.style.borderColor = 'var(--color-danger)';
-        attention.textContent = "Email không hợp lệ!";
-        return false;
+function OpenPage1Only(){
+    document.getElementById("Page1").style.display = "block"
+}
+
+function ValidateSecondPage(){
+    ClearInputColor();
+    ClearError();
+
+    var password = document.getElementById("inputPassword");
+    var repassword = document.getElementById("inputRePassword");
+    
+    var isNull = false;
+
+    var attention = document.getElementById("labError2");
+
+    if (password.value === ""){
+        password.style.borderColor = 'var(--color-danger)';
+        isNull = true;
     }
-
-    if(!isValidPhoneNumber(phone.value)){
-        phone.style.borderColor = 'var(--color-danger)';
-        attention.textContent = "Số điện thoại phải có 10 chữ số và bất đầu bằng số 0!";
+        
+    if (repassword.value === ""){
+        repassword.style.borderColor = 'var(--color-danger)';
+            isNull = true;
+    }
+        
+    if (isNull){
+        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
         return false;
     }
 
@@ -106,8 +133,22 @@ function ValidateRegister(){
         attention.textContent = "Mục Nhập lại mật khẩu không trùng khớp với mật khẩu đã nhập!";
         return false;
     }
-
     return true;
+    OpenPage1Only(); 
+}
+
+function OpenPage1(){
+    document.getElementById("btnSubmit").style.display = "none";
+    document.getElementById("Page2").style.display = "none";
+    document.getElementById("Page1").style.display = "block"
+}
+
+
+
+function OpenPage2(){
+    document.getElementById("btnSubmit").style.display = "block";
+    document.getElementById("Page2").style.display = "block";
+    document.getElementById("Page1").style.display = "none"
 }
 
 function isValidEmail(email) {
