@@ -6,7 +6,7 @@
 }
 
 .log-left{
-    background-color: var(--color-dark-variant);
+    background-color: var(--color-primary);
 }
 
 .frm-login, .frm-register {
@@ -23,10 +23,10 @@
 
 .log-header-content{
     padding: 10px 170px;
-    color: var(--color-dark-variant);
+    color: var(--color-primary);
 }
 
-.lab-log-content, btn-log-button, .input-log-content, .log-getpass, .btn-log-sumbit {
+.lab-log-content, .btn-log-button, .input-log-content, .log-getpass, .btn-log-sumbit {
     display: block;
     margin-bottom: 10px;
 }
@@ -35,7 +35,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-left: 20px;
-    color: var(--color-dark-variant);
+    color: var(--color-primary);
 }
 
 .input-log-content{
@@ -49,7 +49,7 @@
 
 .log-getpass{
     margin-left: 30px;
-    color: var(--color-primary);
+    color: var(--color-info-dark);
     transition-duration: 0.2s;
 }
 
@@ -63,6 +63,7 @@
     color: var(--color-danger);
     margin-left: 30px;
     margin-right:30px;
+    cursor: default;
 }
 
 .btn-log-submit, .btn-log-button{
@@ -76,28 +77,27 @@
     padding: var(--padding-1);
     border-radius: var(--border-radius-2);
     transition-duration: 0.3s;
+    border: 1px var(--color-primary) solid;
 }
 
 .btn-log-submit{
-    border: none;
     color: var(--color-white);
-    background-color: var(--color-dark-variant)
+    background-color: var(--color-primary)
 }
 
 .btn-log-button{
-    border: 1px var(--color-dark-variant) solid;
-    color: var(--color-dark-variant);
+    color: var(--color-primary);
     background-color: var(--color-white);
 }
 
 .btn-log-submit:hover{
-    color: var(--color-white);
-    background-color: var(--color-dark)
+    color: var(--color-primary);
+    background-color: var(--color-white);
 }
 
 .btn-log-button:hover{
     color: var(--color-white);
-    background-color: var(--color-dark-variant);
+    background-color: var(--color-primary);
 }
 
 .log-hr{
@@ -106,4 +106,137 @@
     border: 1px var(--color-info-dark) solid;
     width: auto;
     opacity: 0.3;
+}
+
+/* Profile */
+.user-container{
+    display: grid;
+    grid-template-columns: 250px auto;
+    height: 100vh;
+}
+
+.user-container .user-left{
+    background-color: var(--color-primary);
+}
+
+.user-menu-list, .user-menu-list-exit{
+    display: flex;
+    padding: 20px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--color-white);
+    transition-duration: 0.2s;
+}
+
+.user-menu-list:hover, .user-menu-list-active , .user-menu-list-exit:hover{
+    padding: 20px 30px;
+    background-color: var(--color-white);;
+    transition-duration: 0.2s;
+}
+
+.user-menu-list-active{
+    cursor: default;
+}
+
+
+.user-menu-list:hover, .user-menu-list-active{
+    color: var(--color-dark);
+}
+
+.user-menu-list-exit:hover{
+    color: var(--color-danger);
+}
+
+.userRight{
+    display: grid;
+    grid-template-rows: 100px auto;
+    background-color: var(--color-background);
+}
+
+.user-lab-title{
+    padding: var(--padding-1);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-2);
+    margin: 10px;
+    cursor: default;
+    color: var(--color-dark-variant);
+}
+
+.user-content{
+    padding: var(--padding-1);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-2);
+    margin: 10px;
+}
+
+.user-input-content, .user-password-content{
+    margin: 20px;
+    display: grid;
+}
+
+.user-input-content{
+    grid-template-columns: 150px auto ;
+}
+
+.user-password-content{
+    grid-template-columns: 200px auto ;
+}
+
+.user-input, .user-input-password{
+    width: 100%;
+    font-size: 14px;
+    margin: 10px auto;
+    padding: 5px 25px;
+    border-radius: var(--border-radius-2);
+    color: var(--color-info-dark);
+    background-color: var(--color-white);
+    transition-duration: 0.3s;
+}
+
+.user-input{
+    border: 1px var(--color-white) solid;
+}
+
+.user-input-password{
+    border: 1px var(--color-info-dark) solid;
+}
+
+.user-lab{
+    padding: 12px 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.user-btn, .user-btn-submit{
+    margin: 10px;
+    float: right;
+    font-weight: bold;
+    width: 150px;
+    color: var(--color-white);
+    cursor: pointer;
+    padding: var(--padding-1);
+    border-radius: var(--border-radius-2);
+    transition-duration: 0.3s;
+}
+
+.user-btn-submit{
+    background-color: var(--color-info-dark);
+    border: 1px var(--color-info-dark) solid;
+}
+
+.user-btn{
+    border: 1px var(--color-danger) solid;
+    background-color: var(--color-danger);
+}
+
+.user-btn:hover, .user-btn-submit:hover{
+    background-color: var(--color-white);
+}
+
+.user-btn:hover{
+    color: var(--color-danger);
+}
+.user-btn-submit:hover{
+    color: var(--color-info-dark);
 }

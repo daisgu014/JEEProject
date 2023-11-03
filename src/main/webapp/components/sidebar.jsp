@@ -7,7 +7,6 @@
        </a>
     </div>
     <div class="sidebar">
-
         <ul class="menu">
             <li >
                 <a href="#">
