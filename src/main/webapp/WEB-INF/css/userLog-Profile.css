@@ -182,7 +182,7 @@
     grid-template-columns: 200px auto ;
 }
 
-.user-input, .user-input-password{
+.user-input, .user-input-password, .user-input-none{
     width: 100%;
     font-size: 14px;
     margin: 10px auto;
@@ -193,7 +193,7 @@
     transition-duration: 0.3s;
 }
 
-.user-input{
+.user-input, .user-input-none{
     border: 1px var(--color-white) solid;
 }
 

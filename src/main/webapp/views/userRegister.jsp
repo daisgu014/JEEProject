@@ -28,7 +28,7 @@
                         <label class="lab-log-content">Tên đăng nhập</label>
                         <input class="input-log-content" type="text" name="username"  id="inputUsername"  placeholder="Tên đăng nhập">
                         <label class="lab-log-content">Họ và tên</label>
-                        <input class="input-log-content" type="text" name="full_name"  id="inputFull_Name"  placeholder="Họ và tên">
+                        <input class="input-log-content" type="text" name="fullname"  id="inputFull_Name"  placeholder="Họ và tên">
                         <label class="lab-log-content">Email</label>
                         <input class="input-log-content" type="text" name="email"  id="inputEmail" placeholder="Email">
                         <label class="lab-log-content">Số điện thoại</label>

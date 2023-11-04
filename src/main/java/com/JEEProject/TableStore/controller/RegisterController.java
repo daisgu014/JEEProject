@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,7 @@ public class RegisterController {
 
     @PostMapping(value = "/register_fail")
     public String insertCategory(ModelMap modelMap,@ModelAttribute("account") Account user) {
+        user.setCreateAt(new Date());
         if (!userService.checkEmptyUsername(user)){
             modelMap.addAttribute("error","Username đã được sữ dụng, xin hãy nhập username khác!");
             return "userRegister";

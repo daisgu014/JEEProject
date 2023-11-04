@@ -78,6 +78,11 @@ function ValidateFirstPage(){
         isNull = true;
     }
 
+    if (isNull){
+        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
+        return false;
+    }
+
     if (!isValidEmail(email.value)){
         email.style.borderColor = 'var(--color-danger)';
         attention.textContent = "Email không hợp lệ!";
@@ -88,11 +93,6 @@ function ValidateFirstPage(){
         phone.style.borderColor = 'var(--color-danger)';
         attention.textContent = "Số điện thoại phải có 10 chữ số và bất đầu bằng số 0!";
         return;
-    }
-
-    if (isNull){
-        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
-        return false;
     }
     OpenPage2();
 }

@@ -61,11 +61,11 @@
                 <form class="user-infomation" action="" method="POST" return ValidateRegister()">
                     <div class="user-input-content">
                         <label class="user-lab">Tên đăng nhập:</label>
-                        <input class="user-input" type="text" name="username"  id="inputUsername" placeholder="Tên đăng nhập" value="command" disabled>
+                        <input class="user-input-none" type="text" name="username"  id="inputUsername" placeholder="Tên đăng nhập" value="command" disabled>
                     </div>
                     <div class="user-input-content">
                         <label class="user-lab">Họ tên:</label>
-                        <input class="user-input" type="text" name="full_name"  id="inputFull_Name"  placeholder="Họ và tên" disabled>
+                        <input class="user-input" type="text" name="fullname"  id="inputFull_Name"  placeholder="Họ và tên" disabled>
                     </div>
                     <div class="user-input-content">
                         <label class="user-lab">Email:</label>
