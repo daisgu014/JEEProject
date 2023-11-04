@@ -13,6 +13,8 @@ public class Account {
     @Id
     @Column(name = "id")
     private  int id;
+    @Column(name = "full_name")
+    private  String full_name;
     @Column(name = "username")
     private  String username;
     @Column(name = "password")
@@ -32,8 +34,10 @@ public class Account {
     public Account(){
 
     }
-    public Account(int id, String username, String password, String role, String phone, String email, String address, Date createAt, Date deleteAt) {
+
+    public Account(int id, String full_name, String username, String password, String role, String phone, String email, String address, Date createAt, Date deleteAt) {
         this.id = id;
+        this.full_name = full_name;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -50,6 +54,14 @@ public class Account {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
     public String getUsername() {

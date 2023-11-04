@@ -17,55 +17,41 @@
     <div class="Login">
         <div class="log-left">
             <h1 style="color: white;">Không có gì đâuƯ! :)))</h1>
-            <table>
-               <tr>
-                    <th>id</th>
-                    <th>username</th>
-                    <th>password</th>
-                    <th>role</th>
-                    <th>phone</th>
-                    <th>email</th>
-                    <th>address</th>
-                </tr>
-                <c:forEach var="user" items="${account}">
-                    <tr>
-                        <td>${user.getId()}</td>
-                        <td>${user.getUsername()}</td>
-                        <td>${user.getPassword()}</td>
-                        <td>${user.getRole()}</td>
-                        <td>${user.getPhone()}</td>
-                        <td>${user.getEmail()}</td>
-                        <td>${user.getAddress()}</td>
-                    </tr>
-                </c:forEach>
-            </table>
         </div>
         <div class="log-right">
             <div class="frm-register">
                 <div class="log-header-frm" >
                     <h1 class="log-header-content">Đăng ký</h1>
                 </div>
-                <form action="/user/register/create" method="POST" class="log-container-frm" onsubmit="return ValidateRegister()">
-                    <label class="lab-log-content">Email</label>
-                    <input class="input-log-content" type="text" name="email"  id="inputEmail" placeholder="Email">
-                    <label class="lab-log-content">Tên đăng nhập</label>
-                    <input class="input-log-content" type="text" name="username"  id="inputUsername"  placeholder="Tên đăng nhập">
-                    <label class="lab-log-content">Số điện thoại</label>
-                    <input class="input-log-content" type="text" name="phone" id="inputPhone"  placeholder="Số điện thoại">
-                    <label class="lab-log-content">Địa chỉ</label>
-                    <input class="input-log-content" type="text" name="address" id="inputAddress"  placeholder="Địa chỉ">
-                    <label class="lab-log-content">Mật khẩu</label>
-                    <input class="input-log-content" type="password" name="password" id="inputPassword"  placeholder="Mật khẩu">
-                    <label class="lab-log-content">Nhập lại mật khẩu</label>
-                    <input class="input-log-content" type="password" id="inputRePassword"  placeholder="Nhập lại mật khẩu">
-                    <input type="hidden" name="role" value="customer">
-                    <p class="error-log-text" id="labError">${error}</p>
-                    <button class="btn-log-submit" type="submit">Đăng ký</button>
+                <form action="/user/register/register_fail" method="POST" class="log-container-frm" onsubmit="return ValidateSecondPage()">
+                    <div class="log-page-1" id="Page1">
+                        <label class="lab-log-content">Tên đăng nhập</label>
+                        <input class="input-log-content" type="text" name="username"  id="inputUsername"  placeholder="Tên đăng nhập">
+                        <label class="lab-log-content">Họ và tên</label>
+                        <input class="input-log-content" type="text" name="full_name"  id="inputFull_Name"  placeholder="Họ và tên">
+                        <label class="lab-log-content">Email</label>
+                        <input class="input-log-content" type="text" name="email"  id="inputEmail" placeholder="Email">
+                        <label class="lab-log-content">Số điện thoại</label>
+                        <input class="input-log-content" type="text" name="phone" id="inputPhone"  placeholder="Số điện thoại">
+                        <label class="lab-log-content">Địa chỉ</label>
+                        <input class="input-log-content" type="text" name="address" id="inputAddress"  placeholder="Địa chỉ">
+                        <p class="error-log-text" id="labError">${error}</p>
+                        <button class="btn-log-submit" type="button" onclick="ValidateFirstPage()">Tiếp theo</button>
+                    </div>
+                    <div class="log-page-2"id="Page2" style="display:none">
+                        <label class="lab-log-content">Mật khẩu</label>
+                        <input class="input-log-content" type="password" name="password" id="inputPassword"  placeholder="Mật khẩu">
+                        <label class="lab-log-content">Nhập lại mật khẩu</label>
+                        <input class="input-log-content" type="password" id="inputRePassword"  placeholder="Nhập lại mật khẩu">
+                        <p class="error-log-text" id="labError2">${error}</p>
+                        <button class="btn-log-button" type="button" onclick="OpenPage1()">Quay lại</button>
+                    </div>
+                    <button class="btn-log-submit" id="btnSubmit" style="display:none;" type="submit">Đăng ký</button>
                 </form>
                 <div class="log-footer-frm">
                     <hr class="log-hr">
                     <label class="lab-log-content">Bạn có tài khoản?</label>
-                    <button class="btn-log-button" type="button">Đăng nhập</button>
+                    <a href="/user/login" style="text-decoration: none;"><button class="btn-log-button" type="button">Đăng nhập</button></a>
                 </div>
             </div>
         </div>
