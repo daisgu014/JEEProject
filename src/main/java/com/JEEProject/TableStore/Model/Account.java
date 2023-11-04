@@ -1,6 +1,9 @@
 package com.JEEProject.TableStore.Model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Date;
 
@@ -10,12 +13,12 @@ public class Account {
     @Id
     @Column(name = "id")
     private  int id;
+    @Column(name = "full_name")
+    private  String full_name;
     @Column(name = "username")
     private  String username;
     @Column(name = "password")
     private  String password;
-    @Column(name = "full_name")
-    private  String fullname;
     @Column(name = "role")
     private  String role;
     @Column(name = "phone")
@@ -24,20 +27,19 @@ public class Account {
     private String email;
     @Column(name = "address")
     private  String address;
-    @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
     private Date createAt;
-    @Temporal(TemporalType.DATE)
     @Column(name = "delete_at")
     private Date deleteAt;
     public Account(){
 
     }
-    public Account(int id, String username, String password,String fullname, String role, String phone, String email, String address, Date createAt, Date deleteAt) {
+
+    public Account(int id, String full_name, String username, String password, String role, String phone, String email, String address, Date createAt, Date deleteAt) {
         this.id = id;
+        this.full_name = full_name;
         this.username = username;
         this.password = password;
-        this.fullname = fullname;
         this.role = role;
         this.phone = phone;
         this.email = email;
@@ -54,6 +56,14 @@ public class Account {
         this.id = id;
     }
 
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -68,14 +78,6 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
     }
 
     public String getRole() {
