@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     id.disabled = true;
     username.disabled = true;
-    phone.disabled = true;
+    // phone.disabled = true;
 
     for (var i = 1; i < rows.length; i++) {
         rows[i].addEventListener("dblclick", function() {

@@ -120,8 +120,7 @@
                             ID:  <input type="text" id="accountIdUpdate" placeholder=""><br>
                             Username: <input type="text" id="accountNameUpdate" placeholder="Nhập username"><br>
                             <span id="usernameUpdateError" style="color: red;"></span><br>
-                            Số điện thoại: <input type="text" id="accountPhoneUpdate" placeholder="Nhập số điện thoại"><br>
-                            <span id="phoneUpdateError" style="color: red;"></span><br>
+
                         </div>
                         <div class="updateAccountField">
                             Password: <input type="password" id="accountPassUpdate" placeholder="Nhập password"><br>
@@ -133,6 +132,8 @@
                             <option value="level2">Level 2</option>
                             <option value="level3">Level 3</option>
                         </select> <br>
+                            Số điện thoại: <input type="text" id="accountPhoneUpdate" placeholder="Nhập số điện thoại"><br>
+                            <span id="phoneUpdateError" style="color: red;"></span><br>
                             Email: <input type="text" id="accountEmailUpdate" placeholder="Nhập email"><br>
                             <span id="emailUpdateError" style="color: red;"></span><br>
                             Địa chỉ: <input type="text" id="accountAddressUpdate" placeholder="Nhập địa chỉ"><br>
