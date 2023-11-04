@@ -16,7 +16,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     @Modifying
     @Query("UPDATE Account a " +
             "SET a.password = :#{#account.password}," +
-            " a.fullname = :#{#account.fullname}," +
+            " a.full_name = :#{#account.full_name}," +
             " a.role = :#{#account.role}," +
             " a.address = :#{#account.address}," +
             " a.email = :#{#account.email}  " +
