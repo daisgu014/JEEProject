@@ -71,4 +71,6 @@ const deleteId = (CategoryId)=>{
         return response.text();
     })
 }
+
+
 export {create,editCategory,deleteId,deleteCategories}

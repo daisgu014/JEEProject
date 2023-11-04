@@ -33,16 +33,32 @@ const edit=(formData, id)=>{
         throw  error;
     }
 }
-const deleteProducts=(selectedProductIds)=>{
-    return fetch('/admin/products/delete-products/',{
+
+const addQty=(id,qty)=>{
+    return fetch(`/admin/products/add-qty/${id}`,{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(qty)
+    }).then(response=>{
+        if(!response.ok){
+            throw new Error("Lỗi nhập sản phẩm")
+        }
+        return response.json();
+
+    })
+}
+const deleteProducts=(selectedProductIds)=> {
+    return fetch('/admin/products/delete-products/', {
         method: 'POST',
-        headers:{
+        headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(selectedProductIds)
     })
-        .then(response=>{
-            if(!response.ok){
+        .then(response => {
+            if (!response.ok) {
                 throw new Error('Lỗi xóa sản phẩm');
             }
             return response.json()
@@ -59,4 +75,9 @@ const deleteId = (productId)=>{
         return response.text();
     })
 }
-export {create,edit,deleteId,deleteProducts}
+const search=()=>{
+    return fetch('/admin/products/search',{
+        method:'GET'
+    })
+}
+export {create,edit,deleteId,deleteProducts,addQty,search}

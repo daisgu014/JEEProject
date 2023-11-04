@@ -13,6 +13,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     Account findByPhone(String phone);
     Account findByEmail(String email);
 
+
 //    @Modifying
 //    @Query("UPDATE Account a " +
 //            "SET a.password = :#{#account.password}," +
@@ -23,6 +24,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
 //            " a.phone =  :#{#account.phone}" +
 //            " WHERE a.id = :#{#account.id}" )
 //    void update (@Param("account") Account account);
+
     @Modifying
     @Query("UPDATE Account a " +
             "SET a.deleteAt = :#{#account.deleteAt} WHERE a.id = :#{#account.id}")

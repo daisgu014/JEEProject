@@ -10,7 +10,7 @@ import java.util.Date;
 public class Category {
     @Id
     @Column(name = "id")
-    private  int id;
+    private  Integer id;
     @Column(name = "name")
     private  String name;
 
@@ -23,7 +23,7 @@ public class Category {
     public  Category(){
 
     }
-    public Category(int id, String name, Date createAt, Date deleteAt) {
+    public Category(Integer id, String name, Date createAt, Date deleteAt) {
         this.id = id;
         this.name = name;
         this.createAt = createAt;
@@ -34,11 +34,16 @@ public class Category {
         this.name = name;
     }
 
-    public int getId() {
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

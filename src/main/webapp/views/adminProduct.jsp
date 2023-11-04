@@ -112,10 +112,7 @@
                         <i class="fa-solid fa-filter"></i>
                         <span>Bộ lọc</span>
                     </div>
-                    <div class="search-box">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Tìm kiếm"/>
-                    </div>
+
                 </div>
 
                 <div class="event" id="event">
@@ -125,51 +122,75 @@
                     <div class="btn importBtn">
                         <i class="fas fa-file-import"></i>
                     </div>
-                   <a href="/admin/products/import-history">
-                       <div class="btn historyBtn">
-                           <i class="fas fa-history"></i>
-                       </div>
-                   </a>
+                    <a href="/admin/products/import-history">
+                        <div class="btn historyBtn">
+                            <i class="fas fa-history"></i>
+                        </div>
+                    </a>
                 </div>
                 <div class="btn deleteBtn" id="deleteBtn">
                     <i class="fa-solid fa-trash fa-beat-fade"></i>
                 </div>
             </div>
+            <form id="product--filter" style="width: 100%" action="/admin/products/search" method="get">
             <div class="filter-modal">
-                <div class="category-filter">
-                    <span>Thể loại</span>
-                    <input type="text" id="myComboBox" class="combobox" list="values">
-                    <datalist id="values">
-                        <option value="Option 1">
-                        <option value="Option 2">
-                        <option value="Option 3">
-                        <option value="Option 4">
-                    </datalist>
-                </div>
-                <div class="price-range">
-                    <div class="min-price-input">
-                        <span>Từ: </span>
-                        <input type="number" value="0" min="0" name="min-price" id="minpice">
-                    </div>
-                    <div class="max-price-input">
-                        <span>Đến: </span>
-                        <input type="number" value="0" max="0" name="max-price" id="maxprice" >
-                    </div>
 
-                </div>
-                <div class="status-filter">
-                    Trạng thái:
-                </div>
-                <div class="btnFilter">
-                    <div class="ResetBtn">
-                        Đặt lại
-                    </div>
-                    <div class="filter-Btn">
-                        Lọc
-                    </div>
-                </div>
+                   <div class="search-container">
+                       <div class="search-box">
+                           <i class="fa-solid fa-magnifying-glass"></i>
+                           <input type="text" placeholder="Tìm kiếm" name="nameFilter"/>
+                       </div>
+                   </div>
+                   <div class="category-filter">
+                       <span>Thể loại</span>
+
+                       <select path="category" name="category" id="category-filter">
+                           <c:forEach var="category" items="${categoriesFilter}">
+                               <option value="${category.getId()}">
+                                       ${category.getName()}
+                               </option>
+                           </c:forEach>
+                       </select>
+                   </div>
+                   <div class="price-range">
+                       Khoảng giá:
+                       <div class="min-price-input">
+                           <span>Từ: </span>
+                           <input type="number" value="0" min="0" name="min-price" id="minpice">
+                       </div>
+                       <div class="max-price-input">
+                           <span>Đến: </span>
+                           <input type="number" value="9999999999" max="9999999999" name="max-price" id="maxprice" >
+                       </div>
+
+                   </div>
+                   <div class="status-filter">
+                       Trạng thái:
+                       <select class="input-status" name="status" id="status-filter">
+                           <option value="Tất cả"> Tất cả</option>
+                           <option value="Hoạt động"> Hoạt động</option>
+                           <option value="Không hoạt động"> Không hoạt động</option>
+                       </select>
+                   </div>
+                   <div class="privider-filter">
+                       Nhà cung cấp:
+                       <select path="provider" name="provider" id="provider-filter">
+                           <c:forEach var="provider" items="${providerFilters}">
+                               <option value="${provider.getId()}">
+                                       ${provider.getName()}
+                               </option>
+                           </c:forEach>
+                       </select>
+                   </div>
+                   <div class="btnFilter">
+                       <div class="ResetBtn">
+                           Đặt lại
+                       </div>
+                       <button type="submit" id="filter-submit">Loc</button>
+                   </div>
+
             </div>
-
+            </form>
             <div class="table-container">
                 <table>
                     <thead>
@@ -218,7 +239,7 @@
                             <td class="product-inStock">${product.getInStock()}</td>
                             <td class="product-status">${product.getStatus()}</td>
                             <td><button class="edit_btn_sub">Chỉnh sửa</button>
-                                <button>Nhập hàng</button></td>
+                                <button class="add_qty_sub">Nhập hàng</button></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -406,6 +427,46 @@
         </div>
     </form>
 </div>
+
+<div class="qty_product_popup" style="display: none;">
+    <div class="title">
+        <p>Nhập số lượng của sản phẩm</p>
+        <div class="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+    <form id="qty_product_form" enctype="multipart/form-data">
+        <div class="popup-add-content">
+            <div class="input input-name">
+                <div>
+                    <p class="info-input">Tên sản phẩm</p>
+                   <label class="product-name-qty"></label>
+                </div>
+
+                </div>
+            </div>
+            <div class="input input-color">
+                <div>
+                    <p class="info-input">Màu sắc</p>
+                    <label class="product-color-qty"></label>
+                </div>
+            </div>
+            <div class="input input-qty">
+                <div>
+                    <p class="info-input">Số lượng</p>
+                    <input type="text" name="qty" id="qty">
+                </div>
+                <div id="qty-error" class="error">
+
+                </div>
+            </div>
+                <div class="add-qty-button">
+                    <button type="submit" id="add-qty-button">Thêm</button>
+                </div>
+
+    </form>
+</div>
+
 <script src="/js/event.js" type="text/javascript"></script>
 <script src="/js/productEvent.js" type="module"></script>
 <script src="/js/adminProducts/_request.js" type="module"></script>
