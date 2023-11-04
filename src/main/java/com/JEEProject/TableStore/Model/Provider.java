@@ -9,7 +9,7 @@ import java.util.Date;
 public class Provider {
     @Id
     @Column(name = "id")
-    private  Integer id;
+    private  int id;
     @Column(name = "name")
     private  String name;
     @Temporal(TemporalType.DATE)
@@ -21,23 +21,23 @@ public class Provider {
     public  Provider(){
 
     }
-    public Provider(Integer id, String name, Date createAt, Date deleteAt) {
+    public Provider(int id, String name, Date createAt, Date deleteAt) {
         this.id = id;
         this.name = name;
         this.createAt = createAt;
         this.deleteAt = deleteAt;
     }
 
-    public Provider(Integer id, String name) {
+    public Provider(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
