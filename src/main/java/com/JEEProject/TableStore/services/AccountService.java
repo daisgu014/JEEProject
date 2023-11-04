@@ -7,6 +7,7 @@ import com.JEEProject.TableStore.repositories.ProviderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Date;
 
 import java.util.Optional;
 
@@ -29,9 +30,16 @@ public class AccountService {
     public void create(Account account){
         accountRepository.save(account);
     }
-    @Transactional
+
     public void update(Account account){
-        accountRepository.update(account);
+        Account existAccount = accountRepository.findById(account.getId()).orElse(null);
+        if (existAccount != null){
+            Date currentCreateAt = existAccount.getCreateAt();
+            Date currentDeleteAt = existAccount.getDeleteAt();
+            account.setCreateAt(currentCreateAt);
+            account.setDeleteAt(currentDeleteAt);
+            accountRepository.save(account);
+        }
     }
     @Transactional
     public void delete(Account account){

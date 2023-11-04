@@ -3,6 +3,7 @@ package com.JEEProject.TableStore.controller;
 import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.Model.Provider;
+import com.JEEProject.TableStore.Model.ResponseObject;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.repositories.ProductRepository;
 import com.JEEProject.TableStore.repositories.ProviderRepository;
@@ -11,6 +12,7 @@ import com.JEEProject.TableStore.services.ProductService;
 import com.JEEProject.TableStore.services.ProviderService;
 import com.JEEProject.TableStore.validation.ProductValidator;
 import jakarta.servlet.ServletContext;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,8 +64,19 @@ public class ProductController {
                 return "redirect:/admin/products?page=" + previousPageable.getPageNumber();
             }
         }
-        modelMap.addAttribute("categories",categoryService.getAll());
-        modelMap.addAttribute("providers",providerService.getAll());
+        Iterable<Category> categories = categoryService.getAll();
+        Iterable<Provider> providers = providerService.getAll();
+        List<Category> filterCategory = new ArrayList<>();
+        filterCategory.add(new Category(-1,"Tất cả"));
+        filterCategory.addAll((Collection<? extends Category>)categories);
+        List<Provider> providerFilters = new ArrayList<>();
+        providerFilters.add(new Provider(-1,"Tất cả"));
+        providerFilters.addAll((Collection<? extends Provider>)providers);
+
+        modelMap.addAttribute("categories",categories);
+        modelMap.addAttribute("providers",providers);
+        modelMap.addAttribute("categoriesFilter",filterCategory);
+        modelMap.addAttribute("providerFilters",providerFilters);
         modelMap.addAttribute("productPage",productPage);
         return"adminProduct";
     }
@@ -195,5 +208,70 @@ public class ProductController {
     public ResponseEntity<String> deleteId(@PathVariable Integer id) {
         productService.DeletebyId(id);
         return ResponseEntity.ok("Xóa thành công");
+    }
+
+    @PostMapping("/add-qty/{id}")
+    @ResponseBody
+    public ResponseEntity<ResponseObject> addQty(@RequestBody String qty,
+                                                 @PathVariable Integer id){
+        System.err.println("qty:"+qty);
+
+        Integer qtyValue = Integer.parseInt(qty.replaceAll("\"", ""));
+        Product product;
+       if(productService.findById(id).isPresent()){
+           product = productService.findById(id).get();
+       }else{
+           return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                   new ResponseObject("failed","Sản phẩm không tìm thấy","")
+           );
+       }
+       product.setInStock(product.getInStock()+qtyValue);
+       return ResponseEntity.status(HttpStatus.OK).body(
+               new ResponseObject("ok","nhập sản phẩm "+product.getName()+" với số lượng: "+qtyValue,product)
+       );
+    }
+//    @PostMapping("/search")
+//    @ResponseBody
+//    public ResponseEntity<ResponseObject> search(@RequestParam("name") String name,
+//                                                 @RequestParam("min-price") Integer minPrice,
+//                                                 @RequestParam("max-price") Integer maxPrice,
+//                                                 @RequestParam("category") Integer categoryId,
+//                                                 @RequestParam("status") String status,
+//                                                 @RequestParam("provider") Integer providerId){
+//
+//        System.err.println(name+" "+minPrice+" "+maxPrice+" "+categoryId+" "+status+ " "+providerId);
+//        return ResponseEntity.status(HttpStatus.OK).body(
+//                new ResponseObject("ok","providerId: "+providerId,"")
+//        );
+//
+//    }
+    @GetMapping("/search")
+    public String search(ModelMap modelMap,
+                         @RequestParam(value = "nameFilter",defaultValue = "") String name,
+                         @RequestParam(value = "min-price",defaultValue = "0") String minPrice,
+                         @RequestParam(value = "max-price",defaultValue = "999999999999") String maxPrice,
+                         @RequestParam("category") Integer categoryId,
+                         @RequestParam("status") String status,
+                         @RequestParam("provider") Integer providerId,
+                         @RequestParam(defaultValue = "0") int page,
+                         @RequestParam(defaultValue = "6") int size){
+        System.err.println(name+" "+minPrice+" "+maxPrice+" "+categoryId+" "+status+ " "+providerId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        Page<Product> productPage = productService.getAllWhereDeleteAtIsNull(pageable);
+        Iterable<Category> categories = categoryService.getAll();
+        Iterable<Provider> providers = providerService.getAll();
+        List<Category> filterCategory = new ArrayList<>();
+        filterCategory.add(new Category(-1,"Tất cả"));
+        filterCategory.addAll((Collection<? extends Category>)categories);
+        List<Provider> providerFilters = new ArrayList<>();
+        providerFilters.add(new Provider(-1,"Tất cả"));
+        providerFilters.addAll((Collection<? extends Provider>)providers);
+
+        modelMap.addAttribute("categories",categories);
+        modelMap.addAttribute("providers",providers);
+        modelMap.addAttribute("categoriesFilter",filterCategory);
+        modelMap.addAttribute("providerFilters",providerFilters);
+        modelMap.addAttribute("productPage",productPage);
+        return "adminProduct";
     }
 }

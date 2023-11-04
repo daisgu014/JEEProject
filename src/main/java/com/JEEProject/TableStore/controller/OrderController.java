@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.stream.StreamSupport;
 
 @Controller
-@RequestMapping(path = "/admin/orders/*")
+@RequestMapping(path = "/admin/orders")
 public class OrderController {
 
     @Autowired
