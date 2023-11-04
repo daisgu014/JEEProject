@@ -40,14 +40,15 @@ public class ProductService {
     public Page<Product> getAllWhereDeleteAtIsNull(Pageable pageable){
     return productRepository.findProductsWhereDeleteAtIsNull(pageable);
     }
-    public Page<Product> filter(Pageable pageable, String name, String minPrice, String maxPrice, Integer CategoryId, Integer providerId,String Status){
-        Page<Product> products = getAllWhereDeleteAtIsNull(pageable);
-        Page<Product> filters;
-        Integer minValue = Integer.parseInt(minPrice);
-        Integer maxValue = Integer.parseInt(maxPrice);
-
-
-    }
+//    public Page<Product> filter(Pageable pageable, String name, String minPrice, String maxPrice, Integer CategoryId, Integer providerId,String Status){
+//        Page<Product> products = getAllWhereDeleteAtIsNull(pageable);
+//        Page<Product> filters;
+//        Integer minValue = Integer.parseInt(minPrice);
+//        Integer maxValue = Integer.parseInt(maxPrice);
+//
+//
+//        return filters;
+//    }
     public boolean updateProduct(Integer id, Product product){
         Optional<Product> p = productRepository.findById(id);
         if(p.isPresent()){
