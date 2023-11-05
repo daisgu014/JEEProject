@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "id": "",
                 "username":username.value,
                 "password":password.value,
-                "fullname":fullname.value,
+                "full_name":fullname.value,
                 "role":role.value,
                 "phone": phone.value,
                 "email": email.value,

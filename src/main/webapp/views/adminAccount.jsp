@@ -23,7 +23,6 @@
             </div>
             <div class="header-search">
 
-
             </div>
             <div class="user--info">
                 <img src="./image/img.jpg" alt="">
@@ -38,6 +37,7 @@
                     <th><input type="checkbox" id="checkAll"></th>
                     <th>Mã</th>
                     <th>Username</th>
+                    <th>Họ và tên</th>
                     <th>Loại</th>
                     <th>Ngày Tạo</th>
 <%--                    <th>Ngày Xóa</th>--%>
@@ -52,7 +52,7 @@
                         <td>${account.getId()}</td>
                         <td>${account.getUsername()}</td>
                         <td style="display: none">${account.getPassword()}</td>
-                        <td style="display: none">${account.getFullname()}</td>
+                        <td>${account.getFull_name()}</td>
                         <td>${account.getRole()}</td>
                         <td style="display: none">${account.getPhone()}</td>
                         <td style="display: none">${account.getEmail()}</td>
@@ -74,7 +74,7 @@
                     <i class="fa-solid fa-plus fa-beat"></i><br>
                     <span>Thêm tài khoản</span>
                 </button>
-            </div>>
+            </div>
 
             <div id="overlay"></div>
 

@@ -56,8 +56,13 @@ public class AccountController {
     @RequestMapping(value = "/delete-account", method = RequestMethod.POST)
     @ResponseBody
     public  String deleteAccount(@RequestBody Account data){
-        data.setDeleteAt(new Date());
-        accountService.delete(data);
-        return "Success !";
+
+        try{
+            data.setDeleteAt(new Date());
+            accountService.delete(data);
+            return "success";
+        }catch (Exception e){
+            return e.toString();
+        }
     }
 }
