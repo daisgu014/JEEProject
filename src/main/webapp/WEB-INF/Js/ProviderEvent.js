@@ -14,16 +14,28 @@ var supplierNameError = document.getElementById("supplierNameError");
 var supplierNameUpdateError = document.getElementById("supplierNameUpdateError");
 const checkboxes = document.querySelectorAll('.provider-checkbox');
 const checkAll = document.getElementById('checkAll');
+const deleteAll = document.getElementById('deleteAll-btn');
+const checkProvider = document.getElementsByClassName('provider-checkbox');
 
 checkAll.addEventListener('change', function () {
     checkboxes.forEach(checkbox => {
         checkbox.checked = this.checked;
     });
+    if ( checkAll.checked){
+        deleteAll.style.display = "block";
+    }else {
+        deleteAll.style.display = "none";
+    }
 });
 
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function () {
-        checkAll.checked = checkboxes.length === document.querySelectorAll('.product-checkbox:checked').length;
+        checkAll.checked = checkboxes.length === document.querySelectorAll('.provider-checkbox:checked').length;
+        if (checkbox.checked){
+            deleteAll.style.display = "block";
+        }else {
+            deleteAll.style.display = "none";
+        }
     });
 });
 addSupplierButton.addEventListener("click", function() {
@@ -159,10 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "create_at": "",
                 "delete_at":"",
             }
-            postDataJson(data,"/admin/provider/update-provider",resultMessage);/*
-            overlay.style.display = "none";
-            addSupplierForm.style.display = "none";*/
-
+            postDataJson(data,"/admin/provider/update-provider",resultMessage);
         }
     });
 });
@@ -201,3 +210,59 @@ function deleteProvider(id){
         window.location.reload();
     }
 }
+const searchInput = document.getElementById('search-input-provider');
+searchInput.addEventListener('input', function() {
+    const searchValue = searchInput.value.toLowerCase();
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td');
+        let shouldShow = false;
+
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            if (cell) {
+                const cellText = cell.textContent.toLowerCase();
+                if (cellText.includes(searchValue)) {
+                    shouldShow = true;
+                    break;
+                }
+            }
+        }
+
+        if (shouldShow) {
+            row.style.display = ''; // Hiển thị hàng nếu tìm thấy kết quả
+        } else {
+            row.style.display = 'none'; // Ẩn hàng nếu không tìm thấy kết quả
+        }
+    }
+});
+
+deleteAll.addEventListener('click',function (){
+    var checkboxes = tableBody.getElementsByTagName("input");
+    var rowsToDelete = [];
+    var resultMessage = document.getElementById("delete-success");
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].type === "checkbox" && checkboxes[i].checked) {
+            rowsToDelete.push(checkboxes[i].parentNode.parentNode);
+        }
+    }
+    var listProvider= [];
+    for (var i = 0; i < rowsToDelete.length; i++){
+        var cell = rowsToDelete[i].getElementsByTagName("td");
+        var data = {
+            "id": cell[1].textContent
+        }
+        listProvider.push(data);
+    }
+
+    const confirmation = window.confirm("Bạn có chắc chắn muốn xóa nhà cung cấp ?");
+    if (confirmation) {
+        postDataJson(listProvider,"/admin/provider/deleteall-provider",resultMessage);
+        alert("Xóa thành công!");
+        window.location.reload();
+    } else {
+        alert("Xóa thất bại!");
+        window.location.reload();
+    }
+})

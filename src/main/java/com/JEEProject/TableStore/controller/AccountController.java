@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "admin/account")
@@ -60,6 +61,20 @@ public class AccountController {
         try{
             data.setDeleteAt(new Date());
             accountService.delete(data);
+            return "success";
+        }catch (Exception e){
+            return e.toString();
+        }
+    }
+    @RequestMapping(value = "/deleteall-account", method = RequestMethod.POST)
+    @ResponseBody
+    public  String deleteAllAccount(@RequestBody List<Account> data){
+
+        try{
+            for (Account account : data){
+                account.setDeleteAt(new Date());
+                accountService.delete(account);
+            }
             return "success";
         }catch (Exception e){
             return e.toString();

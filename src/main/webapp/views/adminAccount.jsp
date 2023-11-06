@@ -31,6 +31,19 @@
         </div>
 
         <div class="container-account" style="width: 100%">
+            <div class="header-account">
+                <div class="search-container-account">
+                    <input type="text" id="search-input-account" placeholder="Tìm kiếm..."/>
+                    <button id="search-button-account">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <div class="menu-account">
+                    <div class="menu-options">
+                        <button id="deleteAll-btn"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            </div>
             <table id="accountTable">
                 <thead>
                 <tr>

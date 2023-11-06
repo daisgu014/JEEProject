@@ -1,4 +1,4 @@
-import {create,edit,deleteId, deleteProducts} from "./adminProducts/_request.js";
+import {create, edit, deleteId, deleteProducts, addQty,search} from "./adminProducts/_request.js";
 import {
     validationName,
     validationColor,
@@ -7,7 +7,7 @@ import {
     validationNameEdit,
     validationColorEdit,
     validationPriceEdit,
-    validationInputFileEdit,
+    validationQty,
     inputName,
     inputColor,
     inputPrice,
@@ -23,7 +23,7 @@ import {
     categoryEdit,
     preImage,
     providerEdit,
-    statusEdit, errorNameEdit, errorColorEdit, errorPriceEdit,
+    statusEdit, errorNameEdit, errorColorEdit, errorPriceEdit,qty,qtyError
 } from "./adminProducts/validation.js";
 function addValueToArray(array, value) {
     if(!array.includes(value)){
@@ -38,6 +38,8 @@ function removeFromArray(arr, value) {
 }
 let selectedProductIds=[]
 let editFormProduct = document.querySelector(".edit_product_popup");
+let add_qty_popup = document.querySelector(".qty_product_popup");
+let filter_form= document.querySelector("#product--filter");
 function Init() {
 
 
@@ -49,6 +51,7 @@ function Init() {
     document.querySelector("#overlay").addEventListener("click", ()=>{
         document.querySelector(".products_popup").style.display="none";
         editFormProduct.style.display="none";
+        add_qty_popup.style.display="none";
         document.querySelector("#overlay").style.display="none";
 
     })
@@ -124,7 +127,7 @@ deleteButton.addEventListener("click",()=>{
             alert(error.message); // Hiển thị thông báo lỗi nếu có lỗi
         });
     }else if(selectedProductIds.length==1) {
-       deleteId(selectedProductIds[0]).then(data => {
+        deleteId(selectedProductIds[0]).then(data => {
             alert("Xóa thành công");
             location.reload()
         }).catch(error => {
@@ -170,14 +173,14 @@ document.getElementById('productForm').addEventListener('submit',function (e){
         errorPrice.textContent===''&&
         errorColor.textContent===''&&
         errorFile.textContent==='') {
-            const formData = new FormData(this);
-            create(formData).then(data =>
-            {
-                location.reload();
-            }).catch(error=>
-            {
-                alert(error.message)
-            })
+        const formData = new FormData(this);
+        create(formData).then(data =>
+        {
+            location.reload();
+        }).catch(error=>
+        {
+            alert(error.message)
+        })
     }
 
 })
@@ -192,10 +195,10 @@ const findOptionValue=(selectElement, optionName)=>{
     return value;
 }
 let btnEdits = document.querySelectorAll(".edit_btn_sub");
-let id=0;
+let idEdit=0;
 btnEdits.forEach(btn=>{
     btn.addEventListener("click",()=>{
-        id=btn.closest('tr').querySelector('.product-id').textContent;
+        idEdit=btn.closest('tr').querySelector('.product-id').textContent;
         editFormProduct.style.display="block";
         inputNameEdit.value = btn.closest('tr').querySelector('.info_product .product-name').textContent;
         inputColorEdit.value=btn.closest('tr').querySelector('.product-color').textContent;
@@ -254,11 +257,43 @@ inputFileEdit.addEventListener('change', function (e) {
 });
 document.getElementById('edit_product_form').addEventListener('submit',function (e){
     e.preventDefault();
-    updateProduct(id)
+    updateProduct(idEdit)
     if(errorNameEdit.textContent===''
         && errorColorEdit.textContent===''
         && errorPriceEdit.textContent===''){
         const formData = new FormData(this);
-        edit(formData,id).then(data=>location.reload()).catch(error=>alert(error))
+        edit(formData,idEdit).then(data=>location.reload()).catch(error=>alert(error))
     }
+})
+let idUpdate;
+document.querySelectorAll('.add_qty_sub').forEach(btn=>{
+    btn.addEventListener('click',function (){
+        idUpdate=btn.closest('tr').querySelector('.product-id').textContent;
+        add_qty_popup.style.display="block";
+        document.querySelector("#overlay").style.display="block";
+        document.querySelector('.product-name-qty').innerHTML=btn.closest('tr').querySelector('.info_product .product-name').textContent;
+        document.querySelector('.product-color-qty').innerHTML=btn.closest('tr').querySelector('.product-color').textContent;
+    })
+})
+if(add_qty_popup){
+    qty.addEventListener("change",validationQty);
+    document.getElementById('qty_product_form').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        validationQty();
+        if(qtyError.textContent===''){
+            addQty(idUpdate,qty.value).then(data=>{
+                alert(data.message)
+                location.reload()
+
+
+            }).catch(error=>{
+                alert(error);
+            })
+        }
+
+    })
+}
+filter_form.addEventListener("submit",function (e){
+    const FilterData = new FormData(this);
+
 })

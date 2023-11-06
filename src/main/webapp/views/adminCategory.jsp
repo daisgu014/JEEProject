@@ -177,7 +177,6 @@
                                 <th><input type="hidden" ></th>
                             </c:otherwise>
                         </c:choose>
-
                         <th>Mã thể loại</th>
                         <th>Tên thể loại </th>
                         <th>Hành động</th>
