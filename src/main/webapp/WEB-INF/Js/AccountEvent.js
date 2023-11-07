@@ -14,6 +14,7 @@ const pagination = document.getElementById('pagination');
 const tableBody = accountTable.querySelector('tbody');
 const rows = tableBody.querySelectorAll('tr');
 const pageCount = Math.ceil(rows.length / itemsPerPage);
+const deleteAll = document.getElementById('deleteAll-btn');
 
 function displayPage(page) {
     const start = (page - 1) * itemsPerPage;
@@ -119,6 +120,41 @@ function validateField(inputId, errorId, errorMessage) {
         error.textContent = "";
     }
 }
+function isPhoneNumberValid(inputId, errorId, errorMessage) {
+    const phoneNumberPattern = /^0\d{9}$/;
+    var input = document.getElementById(inputId);
+    var error = document.getElementById(errorId);
+    if (input.value.trim() === "") {
+        error.textContent = "Vui lòng nhập số điện thoại.";
+        isValid = false;
+    } else {
+        if (phoneNumberPattern.test(input.value.trim())) {
+            isValid = true;
+            error.textContent = "";
+        } else {
+            error.textContent = errorMessage;
+            isValid = false;
+        }
+    }
+}
+function isEmailValid(email,errorId,errorMessage) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    var input = document.getElementById(email);
+    var error = document.getElementById(errorId);
+    if (input.value.trim() === "") {
+        error.textContent = "Vui lòng nhập số email.";
+        isValid = false;
+    } else {
+        if (emailPattern.test(input.value.trim())) {
+            isValid = true;
+            error.textContent = "";
+        } else {
+            error.textContent = errorMessage;
+            isValid = false;
+        }
+    }
+}
+
 //Thêm tài khoản
 document.addEventListener("DOMContentLoaded", function() {
     var dataForm = document.getElementById("AccountForm");
@@ -130,14 +166,15 @@ document.addEventListener("DOMContentLoaded", function() {
         validateField("accountName", "usernameError", "Vui lòng nhập tên người dùng.");
         validateField("accountPass", "passwordError", "Vui lòng nhập mật khẩu.");
         validateField("accountFullname", "fullnameError", "Vui lòng nhập tên người dùng.")
-        validateField("accountPhone", "phoneError", "Vui lòng nhập số điện thoại.");
-        validateField("accountEmail", "emailError", "Vui lòng nhập email.");
+        // validateField("accountPhone", "phoneError", "Vui lòng nhập số điện thoại.");
+        isPhoneNumberValid("accountPhone", "phoneError", "Vui lòng nhập số điện thoại đủ 10 số.");
+        // validateField("accountEmail", "emailError", "Vui lòng nhập email.");
+        isEmailValid("accountEmail", "emailError", "Vui lòng nhập email đúng định dạng (vd: abc@abc).");
         validateField("accountAddress", "addressError", "Vui lòng nhập địa chỉ.");
 
         if (!isValid) {
             return false;
         } else {
-
             var username = document.getElementById("accountName");
             var password = document.getElementById("accountPass");
             var fullname = document.getElementById("accountFullname");
@@ -149,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "id": "",
                 "username":username.value,
                 "password":password.value,
-                "fullname":fullname.value,
+                "full_name":fullname.value,
                 "role":role.value,
                 "phone": phone.value,
                 "email": email.value,
@@ -195,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "id": id.value,
                 "username":username.value,
                 "password":password.value,
-                "fullname":fullname.value,
+                "full_name":fullname.value,
                 "role":role.value,
                 "phone": phone.value,
                 "email": email.value,
@@ -268,10 +305,76 @@ checkAll.addEventListener('change', function () {
     checkboxes.forEach(checkbox => {
         checkbox.checked = this.checked;
     });
+    if ( checkAll.checked){
+        deleteAll.style.display = "block";
+    }else {
+        deleteAll.style.display = "none";
+    }
 });
 
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function () {
         checkAll.checked = checkboxes.length === document.querySelectorAll('.product-checkbox:checked').length;
+        if ( checkbox.checked){
+            deleteAll.style.display = "block";
+        }else {
+            deleteAll.style.display = "none";
+        }
     });
+
 });
+const searchInput = document.getElementById('search-input-account');
+searchInput.addEventListener('input', function() {
+    const searchValue = searchInput.value.toLowerCase();
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td');
+        let shouldShow = false;
+
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            if (cell) {
+                const cellText = cell.textContent.toLowerCase();
+                if (cellText.includes(searchValue)) {
+                    shouldShow = true;
+                    break; // Không cần kiểm tra các ô khác nếu tìm thấy kết quả
+                }
+            }
+        }
+
+        if (shouldShow) {
+            row.style.display = ''; // Hiển thị hàng nếu tìm thấy kết quả
+        } else {
+            row.style.display = 'none'; // Ẩn hàng nếu không tìm thấy kết quả
+        }
+    }
+});
+deleteAll.addEventListener('click',function (){
+    var checkboxes = tableBody.getElementsByTagName("input");
+    var rowsToDelete = [];
+    var resultMessage = document.getElementById("delete-success");
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].type === "checkbox" && checkboxes[i].checked) {
+            rowsToDelete.push(checkboxes[i].parentNode.parentNode);
+        }
+    }
+    var listAccount= [];
+    for (var i = 0; i < rowsToDelete.length; i++){
+        var cell = rowsToDelete[i].getElementsByTagName("td");
+        var data = {
+            "id": cell[1].textContent
+        }
+        listAccount.push(data);
+    }
+
+    const confirmation = window.confirm("Bạn có chắc chắn muốn xóa tài khoản ?");
+    if (confirmation) {
+        postDataJson(listAccount,"/admin/account/deleteall-account",resultMessage);
+        alert("Xóa thành công!");
+        window.location.reload();
+    } else {
+        alert("Xóa thất bại!");
+        window.location.reload();
+    }
+})

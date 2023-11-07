@@ -29,12 +29,21 @@
 
         </div>
         <div class="container-provider" style="width: 100%">
-<%--            <div class="search-container-dai">--%>
-<%--                <input type="text" id="search-input-dai" placeholder="Tìm kiếm..."/>--%>
-<%--                <button id="search-button-dai">--%>
-<%--                    <i class="fa-solid fa-magnifying-glass"></i>--%>
-<%--                </button>--%>
-<%--            </div>--%>
+            <div class="header-provider">
+                <div class="search-container-provider">
+                    <input type="text" id="search-input-provider" placeholder="Tìm kiếm..."/>
+                    <button id="search-button-provider">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <div class="menu-provider">
+<%--                    <button id="menuButton"><i class="fa-solid fa-bars"></i></button>--%>
+                    <div class="menu-options">
+                        <button id="deleteAll-btn"><i class="fa-solid fa-trash-can"></i></button>
+<%--                        <button id="deleted-btn"><i class="fa-solid fa-clock-rotate-left"></i></button>--%>
+                    </div>
+                </div>
+            </div>
             <table id="supplierTable">
                 <thead>
                     <tr>
@@ -72,7 +81,7 @@
                     <i class="fa-solid fa-plus fa-beat"></i><br>
                     <span>Thêm tài khoản</span>
                 </button>
-            </div>>
+            </div>
             <div id="overlay"></div>
 
             <div id="addSupplierForm" class="form-addSupplier">
