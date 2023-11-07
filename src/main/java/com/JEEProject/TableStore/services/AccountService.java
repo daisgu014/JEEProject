@@ -41,9 +41,12 @@ public class AccountService {
             accountRepository.save(account);
         }
     }
-    @Transactional
     public void delete(Account account){
-        accountRepository.delete(account);
+        Account existAccount = accountRepository.findById(account.getId()).orElse(null);
+        if (existAccount != null){
+            existAccount.setDeleteAt(account.getDeleteAt());
+            accountRepository.save(existAccount);
+        }
     }
 
 }
