@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/user/login" id="user-back-to-shop" class="user-menu-list-exit">
+                        <a href="/user/logout" id="user-back-to-shop" class="user-menu-list-exit">
                             <i class="fa-solid fa-right-from-bracket" style="margin-right: 5px; margin-top: 2px;"></i>
                             <p>Đăng xuất</p>
                         </a>
@@ -58,8 +58,113 @@
         <div class="userRight">
             <div class="user-head"><h1 class="user-lab-title">Đơn hàng đã mua<h1></div>
             <div class="user-content">
-                <div class="use-order-table">
-                    Nothing
+                <div class="user-table">
+                    <div class="user-table-header">
+                        <p>Ngày mua</p>
+                        <p>Tổng giá</p>
+                    </div>
+                    <div class="user-table-data">
+                        <div class="user-order">
+                            <div class="user-main-data">
+                                <p>22/2</p>
+                                <p>999999 vnd</p>
+                            </div>
+                            <div class="user-sub-data"> 
+                                <div class="user-table-sub-header">
+                                    <p>Tên sản phẩm</p>
+                                    <p>Số lượng</p>
+                                    <p>Đơn giá</p>
+                                </div>
+                                <div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-order">
+                            <div class="user-main-data">
+                                <p>22/2</p>
+                                <p>999999 vnd</p>
+                            </div>
+                            <div class="user-sub-data"> 
+                                <div class="user-table-sub-header">
+                                    <p>Tên sản phẩm</p>
+                                    <p>Số lượng</p>
+                                    <p>Đơn giá</p>
+                                </div>
+                                <div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-order">
+                            <div class="user-main-data">
+                                <p>22/2</p>
+                                <p>999999 vnd</p>
+                            </div>
+                            <div class="user-sub-data"> 
+                                <div class="user-table-sub-header">
+                                    <p>Tên sản phẩm</p>
+                                    <p>Số lượng</p>
+                                    <p>Đơn giá</p>
+                                </div>
+                                <div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-order">
+                            <div class="user-main-data">
+                                <p>22/2</p>
+                                <p>999999 vnd</p>
+                            </div>
+                            <div class="user-sub-data"> 
+                                <div class="user-table-sub-header">
+                                    <p>Tên sản phẩm</p>
+                                    <p>Số lượng</p>
+                                    <p>Đơn giá</p>
+                                </div>
+                                <div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                    <div class="user-table-sub-content">
+                                        <p>Tên sản phẩm</p>
+                                        <p>99</p>
+                                        <p>999000</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

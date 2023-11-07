@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/user/login" id="user-back-to-shop" class="user-menu-list-exit">
+                        <a href="/user/logout" id="user-back-to-shop" class="user-menu-list-exit">
                             <i class="fa-solid fa-right-from-bracket" style="margin-right: 5px; margin-top: 2px;"></i>
                             <p>Đăng xuất</p>
                         </a>
@@ -58,30 +58,30 @@
         <div class="userRight">
             <div class="user-head"><h1 class="user-lab-title">Thông tin người dùng<h1></div>
             <div class="user-content">
-                <form class="user-infomation" action="" method="POST" return ValidateRegister()">
+                <form class="user-infomation" action="/user/profile" method="POST" onsubmit="return ValidateProfile()">
                     <div class="user-input-content">
                         <label class="user-lab">Tên đăng nhập:</label>
-                        <input class="user-input-none" type="text" name="username"  id="inputUsername" placeholder="Tên đăng nhập" value="command" disabled>
+                        <input class="user-input-none" type="text" name="username"  id="inputUsername" value="${account.username}" disabled>
                     </div>
                     <div class="user-input-content">
                         <label class="user-lab">Họ tên:</label>
-                        <input class="user-input" type="text" name="fullname"  id="inputFull_Name"  placeholder="Họ và tên" disabled>
+                        <input class="user-input" type="text" name="fullname"  id="inputFull_Name" value="${account.fullname}"  placeholder="Họ và tên" disabled>
                     </div>
                     <div class="user-input-content">
                         <label class="user-lab">Email:</label>
-                        <input class="user-input" type="text" name="email"  id="inputEmail" placeholder="Email" disabled>
+                        <input class="user-input" type="text" name="email"  id="inputEmail" value="${account.email}" placeholder="Email" disabled>
                     </div>
                     <div class="user-input-content">
                         <label class="user-lab">Số điện thoại:</label>
-                        <input class="user-input" type="text" name="phone" id="inputPhone"  placeholder="Số điện thoại" disabled>
+                        <input class="user-input" type="text" name="phone" id="inputPhone" value="${account.phone}" placeholder="Số điện thoại" disabled>
                     </div>
                     <div class="user-input-content">
                         <label class="user-lab">Địa chỉ:</label>
-                        <input class="user-input" type="text" name="address" id="inputAddress"  placeholder="Địa chỉ" disabled>
+                        <input class="user-input" type="text" name="address" id="inputAddress" value="${account.address}" placeholder="Địa chỉ" disabled>
                     </div>
-                    <p class="error-log-text" id="labError"></p>
+                    <p class="error-log-text" id="labError">${error}</p>
                     <button class="user-btn-submit" id="btnOpen" type="button" onclick="OpenSetting()">Chỉnh sửa</button>
-                    <button class="user-btn-submit" id="btnSubmit" style="display: none" type="button" onclick="ValidateProfile()">Xác nhận</button>
+                    <button class="user-btn-submit" id="btnSubmit" style="display: none" type="submit">Xác nhận</button>
                     <button class="user-btn" id="btnCancel" style="display: none" type="button" onclick="CloseSetting()">Hủy bỏ</button>
                 </form>
             </div>

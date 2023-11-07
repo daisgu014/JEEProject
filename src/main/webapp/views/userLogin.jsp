@@ -23,7 +23,7 @@
                 <div class="log-header-frm" >
                     <h1 class="log-header-content">Đăng nhập</h1>
                 </div>
-                <form action="/user/login/checkLogin" method="POST"  class="log-container-frm" onsubmit="return ValidateLogin()">
+                <form action="/user/login" method="POST"  class="log-container-frm" onsubmit="return ValidateLogin()">
                     <label class="lab-log-content">Tên đăng nhập</label>
                     <input class="input-log-content" type="text" name="username" id="inputUsername" placeholder="Tên đăng nhập">
                     <p class="error-log-text" id="labErrorUsername"></p>

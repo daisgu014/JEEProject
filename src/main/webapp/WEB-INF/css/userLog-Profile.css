@@ -240,3 +240,63 @@
 .user-btn-submit:hover{
     color: var(--color-info-dark);
 }
+
+
+ /* Css cho table */
+.user-table{
+    background-color: var(--color-background);
+    margin: 20px;
+    height: 90%;
+    border: 1px var(--color-dark-variant) solid;
+    
+}
+
+.user-table-header{
+    background-color: var(--color-dark);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 8px 10px;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.user-main-data{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 8px 10px;
+    text-align: center;
+    background-color: var(--color-white);
+}
+
+.user-table-data{
+    overflow-y: scroll;
+    height: 500px;
+}
+
+.user-sub-data{
+    max-height: 1px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.user-order:hover .user-sub-data{
+    max-height: 9999px; 
+    transition: max-height 0.3s ease;
+}
+
+.user-table-sub-header{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 8px 10px;
+    text-align: center;
+    background-color:  var(--color-info-dark);;
+}
+
+.user-table-sub-content{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 8px 10px;
+    text-align: center;
+    background-color: var(--color-dark-variant);
+    color: var(--color-white)
+}

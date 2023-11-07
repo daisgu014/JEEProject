@@ -83,6 +83,12 @@ function ValidateFirstPage(){
         return false;
     }
 
+    if(!isValidFullName(full_name.value)){
+        full_name.style.borderColor = 'var(--color-danger)';
+        attention.textContent = "Họ và tên không hợp lệ!";
+        return;
+    }
+
     if (!isValidEmail(email.value)){
         email.style.borderColor = 'var(--color-danger)';
         attention.textContent = "Email không hợp lệ!";
@@ -159,4 +165,9 @@ function isValidEmail(email) {
 function isValidPhoneNumber(phone) {
     var phonePattern = /^(0\d{9})$/;
     return phonePattern.test(phone);
+}
+
+function isValidFullName(input) {
+  var pattern = /^[a-zA-Z\s]{3,}/;
+  return pattern.test(input);
 }

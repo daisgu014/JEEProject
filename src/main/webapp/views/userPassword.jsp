@@ -47,10 +47,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/user/login" id="user-back-to-shop" class="user-menu-list-exit">
+                         <a href="/user/logout" id="user-back-to-shop" class="user-menu-list-exit">
                             <i class="fa-solid fa-right-from-bracket" style="margin-right: 5px; margin-top: 2px;"></i>
                             <p>Đăng xuất</p>
-                        </a>
+                         </a>
                     </li>
                 </ul>
             </div>
@@ -58,10 +58,10 @@
         <div class="userRight">
             <div class="user-head"><h1 class="user-lab-title">Thay đổi mật khẩu<h1></div>
             <div class="user-content">
-                <form class="user-infomation" action="" method="POST" return ValidateRegister()">
+                <form class="user-infomation" action="/user/password" method="POST" onsubmit="return ValidatePassword()">
                     <div class="user-password-content">
                         <label class="user-lab">Mật khẩu cũ</label>
-                        <input class="user-input-password" type="password" name="password"  id="inputPassword" placeholder="Mật khẩu cũ">
+                        <input class="user-input-password" type="password"  name="password" id="inputPassword" placeholder="Mật khẩu cũ">
                     </div>
                     <div class="user-password-content">
                         <label class="user-lab">Mật khẩu mới</label>
@@ -69,10 +69,10 @@
                     </div>
                     <div class="user-password-content">
                         <label class="user-lab">Nhập lại mật khẩu mới</label>
-                        <input class="user-input-password" type="password" name="reNewPassword" id="inputReNewPassword"  placeholder="Nhập lại mật khẩu mới">
+                        <input class="user-input-password" type="password" id="inputReNewPassword"  placeholder="Nhập lại mật khẩu mới">
                     </div>
-                    <p class="error-log-text" id="labError"></p>
-                    <button class="user-btn-submit" id="btnSubmit" type="button" onclick="ValidatePassword()">Xác nhận</button>
+                    <p class="error-log-text" id="labError">${error}</p>
+                    <button class="user-btn-submit" id="btnSubmit" type="submit">Xác nhận</button>
                     <button class="user-btn" id="btnCancel" type="button" onclick="ClearPassword()">Làm mới</button>
                 </form>
             </div>

@@ -23,7 +23,7 @@
                 <div class="log-header-frm" >
                     <h1 class="log-header-content">Đăng ký</h1>
                 </div>
-                <form action="/user/register/register_fail" method="POST" class="log-container-frm" onsubmit="return ValidateSecondPage()">
+                <form action="/user/register" method="POST" class="log-container-frm" onsubmit="return ValidateSecondPage()">
                     <div class="log-page-1" id="Page1">
                         <label class="lab-log-content">Tên đăng nhập</label>
                         <input class="input-log-content" type="text" name="username"  id="inputUsername"  placeholder="Tên đăng nhập">

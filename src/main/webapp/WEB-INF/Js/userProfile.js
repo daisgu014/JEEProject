@@ -167,6 +167,12 @@ function ValidateProfile(){
         return false;
     }
 
+     if(!isValidFullName(full_name.value)){
+         full_name.style.border = "1px var(--color-danger) solid";
+         attention.textContent = "Họ và tên không hợp lệ!";
+         return false;
+     }
+
     if (!isValidEmail(email.value)){
         email.style.border = "1px var(--color-danger) solid";
         attention.textContent = "Email không hợp lệ!";
@@ -186,7 +192,6 @@ function ValidateProfile(){
         var defaultValue = inputElement.defaultValue;
 
         if (inputValue === defaultValue) {
-            // Nếu giá trị hiện tại bằng giá trị ban đầu, đánh dấu lỗi
             count++;
         }
     });
@@ -223,4 +228,9 @@ function isValidEmail(email) {
 function isValidPhoneNumber(phone) {
     var phonePattern = /^(0\d{9})$/;
     return phonePattern.test(phone);
+}
+
+function isValidFullName(input) {
+  var pattern = /^[a-zA-Z\s]{3,}$/;
+  return pattern.test(input);
 }
