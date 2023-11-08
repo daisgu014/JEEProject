@@ -1,6 +1,9 @@
 package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Account;
+import com.JEEProject.TableStore.Model.Order;
+import com.JEEProject.TableStore.repositories.OrderRepository;
+import com.JEEProject.TableStore.services.OrderService;
 import com.JEEProject.TableStore.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.StreamSupport;
 
 @Controller
 @RequestMapping(path = "user")
@@ -79,13 +86,16 @@ public class UserProfileController {
 
 // Trang thông tin đơn hàng đã mua
     @RequestMapping(value = "/purchased")
-    public String getAllUserPurchased(ModelMap modelMap, HttpSession session) {
+    public ModelAndView getAllUserPurchased(ModelMap modelMap, HttpSession session) {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
-            modelMap.addAttribute("account", user);
-            return "userPurchased";
+            ModelAndView mv = new ModelAndView("/userPurchased");
+            mv.addObject("orders",
+                    StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false).toList());
+            return mv;
         } else {
-            return "redirect:/user/login";
+            ModelAndView mv = new ModelAndView("redirect:/user/login");
+            return mv;
         }
     }
 

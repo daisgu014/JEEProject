@@ -1,15 +1,22 @@
 package com.JEEProject.TableStore.services;
 
 import com.JEEProject.TableStore.Model.Account;
+import com.JEEProject.TableStore.Model.Order;
 import com.JEEProject.TableStore.repositories.AccountRepository;
+import com.JEEProject.TableStore.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     @Value("${default.role:customer}")
     private String role;
@@ -83,5 +90,9 @@ public class UserService {
         account.setPassword(newPassword);
         accountRepository.save(account);
         return true;
+    }
+
+    public List<Order>getAllUserOrder(int user_id){
+        return orderRepository.findByUserId(user_id);
     }
 }

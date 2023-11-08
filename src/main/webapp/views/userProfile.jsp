@@ -14,49 +14,47 @@
 </head>
 <body>
     <div class="user-container">
-        <div class="user-left">
+        <div class="user-up">
             <div class="logo">
-                <a style="display: flex; justify-content: center;">
-                    <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
+                <a href="/catalog" style="display: flex; justify-content: center;">
+                    <img src="/images/avt.png" style="padding: var(--padding-1);height: 80px; object-fit:cover;">
                 </a>
             </div>
-            <div class="user-sidebar">
-                <ul class="user-menu">
-                    <li>
-                        <a class="user-menu-list user-menu-list-active">
-                            <i class="fa-solid fa-user" style="margin-right: 5px; margin-top: 2px;"></i>
-                            <p> Thông tin tài khoản</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user/password" class="user-menu-list">
-                            <i class="fa-solid fa-lock" style="margin-right: 5px; margin-top: 2px;"></i>
-                            <p> Đổi mật khẩu</p>
-                        </a>
-                    </li>
-                    <li style="margin-bottom: 200px;">
-                        <a href="/user/purchased" class="user-menu-list">
-                            <i class="fa-solid fa-money-bill" style="margin-right: 5px; margin-top: 2px;"></i>
-                            <p>Đơn hàng đã mua</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/catalog" class="user-menu-list-exit">
-                            <i class="fa-solid fa-cart-shopping" style="margin-right: 5px; margin-top: 2px;"></i>
-                            <p>Về trang mua hàng</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/user/logout" id="user-back-to-shop" class="user-menu-list-exit">
-                            <i class="fa-solid fa-right-from-bracket" style="margin-right: 5px; margin-top: 2px;"></i>
-                            <p>Đăng xuất</p>
-                        </a>
-                    </li>
-                </ul>
+            <div class="user-head"><h1 class="user-lab-title">Đơn hàng đã mua<h1></div>
+            <div class="user-menu">
+                <div>
+                    <a href="/user/logout" id="user-back-to-shop" class="user-menu-list-exit">
+                        <i class="fa-solid fa-right-from-bracket" style="margin-right: 5px; margin-top: 2px;"></i>
+                        <p class="user-menu-name">Đăng xuất</p>
+                    </a>
+                </div>
+                <div>
+                    <a href="/catalog" class="user-menu-list-exit">
+                        <i class="fa-solid fa-cart-shopping" style="margin-right: 5px; margin-top: 2px;"></i>
+                        <p class="user-menu-name">Về trang mua hàng</p>
+                    </a>
+                </div>
+                <div>
+                    <a  href="/user/purchased" class="user-menu-list">
+                        <i class="fa-solid fa-money-bill" style="margin-right: 5px; margin-top: 2px;"></i>
+                        <p class="user-menu-name">Đơn hàng đã mua</p>
+                    </a>
+                </div>
+                <div>
+                    <a href="/user/password" class="user-menu-list">
+                        <i class="fa-solid fa-lock" style="margin-right: 5px; margin-top: 2px;"></i>
+                        <p class="user-menu-name"> Đổi mật khẩu</p>
+                    </a>
+                </div>
+                <div>
+                    <a class="user-menu-list-active">
+                        <i class="fa-solid fa-user" style="margin-left: 2px; font-size: 20px;"></i>
+                        <p class="user-menu-name-active">Thông tin người dùng</p>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="userRight">
-            <div class="user-head"><h1 class="user-lab-title">Thông tin người dùng<h1></div>
             <div class="user-content">
                 <form class="user-infomation" action="/user/profile" method="POST" onsubmit="return ValidateProfile()">
                     <div class="user-input-content">
