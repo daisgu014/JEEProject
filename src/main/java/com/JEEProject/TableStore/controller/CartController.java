@@ -1,5 +1,6 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.Cart;
 import com.JEEProject.TableStore.services.CartService;
 import jakarta.servlet.http.HttpSession;
@@ -22,22 +23,28 @@ public class CartController {
 
     @PostMapping(path = "/add")
     public String addToCart(@RequestParam("productID") Integer productID,
-                            @RequestParam("quantityInput")Optional<Integer> qty)
+                            @RequestParam("quantityInput")Optional<Integer> qty,
+                            HttpSession session)
     {
         try{
-            Integer userID = 1;
-            Optional<Cart> existingCartItem = cartService.findByUserIDAndProductID(userID, productID);
-            if(existingCartItem.isPresent()) {
-                Cart existingCart = existingCartItem.get();
-                existingCart.setQty(existingCart.getQty() + qty.orElse(1));
-                cartService.addToCart(existingCart);
+            Account user = (Account) session.getAttribute("account");
+            if (user != null){
+                Integer userID = user.getId();
+                Optional<Cart> existingCartItem = cartService.findByUserIDAndProductID(userID, productID);
+                if(existingCartItem.isPresent()) {
+                    Cart existingCart = existingCartItem.get();
+                    existingCart.setQty(existingCart.getQty() + qty.orElse(1));
+                    cartService.addToCart(existingCart);
+                } else {
+                    Cart cart = new Cart(userID, productID, qty.orElse(1));
+                    cartService.addToCart(cart);
+                }
             } else {
-                Cart cart = new Cart(userID, productID, qty.orElse(1));
-                cartService.addToCart(cart);
+                throw new Exception();
             }
         } catch (Exception e) {
-
+           return "messageNotLogin";
         }
-        return "redirect:/index";
+        return "redirect:/catalog";
     }
 }

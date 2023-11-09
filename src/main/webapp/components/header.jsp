@@ -12,7 +12,7 @@
             <a href="/">FAQ</a>
             <a href="/">Theo dõi đơn hàng</a>
             <a href="/" class="shopping-cart" qty="1"><i class='bx bx-cart'></i></a>
-            <a href="/" class="btn-login">Đăng nhập</a>
+            <a href="/user/login" class="btn-login">Đăng nhập</a>
             <a href="/" class="btn-user" style="display: none"><i class='bx bx-user'></i></a>
         </div>
     </div>
