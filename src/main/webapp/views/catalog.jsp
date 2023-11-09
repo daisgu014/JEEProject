@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -14,20 +15,8 @@
 </head>
 <body>
 <div id="catalog--wrapper">
-<%--    <div id="catalog--header">--%>
-<%--        <div class="logo">LOGO IMAGE</div>--%>
-<%--        <div class="catalog--search-bar">--%>
-<%--            <input type="text" placeholder="Tìm kiếm">--%>
-<%--            <i class='bx bx-search'></i>--%>
-<%--        </div>--%>
-<%--        <div class="catalog--menu-right">--%>
-<%--            <i class='bx bx-cart'></i>--%>
-<%--            <i class='bx bx-user' ></i>--%>
-<%--            <div class="text-login">Đăng nhập</div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-    <div id="catalog--slider">
-    </div>
+    <jsp:include page="../components/header.jsp"/>
+    <div id="catalog--slider"></div>
     <div id="catalog--container">
         <form:form method="POST" action="/catalog" class="catalog--filter-side-bar"
                    modelAttribute="criteria">
@@ -96,7 +85,11 @@
                                 </a>
                                 <div class="item-content">
                                     <a href="productDetail/${product.getId()}" class="item--name">${product.getName()}</a>
-                                    <a href="productDetail/${product.getId()}" class="item--price">${product.getPrice()}₫</a>
+                                    <a href="productDetail/${product.getId()}" class="item--price">
+<%--                                            ${product.getPrice()}₫--%>
+                                            <fmt:setLocale value="vi_VN"/>
+                                                <fmt:formatNumber value="${product.getPrice()}" type="currency" currencyCode="VND" maxFractionDigits="0"/>
+                                    </a>
                                     <form action="/cart/add" method="post">
                                         <input hidden="hidden" name="productID" value="${product.getId()}">
                                         <button type="submit" class="catalog--cart-button">
@@ -128,6 +121,7 @@
             </div>
         </div>
     </div>
+    <jsp:include page="../components/footer.jsp"/>
 </div>
 </body>
 </html>
