@@ -36,6 +36,7 @@ public class CatalogController {
         modelMap.addAttribute("categories", catalogService.findAllCategories());
         modelMap.addAttribute("colors", catalogService.findAllColors());
         modelMap.addAttribute("criteria", criteria);
+        modelMap.addAttribute("ERROR", "");
         return "catalog";
     }
 

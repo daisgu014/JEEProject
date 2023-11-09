@@ -1,7 +1,9 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.Cart;
 import com.JEEProject.TableStore.services.CartService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,19 +23,28 @@ public class CartController {
 
     @PostMapping(path = "/add")
     public String addToCart(@RequestParam("productID") Integer productID,
-                            @RequestParam("quantityInput")Optional<Integer> qty)
+                            @RequestParam("quantityInput")Optional<Integer> qty,
+                            HttpSession session)
     {
-        Integer userID = 1;
-        Optional<Cart> existingCartItem = cartService.findByUserIDAndProductID(userID, productID);
-        if(existingCartItem.isPresent()) {
-            Cart existingCart = existingCartItem.get();
-            existingCart.setQty(existingCart.getQty() + qty.orElse(1));
-            System.out.println("qty" + qty.orElse(1));
-            cartService.addToCart(existingCart);
-        } else {
-            Cart cart = new Cart(userID, productID, qty.orElse(1));
-            cartService.addToCart(cart);
+        try{
+            Account user = (Account) session.getAttribute("account");
+            if (user != null){
+                Integer userID = user.getId();
+                Optional<Cart> existingCartItem = cartService.findByUserIDAndProductID(userID, productID);
+                if(existingCartItem.isPresent()) {
+                    Cart existingCart = existingCartItem.get();
+                    existingCart.setQty(existingCart.getQty() + qty.orElse(1));
+                    cartService.addToCart(existingCart);
+                } else {
+                    Cart cart = new Cart(userID, productID, qty.orElse(1));
+                    cartService.addToCart(cart);
+                }
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+           return "messageNotLogin";
         }
-        return "index";
+        return "redirect:/catalog";
     }
 }

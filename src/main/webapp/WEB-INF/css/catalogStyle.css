@@ -39,18 +39,6 @@ input[type="checkbox"] {
 /*    font-size: 1.8rem;*/
 /*}*/
 
-/*#catalog--header {*/
-/*    width: 100%;*/
-/*    display: flex;*/
-/*    padding: 14px 35px 18px 35px;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-/*    background-color: var(--color-primary);*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    z-index: 9999;*/
-/*}*/
-
 .catalog--search-bar, .catalog--search-bar input {
     position: relative;
     width: 190px;
@@ -74,29 +62,10 @@ input[type="checkbox"] {
     color: var(--color-dark-variant);
 }
 
-/*.catalog--menu-right {*/
-/*    max-width: 200px;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-/*}*/
-
-/*.catalog--menu-right i, .text-login {*/
-/*    font-size: 1.8rem;*/
-/*    padding: 4px 8px;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.catalog--menu-right .text-login {*/
-/*    width: 100%;*/
-/*    font-size: 1.2rem;*/
-/*}*/
-
 #catalog--slider {
     background: url("/images/banner.png"), lightgray 50% / cover no-repeat;
     width: 100%;
     height: 391px;
-    margin-top: 73px;
     margin-bottom: 40px;
     background-size: cover;
 }
@@ -110,7 +79,6 @@ input[type="checkbox"] {
     max-width: 350px;
     min-height: 796px;
     padding-left: 60px;
-    /*background-color: var(--color-primary);*/
 }
 
 .catalog--filter-side-bar .catalog--filter-side-bar-header {
@@ -187,17 +155,24 @@ input[type="checkbox"] {
     background: var(--color-primary);
     font-size: 1.2rem;
     color: var(--color-background);
-    transition: 0.4ms;
+}
+
+.catalog--filter-side-bar-search-btn,
+.catalog--filter-side-bar-cancel-btn {
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 
 .catalog--filter-side-bar-search-btn:hover {
-    opacity: 0.8;
-    cursor: pointer;
+    box-shadow: 0px 15px 20px rgba(58, 188, 231, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
 }
 
 .catalog--filter-side-bar-cancel-btn {
     display: inline-flex;
-    margin-top: 20px;
+    margin-top: 28px;
     width: 194px;
     max-height: 45px;
     padding: 10px 0;
@@ -211,11 +186,13 @@ input[type="checkbox"] {
 }
 
 .catalog--filter-side-bar-cancel-btn:hover {
-    transition: 0.3ms;
     background: var(--color-primary);
     color: var(--color-background);
-    cursor: pointer;
+    box-shadow: 0px 15px 20px rgba(58, 188, 231, 0.4);
+    transform: translateY(-7px);
 }
+
+
 
 /*===============CATALOG RIGHT CONTAINER================*/
 
@@ -294,6 +271,7 @@ input[type="checkbox"] {
     opacity: 0.6;
 }
 
+/*====================PRODUCT CSS====================*/
 .catalog--products-content {
     display: grid;
     column-gap: 16px;
@@ -365,9 +343,10 @@ input[type="checkbox"] {
     align-items: center;
     gap: 4px;
     border-radius: 100px;
-    border: 1px solid #111;
+    border: 1px solid #ddd;
     cursor: pointer;
     background-color: transparent;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .catalog--cart-button:hover {
@@ -393,7 +372,7 @@ input[type="checkbox"] {
 .catalog--paging {
     width: 100%;
     height: 60px;
-    margin: 60px 0;
+    margin-top: 60px;
     display: flex;
     align-items: center;
     justify-content: center;

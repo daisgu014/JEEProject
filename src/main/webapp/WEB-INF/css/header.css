@@ -1,0 +1,115 @@
+a {
+    text-decoration: none;
+}
+
+a:hover{
+    color: var(--color-primary);
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+}
+
+#header-top,
+#header-nav {
+    padding: 0 131px;
+}
+
+#header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 100%;
+    /*padding-right: var(--bs-gutter-x,.75rem);*/
+    /*padding-left: var(--bs-gutter-x,.75rem);*/
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#header-top .header-top-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+#header-top .header-top-actions a{
+   font-size: 1.1rem;
+}
+
+#header-top .header-top-actions i {
+    font-size: 2.4rem;
+}
+
+#header-top .shopping-cart {
+    position: relative;
+}
+
+#header-top .shopping-cart::before {
+    position: absolute;
+    content:attr(qty);
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    color: #fff;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 30px;
+    font-size: 12px;
+    top: -8px;
+    right: -8px;
+    -webkit-transition: all .3s ease-out 0s;
+    -moz-transition: all .3s ease-out 0s;
+    -ms-transition: all .3s ease-out 0s;
+    -o-transition: all .3s ease-out 0s;
+    transition: all .3s ease-out 0s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#header-top .btn-login {
+    background: var(--color-primary);
+    padding: 18px 24px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: 1;
+    -moz-user-select: none;
+    border: none;
+    border-radius: 45px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    transition: all 0.3s ease 0s;
+    outline: none;
+    position: relative;
+}
+
+#header-top .btn-login:hover {
+   background-color: #1E1E1E;
+}
+
+#header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    background-color: #F1F6F9;
+    box-shadow: 0 10px 15px rgba(25,25,25,0.1);
+}
+
+#header-nav a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 14px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
