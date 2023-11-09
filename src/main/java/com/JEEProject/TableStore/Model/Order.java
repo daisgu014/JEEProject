@@ -45,4 +45,5 @@ public class Order implements Serializable {
     public List<OrderDetail> getDetails() {
         return details.stream().toList();
     }
+
 }

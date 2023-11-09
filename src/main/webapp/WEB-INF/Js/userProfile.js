@@ -2,7 +2,6 @@ var btnSubmit = document.getElementById("btnSubmit");
 var btnOpen = document.getElementById("btnOpen");
 var btnCancel = document.getElementById("btnCancel");
 
-var username = document.getElementById("inputUsername");
 var email = document.getElementById("inputEmail");
 var phone = document.getElementById("inputPhone");
 var address = document.getElementById("inputAddress");
@@ -49,6 +48,11 @@ function ValidatePassword(){
         isNull = true;
     }
 
+    if (isNull){
+        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
+        return false;
+    }
+
     if (password.value == newPassword.value){
         newPassword.style.borderColor = 'var(--color-danger)';
         password.style.borderColor = 'var(--color-danger)';
@@ -60,11 +64,6 @@ function ValidatePassword(){
         newPassword.style.borderColor = 'var(--color-danger)';
         reNewPassword.style.borderColor = 'var(--color-danger)';
         attention.textContent = "Mục Nhập lại mật khẩu mới không trùng khớp với mật khẩu mới đã nhập!";
-        return false;
-    }
-    
-    if (isNull){
-        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
         return false;
     }
 
@@ -135,7 +134,6 @@ function ClearError(){
 
 
 function ValidateProfile(){
-    username.style.border = "1px var(--color-info-dark) solid";
     email.style.border = "1px var(--color-info-dark) solid";
     phone.style.border = "1px var(--color-info-dark) solid";
     address.style.border = "1px var(--color-info-dark) solid";
@@ -145,14 +143,9 @@ function ValidateProfile(){
     var attention = document.getElementById("labError");
 
     if (full_name.value === ""){
-        username.style.border = "1px var(--color-danger) solid";
+        full_name.style.border = "1px var(--color-danger) solid";
         isNull = true;
      }
-
-    if (username.value === ""){
-       username.style.border = "1px var(--color-danger) solid";
-       isNull = true;
-    }
 
     if (email.value === ""){
        email.style.border = "1px var(--color-danger) solid";
@@ -174,6 +167,12 @@ function ValidateProfile(){
         return false;
     }
 
+     if(!isValidFullName(full_name.value)){
+         full_name.style.border = "1px var(--color-danger) solid";
+         attention.textContent = "Họ và tên không hợp lệ!";
+         return false;
+     }
+
     if (!isValidEmail(email.value)){
         email.style.border = "1px var(--color-danger) solid";
         attention.textContent = "Email không hợp lệ!";
@@ -193,12 +192,11 @@ function ValidateProfile(){
         var defaultValue = inputElement.defaultValue;
 
         if (inputValue === defaultValue) {
-            // Nếu giá trị hiện tại bằng giá trị ban đầu, đánh dấu lỗi
             count++;
         }
     });
 
-    if (count == 5) {
+    if (count == 4) {
         attention.textContent = "Bạn chưa thay đổi thông tin.";
         return false;
     }
@@ -230,4 +228,9 @@ function isValidEmail(email) {
 function isValidPhoneNumber(phone) {
     var phonePattern = /^(0\d{9})$/;
     return phonePattern.test(phone);
+}
+
+function isValidFullName(input) {
+  var pattern = /^[a-zA-Z\s]{3,}$/;
+  return pattern.test(input);
 }

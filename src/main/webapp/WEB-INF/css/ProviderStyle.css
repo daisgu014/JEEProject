@@ -5,8 +5,14 @@
     border-radius: var(--border-radius-2);
     box-shadow: var(--box-shadow);
     background-color: #fff;
-    padding: 5px 5px 5px 5px;
-    margin: 5px 5px 5px 5px;
+    /*justify-content: center;*/
+    align-items: center;
+    /*padding: 5px 5px 5px 5px;*/
+    /*margin: 5px 5px 5px 5px;*/
+}
+tbody>tr:hover {
+    background-color:#B0C4DE;
+    cursor: pointer;
 }
 .container-provider, .container-account {
     height: 90%;
@@ -96,47 +102,71 @@
 #addSupplierButton:hover{
     text-decoration: underline;
 }
-.search-container-dai {
+.header-provider, .header-account{
+    display: flex;
+    /*background-color: grey;*/
+}
+/*search provider*/
+.search-container-provider, .search-container-account {
     display: flex;
     align-items: center;
     border: #6C9BCF solid 1px;
     border-radius: 20px;
     width: 350px;
+    height: 50px;
     margin: 20px;
     padding: 5px;
 }
 
-#search-input-dai {
+#search-input-provider, #search-input-account {
     flex: 1;
-    padding: 10px;
+    padding: 5px;
     border: none;
-    /* border-radius: 5px; */
-    font-size: 16px;
+     border-radius: 20px;
+    font-size: 13px;
     outline: none;
 }
-#search-button-dai {
+#search-button-provider, #search-button-account {
     background-color: #ffffff;
     display: block;
     /* position: fixed; */
     color: #0056b3;
     border: none;
-    border-radius: 50%;
-    padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    padding: 5px;
     cursor: pointer;
+
 }
 
-#search-button-dai:hover {
+#search-button-provider:hover, #search-button-account:hover {
     background-color: #cacaca;
 }
 
-.fa-search-dai {
-    font-size: 20px;
-}
-tbody>tr:hover {
-    background-color:#B0C4DE;
-    cursor: pointer;
-}
 
+/*menu*/
+.menu-provider, .menu-account{
+    width: 100%;
+    display: flex;
+    padding-right: 20px;
+}
+.menu-options{
+    margin-left: auto;
+}
+.menu-options>button{
+    margin-right: 10px;
+    font-size: 24px;
+    background: none;
+    color: #6C9BCF;
+}
+#deleteAll-btn{
+    color: #6C9BCF;
+    display: none;
+}
+#deleteAll-btn:hover{
+    color: #e74c3c;
+}
 /*Account */
 .deleteAccountBtn, .deleteProviderBtn{
     width: 70px;

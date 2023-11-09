@@ -1,5 +1,6 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.Provider;
 import com.JEEProject.TableStore.repositories.ProductRepository;
 import com.JEEProject.TableStore.repositories.ProviderRepository;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -69,6 +71,20 @@ public class ProviderController {
             return "success";
         }catch (Exception e){
             return "Thất bại!";
+        }
+    }
+    @RequestMapping(value = "/deleteall-provider", method = RequestMethod.POST)
+    @ResponseBody
+    public  String deleteAllProvider(@RequestBody List<Provider> data){
+
+        try{
+            for (Provider provider : data){
+                provider.setDeleteAt(new Date());
+                providerService.delete(provider);
+            }
+            return "success";
+        }catch (Exception e){
+            return e.toString();
         }
     }
 }
