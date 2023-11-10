@@ -78,6 +78,17 @@ function ValidateFirstPage(){
         isNull = true;
     }
 
+    if (isNull){
+        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
+        return false;
+    }
+
+    if(!isValidFullName(full_name.value)){
+        full_name.style.borderColor = 'var(--color-danger)';
+        attention.textContent = "Họ và tên không hợp lệ!";
+        return;
+    }
+
     if (!isValidEmail(email.value)){
         email.style.borderColor = 'var(--color-danger)';
         attention.textContent = "Email không hợp lệ!";
@@ -88,11 +99,6 @@ function ValidateFirstPage(){
         phone.style.borderColor = 'var(--color-danger)';
         attention.textContent = "Số điện thoại phải có 10 chữ số và bất đầu bằng số 0!";
         return;
-    }
-
-    if (isNull){
-        attention.textContent = "Xin hãy điền đầy đủ thông tin!";
-        return false;
     }
     OpenPage2();
 }
@@ -159,4 +165,9 @@ function isValidEmail(email) {
 function isValidPhoneNumber(phone) {
     var phonePattern = /^(0\d{9})$/;
     return phonePattern.test(phone);
+}
+
+function isValidFullName(input) {
+  var pattern = /^[a-zA-Z\s]{3,}/;
+  return pattern.test(input);
 }
