@@ -32,26 +32,26 @@
                     </a>
                 </li>
                 <li class="categories ">
-                    <a href="categories" >
+                    <a href="/admin/categories" >
                         <i class="fa-solid fa-bars"></i>
                         <p>Thể loại</p>
                     </a>
                 </li>
 
                 <li class="products active ">
-                    <a href="products" >
+                    <a href="/admin/products" >
                         <i class="fa-solid fa-shop"></i>
                         <p>Sản phẩm</p>
                     </a>
                 </li>
                 <li class="users ">
-                    <a href="users" >
+                    <a href="/admin/account" >
                         <i class="fa-solid fa-user"></i>
                         <p>Người dùng</p>
                     </a>
                 </li>
                 <li class=order">
-                    <a href="orders" >
+                    <a href="/admin/orders" >
                         <i class="fas fa-shopping-cart"></i>
                         <p>Đơn hàng</p>
                     </a>

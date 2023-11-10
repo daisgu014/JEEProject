@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.AntPathMatcher;
 
 import static com.JEEProject.TableStore.Auth.user.Permission.*;
@@ -27,17 +28,6 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration {
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//       http
-//               .authorizeHttpRequests((authorize) -> authorize
-//               .dispatcherTypeMatchers(DispatcherType.FORWARD,DispatcherType.ERROR).permitAll()
-//                       .requestMatchers(antMatcher("/css/**")).permitAll()
-//                       .requestMatchers(antMatcher("/js/**")).permitAll()
-//                       .requestMatchers(antMatcher("/images/**")).permitAll()
-//       );
-//      return http.build();
-//    }
 private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
@@ -57,9 +47,9 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                                 .requestMatchers(antMatcher("/errorPage/**")).permitAll()
                                 .requestMatchers(antMatcher("/accessDenied/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/auth/**")).permitAll()
-                                .requestMatchers(antMatcher("/admin/products/**")).hasRole(ADMIN.name())
-                                .requestMatchers(antMatcher(GET,"/admin/products/**")).hasAuthority(ADMIN_READ.name())
-                                .requestMatchers(antMatcher(POST,"/admin/products/**")).hasAuthority(ADMIN_CREATE.name()).anyRequest()
+                                .requestMatchers(antMatcher("/cart/**")).permitAll()
+                                .requestMatchers(antMatcher("/admin/**")).hasRole(ADMIN.name())
+                                .anyRequest()
                                 .authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
@@ -73,6 +63,10 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                     // Xử lý khi bị từ chối đăng nhập
                     response.sendRedirect("/login"); // Chuyển hướng về trang đăng nhập
                 }).accessDeniedPage("/accessDenied")
+                        .defaultAccessDeniedHandlerFor((request, response, accessDeniedException) -> {
+                            // Xử lý khi bị từ chối truy cập (bao gồm lỗi 404)
+                            response.sendRedirect("/errorPage"); // Chuyển hướng về trang lỗi tùy chỉnh (404.html)
+                        }, new AntPathRequestMatcher("/errorPage"))
         );
 
         return http.build();
