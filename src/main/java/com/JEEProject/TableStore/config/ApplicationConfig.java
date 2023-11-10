@@ -22,10 +22,6 @@ public class ApplicationConfig {
     @Autowired
     private final UserAuthRepository repository;
     @Bean
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
-    @Bean
     public UserDetailsService userDetailsService() {
         return username -> repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

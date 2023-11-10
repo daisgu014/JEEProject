@@ -57,10 +57,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        <p>Đăng xuất</p>
-                    </a>
+                  <div id="LogoutBtn">
+                      <a href="/api/v1/auth/logout">
+                          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                          <p>Đăng xuất</p>
+                      </a>
+                  </div>
                 </li>
             </ul>
         </div>
