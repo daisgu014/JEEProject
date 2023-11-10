@@ -151,7 +151,7 @@ function updateCategory(id){
 
 let editForm = document.querySelector(".edit-category-form");
 
-let BtnEdits = document.querySelectorAll(".btn-edit");
+let BtnEdits = document.querySelectorAll(".edit_btn_sub");
 let id="";
 BtnEdits.forEach(btn=>{
 

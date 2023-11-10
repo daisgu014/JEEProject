@@ -5,6 +5,7 @@ import com.JEEProject.TableStore.Model.Provider;
 import com.JEEProject.TableStore.repositories.AccountRepository;
 import com.JEEProject.TableStore.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.ModelMap;
@@ -14,7 +15,9 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+
 @RequestMapping(path = "admin/account")
+@PreAuthorize("hasRole('ADMIN')")
 public class AccountController {
     @Autowired
     private AccountService accountService;

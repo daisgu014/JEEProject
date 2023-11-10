@@ -1,15 +1,15 @@
 package com.JEEProject.TableStore.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class AppController {
-    @GetMapping(path = {"/login","/home"})
-    public String getHome(){
-        return "loginAdmin";
+@RequestMapping(path = "/errorPage")
+public class Error {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String getError(){
+        return "ErrorPage";
     }
 }

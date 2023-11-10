@@ -65,7 +65,7 @@
                         <td>${account.getId()}</td>
                         <td>${account.getUsername()}</td>
                         <td style="display: none">${account.getPassword()}</td>
-                        <td>${account.getFull_name()}</td>
+                        <td>${account.getFullname()}</td>
                         <td>${account.getRole()}</td>
                         <td style="display: none">${account.getPhone()}</td>
                         <td style="display: none">${account.getEmail()}</td>

@@ -10,12 +10,17 @@ insert into products (name, color, price, in_stock, status, category_id, provide
                                                                                                     ("Ghế công thái học Sihoo M57-Grey", "Xám", 3990000, 100, "Đang kinh doanh", 2, 1, "GhecongthaihocSihooM57.png"),
                                                                                                     ("Ghế AKRacing Core Series LX Plus - Pink", "Hồng", 5690000, 100, "Đang kinh doanh", 2, 1, "GheAKRacingCoreSeriesLXPlus.png");
 
-insert into users (username, password, full_name, role, phone, email, address) values
-("AetherGS", "paimon", "Aether Tervat", "customer", "0917862112", "AetherGS@gmail.com", "1 Starfell Valley, Mondstadt, Tervat");
 
-insert into orders (total_price, create_at, user_id, place) values (10670000, '2023-8-7', 1, "null"),
-                                                                    (11070000, '2023-9-5', 1, "null"),
-                                                                    (3990000, '2023-11-8', 1, "null");
+INSERT INTO users(username, password, full_name, role, phone, email, address) VALUES
+('AetherGS', 'paimon', 'Aether Tervat', 'customer', '0917862112', 'AetherGS@gmail.com', '1 Starfell Valley, Mondstadt, Tervat'),
+('lengohau','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Lê Ngô Hậu','ADMIN','09876543212','hau@gmail.com','TP. Hồ Chí Minh'),
+('daisgu014','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','ADMIN','09876543222','dai@gmail.com','Bình Định'),
+('daisgu013','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','USER','09876542122','dai@gmail.com','Bình Định');
+
+
+insert into orders (total_price, create_at, user_id, place) values (10670000, '2023-8-7', 1, 'null'),
+                                                                    (11070000, '2023-9-5', 1, 'null'),
+                                                                    (3990000, '2023-11-8', 1, 'null');
 
 insert into orderDetails (order_id, product_id, qty) values (1, 0000000001, 1),
                                                            (1, 0000000003, 2),
@@ -23,3 +28,4 @@ insert into orderDetails (order_id, product_id, qty) values (1, 0000000001, 1),
                                                            (2, 0000000001, 1),
                                                            (2, 0000000005, 1),
                                                            (3, 0000000004, 1);
+

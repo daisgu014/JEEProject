@@ -51,9 +51,6 @@ h3{
     font-weight: 500px;
     font-size: 0.87rem;
 }
-span{
-    color: var(--color-dark-variant);
-}
 .left{
     display: flex;
     flex-direction: column;
@@ -528,4 +525,19 @@ tfoot td{
 }
 .filterBtn:hover span{
     color: var(--color-primary);
+}
+button.edit_btn_sub {
+    width: 100px;
+    height: 40px;
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    margin-right: 10px;
+    font-size: 14px;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+button.edit_btn_sub:hover{
+    background-color: var(--color-white);
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning);
 }

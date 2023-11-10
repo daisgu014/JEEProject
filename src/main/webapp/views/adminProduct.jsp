@@ -32,26 +32,26 @@
                     </a>
                 </li>
                 <li class="categories ">
-                    <a href="categories" >
+                    <a href="/admin/categories" >
                         <i class="fa-solid fa-bars"></i>
                         <p>Thể loại</p>
                     </a>
                 </li>
 
                 <li class="products active ">
-                    <a href="products" >
+                    <a href="/admin/products" >
                         <i class="fa-solid fa-shop"></i>
                         <p>Sản phẩm</p>
                     </a>
                 </li>
                 <li class="users ">
-                    <a href="users" >
+                    <a href="/admin/account" >
                         <i class="fa-solid fa-user"></i>
                         <p>Người dùng</p>
                     </a>
                 </li>
                 <li class=order">
-                    <a href="orders" >
+                    <a href="/admin/orders" >
                         <i class="fas fa-shopping-cart"></i>
                         <p>Đơn hàng</p>
                     </a>
@@ -108,10 +108,10 @@
         <div class="tabular--wrapper">
             <div class="title-table">
                 <div class="filter">
-                    <div class="filterBtn">
-                        <i class="fa-solid fa-filter"></i>
-                        <span>Bộ lọc</span>
-                    </div>
+<%--                    <div class="filterBtn">--%>
+<%--                        <i class="fa-solid fa-filter"></i>--%>
+<%--                        <span>Bộ lọc</span>--%>
+<%--                    </div>--%>
 
                 </div>
 
@@ -134,60 +134,61 @@
             </div>
             <form id="product--filter" style="width: 100%" action="/admin/products/search" method="get">
             <div class="filter-modal">
+                <div class=filter-modal-content>
+                    <div class="search-container" style="margin-left: 30px;" >
+                        <div class="search-box" style="width: 200px">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Tìm kiếm" name="nameFilter"/>
+                        </div>
+                    </div>
+                    <div class="category-filter">
+                        <span>Thể loại</span>
 
-                   <div class="search-container">
-                       <div class="search-box">
-                           <i class="fa-solid fa-magnifying-glass"></i>
-                           <input type="text" placeholder="Tìm kiếm" name="nameFilter"/>
-                       </div>
-                   </div>
-                   <div class="category-filter">
-                       <span>Thể loại</span>
+                        <select path="category" name="category" id="category-filter">
+                            <c:forEach var="category" items="${categoriesFilter}">
+                                <option value="${category.getId()}">
+                                        ${category.getName()}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="price-range">
+                        <span>Khoảng giá:</span>
+                        <div class="min-price-input">
+                            <span>Từ: </span>
+                            <input type="number" value="0" min="0" name="min-price" id="minpice">
+                        </div>
+                        <div class="max-price-input">
+                            <span>Đến: </span>
+                            <input type="number" value="9999999999" max="9999999999" name="max-price" id="maxprice" >
+                        </div>
 
-                       <select path="category" name="category" id="category-filter">
-                           <c:forEach var="category" items="${categoriesFilter}">
-                               <option value="${category.getId()}">
-                                       ${category.getName()}
-                               </option>
-                           </c:forEach>
-                       </select>
-                   </div>
-                   <div class="price-range">
-                       Khoảng giá:
-                       <div class="min-price-input">
-                           <span>Từ: </span>
-                           <input type="number" value="0" min="0" name="min-price" id="minpice">
-                       </div>
-                       <div class="max-price-input">
-                           <span>Đến: </span>
-                           <input type="number" value="9999999999" max="9999999999" name="max-price" id="maxprice" >
-                       </div>
-
-                   </div>
-                   <div class="status-filter">
-                       Trạng thái:
-                       <select class="input-status" name="status" id="status-filter">
-                           <option value="Tất cả"> Tất cả</option>
-                           <option value="Hoạt động"> Hoạt động</option>
-                           <option value="Không hoạt động"> Không hoạt động</option>
-                       </select>
-                   </div>
-                   <div class="privider-filter">
-                       Nhà cung cấp:
-                       <select path="provider" name="provider" id="provider-filter">
-                           <c:forEach var="provider" items="${providerFilters}">
-                               <option value="${provider.getId()}">
-                                       ${provider.getName()}
-                               </option>
-                           </c:forEach>
-                       </select>
-                   </div>
-                   <div class="btnFilter">
-                       <div class="ResetBtn">
-                           Đặt lại
-                       </div>
-                       <button type="submit" id="filter-submit">Loc</button>
-                   </div>
+                    </div>
+                    <div class="status-filter">
+                        <span>Trạng thái:</span>
+                        <select class="input-status" name="status" id="status-filter">
+                            <option value="Tất cả"> Tất cả</option>
+                            <option value="Hoạt động"> Hoạt động</option>
+                            <option value="Không hoạt động"> Không hoạt động</option>
+                        </select>
+                    </div>
+                    <div class="provider-filter">
+                        <span>Nhà cung cấp:</span>
+                        <select path="provider" name="provider" id="provider-filter">
+                            <c:forEach var="provider" items="${providerFilters}">
+                                <option value="${provider.getId()}">
+                                        ${provider.getName()}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="btnFilter">
+                        <div class="ResetBtn">
+                            Đặt lại
+                        </div>
+                        <button type="submit" id="filter-submit">Lọc</button>
+                    </div>
+                </div>
 
             </div>
             </form>
