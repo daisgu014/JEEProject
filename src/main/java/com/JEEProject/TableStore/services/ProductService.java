@@ -37,6 +37,9 @@ public class ProductService {
        }
        return false;
     }
+    public Iterable<Product> getAll(){
+        return productRepository.findAllByDeleteAt();
+    }
     public Page<Product> getAllWhereDeleteAtIsNull(Pageable pageable){
     return productRepository.findProductsWhereDeleteAtIsNull(pageable);
     }

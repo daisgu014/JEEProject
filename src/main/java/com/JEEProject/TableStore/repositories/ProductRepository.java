@@ -22,5 +22,7 @@ public interface ProductRepository extends CrudRepository<Product,Integer> {
     Object findAll(Pageable pageable);
     @Query("SELECT p FROM Product p WHERE p.DeleteAt IS NULL")
     Page<Product> findProductsWhereDeleteAtIsNull(Pageable pageable);
+    @Query("SELECT p FROM Product p WHERE p.DeleteAt IS NULL")
+    Iterable<Product> findAllByDeleteAt();
 
 }

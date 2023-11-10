@@ -1,5 +1,7 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Auth.user.User;
+import com.JEEProject.TableStore.Auth.user.UserAuthRepository;
 import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.Model.Provider;
@@ -16,6 +18,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -68,6 +71,7 @@ public class ProductController {
     private HttpServletRequest request;
     private final JwtService jwtService;
     private final HttpServletRequest HttpRequest;
+    private final UserAuthRepository userRepository;
 
     @RequestMapping( value = "" ,method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('admin:read')")
@@ -304,6 +308,15 @@ public class ProductController {
         modelMap.addAttribute("productPage",productPage);
         return "adminProduct";
     }
-
+    @GetMapping(value = "/importProducts")
+    public String getImportProducts(ModelMap modelMap){
+        HttpSession session = HttpRequest.getSession();
+        String name = jwtService.extractUsername((String) session.getAttribute("accessToken"));
+        User user = userRepository.findByUsername(name).get();
+        Iterable<Product> products = productService.getAll();
+        modelMap.addAttribute("products",products);
+        modelMap.addAttribute("user",user);
+        return "AdminImportProduct";
+    }
 
 }
