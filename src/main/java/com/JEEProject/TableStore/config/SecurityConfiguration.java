@@ -57,7 +57,11 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                 .logout(logout ->
                         logout.logoutUrl("/api/v1/auth/logout")
                                 .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                                .logoutSuccessHandler((request, response, authentication) ->{
+                                    SecurityContextHolder.clearContext();
+                                    response.sendRedirect("/login");
+                                } )
+
                 ).exceptionHandling(exceptionHandling ->
                 exceptionHandling.authenticationEntryPoint((request, response, authException) -> {
                     // Xử lý khi bị từ chối đăng nhập
