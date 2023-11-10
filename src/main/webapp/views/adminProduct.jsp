@@ -121,9 +121,12 @@
                     <div class="btn addbtn" id="addBtn">
                         <i class="fa-solid fa-plus"></i>
                     </div>
-                    <div class="btn importBtn">
-                        <i class="fas fa-file-import"></i>
-                    </div>
+                    <a href="/admin/products/importProducts">
+                        <div class="btn importBtn">
+                            <i class="fas fa-file-import"></i>
+                        </div>
+                    </a>
+
                     <a href="/admin/products/import-history">
                         <div class="btn historyBtn">
                             <i class="fas fa-history"></i>

@@ -1,0 +1,43 @@
+.add-qty-content{
+    display: flex;
+    height: 70px;
+    width: 100%;
+    align-items: center;
+    gap: 50px;
+}
+.add-qty-content .product-input{
+    height: 40px;
+    border-radius: var(--border-radius-2);
+    padding-left: 8px;
+    font-size: 16px;
+    color: var(--color-primary);
+    font-weight: 500;
+}
+.add-qty-content .input-qty input{
+    height: 40px;
+    width: 100px;
+    border-radius: var(--border-radius-2);
+    padding-left: 8px;
+    font-size: 16px;
+    color: var(--color-primary);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.add-qty-content .btn-qty button{
+    width: 100px;
+    height: 40px;
+    border-radius: var(--border-radius-2);
+    background: var(--color-primary);
+    font-size: 16px;
+    color: var(--color-white);
+    box-shadow: var(--box-shadow);
+}
+.add-qty-content .btn-qty button:hover{
+    color: var(--color-primary);
+    background: var(--color-white);
+    border:solid 1px var(--color-primary);
+    transition: 0.5s ease-in;
+}
