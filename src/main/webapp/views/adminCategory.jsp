@@ -109,14 +109,10 @@
         <div class="tabular--wrapper">
             <div class="title-table">
                 <div class="filter">
-                    <div class="filterBtn">
-                        <i class="fa-solid fa-filter"></i>
-                        <span>Bộ lọc</span>
-                    </div>
-                    <div class="search-box">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Tìm kiếm"/>
-                    </div>
+<%--                    <div class="filterBtn">--%>
+<%--                        <i class="fa-solid fa-filter"></i>--%>
+<%--                        <span>Bộ lọc</span>--%>
+<%--                    </div>--%>
                 </div>
 
                 <div class="event" id="event">
@@ -129,40 +125,25 @@
                 </div>
 
             </div>
-            <div class="filter-modal">
-                <div class="category-filter">
-                    <span>Thể loại</span>
-                    <input type="text" id="myComboBox" class="combobox" list="values">
-                    <datalist id="values">
-                        <option value="Option 1">
-                        <option value="Option 2">
-                        <option value="Option 3">
-                        <option value="Option 4">
-                    </datalist>
-                </div>
-                <div class="price-range">
-                    <div class="min-price-input">
-                        <span>Từ: </span>
-                        <input type="number" value="0" min="0" name="min-price" id="minpice">
-                    </div>
-                    <div class="max-price-input">
-                        <span>Đến: </span>
-                        <input type="number" value="0" max="0" name="max-price" id="maxprice" >
+            <form id="product--filter" style="width: 100%" action="" method="get">
+                <div class="filter-modal">
+                    <div class=filter-modal-content>
+                        <div class="search-container" style="margin-left: 30px;" >
+                            <div class="search-box" style="width: 200px">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" placeholder="Tìm kiếm" name="nameFilter"/>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="btnFilter" style="display: flex; align-items: center; gap: 50px" >
+                            <div class="ResetBtn" >
+                                Đặt lại
+                            </div>
+                            <button type="submit" id="filter-submit" style="margin-top: 0px">Lọc</button>
+                        </div>
                     </div>
 
-                </div>
-                <div class="status-filter">
-                    Trạng thái:
-                </div>
-                <div class="btnFilter">
-                    <div class="ResetBtn">
-                        Đặt lại
-                    </div>
-                    <div class="filter-Btn">
-                        Lọc
-                    </div>
-                </div>
-            </div>
+            </form>
 
             <div class="table-container">
                 <table>
@@ -197,7 +178,7 @@
                             <td class="category-id">${category.getId()}</td>
                             <td>
                                 <span class="category-name">${category.getName()}</span></td>
-                            <td><button class="btn-edit">Chỉnh sửa</button></td>
+                            <td><button class="edit_btn_sub">Chỉnh sửa</button></td>
                         </tr>
                     </c:forEach>
                     </tbody>

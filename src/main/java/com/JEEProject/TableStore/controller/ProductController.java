@@ -4,6 +4,7 @@ import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.Model.Provider;
 import com.JEEProject.TableStore.Model.ResponseObject;
+import com.JEEProject.TableStore.config.JwtService;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.repositories.ProductRepository;
 import com.JEEProject.TableStore.repositories.ProviderRepository;
@@ -11,35 +12,47 @@ import com.JEEProject.TableStore.services.CategoryService;
 import com.JEEProject.TableStore.services.ProductService;
 import com.JEEProject.TableStore.services.ProviderService;
 import com.JEEProject.TableStore.validation.ProductValidator;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.multipart.Part;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(path = "admin/products")
+@PreAuthorize("hasRole('ADMIN')")
 public class ProductController {
        @Autowired
     ProductService productService;
@@ -51,10 +64,20 @@ public class ProductController {
     ProviderRepository providerRepository;
     @Autowired
     ServletContext servletContext;
+    @Autowired
+    private HttpServletRequest request;
+    private final JwtService jwtService;
+    private final HttpServletRequest HttpRequest;
+
     @RequestMapping( value = "" ,method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('admin:read')")
     public String getProduct(ModelMap modelMap,
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "6") int size){
+        String token = (String) request.getSession().getAttribute("accessToken");
+        System.err.println(token);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "Bearer " + token);
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
         Page<Product> productPage = productService.getAllWhereDeleteAtIsNull(pageable);
         if (!productPage.hasContent()) {
@@ -114,7 +137,10 @@ public class ProductController {
         }
         return null;
     }
+
     @PostMapping(value = "/create-product/")
+    @PreAuthorize("hasAnyAuthority('admin:create')")
+    @Hidden
     public ResponseEntity<?> addProduct (@RequestParam("name") String name,
                                          @RequestParam("color") String color,
                                          @RequestParam("price") Integer price,
@@ -141,6 +167,8 @@ public class ProductController {
           }
     }
     @PostMapping(value = "/edit/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:update')")
+    @Hidden
     @ResponseBody
     public ResponseEntity<?> editProduct (@RequestParam("name") String name,
                                           @RequestParam("color") String color,
@@ -188,6 +216,7 @@ public class ProductController {
 
 
     @PostMapping("/delete-products/")
+    @PreAuthorize("hasAnyAuthority('admin:delete')")
     @ResponseBody
     public ResponseEntity<String> deleteIds(@RequestBody String[] ids) {
         if (ids != null && ids.length > 0) {
@@ -204,6 +233,7 @@ public class ProductController {
         return ResponseEntity.ok("Xóa thành công");
     }
     @DeleteMapping("/delete-products/{id}")
+    @PreAuthorize("hasAnyAuthority('admin:delete')")
     @ResponseBody
     public ResponseEntity<String> deleteId(@PathVariable Integer id) {
         productService.DeletebyId(id);
@@ -274,4 +304,6 @@ public class ProductController {
         modelMap.addAttribute("productPage",productPage);
         return "adminProduct";
     }
+
+
 }

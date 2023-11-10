@@ -1,5 +1,7 @@
-package com.JEEProject.TableStore.Model;
+package com.JEEProject.TableStore.Auth.token;
 
+import com.JEEProject.TableStore.Auth.user.User;
+import com.JEEProject.TableStore.Model.Account;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,9 +10,10 @@ import lombok.*;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Token {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
     @Column(unique = true)
@@ -25,6 +28,6 @@ public class Token {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public Account user;
+    public User user;
 
 }
