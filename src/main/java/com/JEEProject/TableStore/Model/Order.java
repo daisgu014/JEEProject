@@ -1,6 +1,8 @@
 package com.JEEProject.TableStore.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,10 +32,12 @@ public class Order implements Serializable {
     private Date confirm_date;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Collection<OrderDetail> details;
 
     @ManyToOne
     @JoinColumn(name = "user_id",insertable = false,updatable = false)
+    @JsonIgnore
     private Account user;
 
 
