@@ -25,8 +25,9 @@
                 </div>
                 <form action="/user/login/getPassword" method="POST"  class="log-container-frm" onsubmit="return ValidateCheckEmail()">
                     <label class="lab-log-content">Email đã đăng ký!</label>
-                    <input class="input-log-content" type="text" name="password" id="inputEmail" placeholder="Email đã đăng ký!">
+                    <input class="input-log-content" type="text" name="email" id="inputEmail" placeholder="Email đã đăng ký!">
                     <p class="error-log-text" id="labError">${error}</p>
+                    <p class="success-log-text" id="labSuccess">${success}</p>
                     <button class="btn-log-submit" type="submit">Lấy mật khẩu</button>
                 </form>
                 <div class="log-footer-frm">

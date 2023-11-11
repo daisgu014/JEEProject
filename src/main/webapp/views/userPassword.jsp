@@ -70,6 +70,7 @@
                         <input class="user-input-password" type="password" id="inputReNewPassword"  placeholder="Nhập lại mật khẩu mới">
                     </div>
                     <p class="error-log-text" id="labError">${error}</p>
+                    <p class="success-log-text" id="labSuccess">${success}</p>
                     <button class="user-btn-submit" id="btnSubmit" type="submit">Xác nhận</button>
                     <button class="user-btn" id="btnCancel" type="button" onclick="ClearPassword()">Làm mới</button>
                 </form>

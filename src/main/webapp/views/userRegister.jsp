@@ -35,6 +35,7 @@
                         <input class="input-log-content" type="text" name="phone" id="inputPhone"  placeholder="Số điện thoại">
                         <label class="lab-log-content">Địa chỉ</label>
                         <input class="input-log-content" type="text" name="address" id="inputAddress"  placeholder="Địa chỉ">
+                        <p class="success-log-text" id="labSuccess">${success}</p>
                         <p class="error-log-text" id="labError">${error}</p>
                         <button class="btn-log-submit" type="button" onclick="ValidateFirstPage()">Tiếp theo</button>
                     </div>

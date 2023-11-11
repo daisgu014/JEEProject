@@ -1,3 +1,8 @@
+function ClearSuccess(){
+    var attention = document.getElementById("labSuccess");
+    attention.textContent = "";
+}
+
 function ValidateLogin(){
     ClearInputColor();
     ClearError();
@@ -41,6 +46,7 @@ function ClearInputColor(){
 }
 
 function ValidateFirstPage(){
+    ClearSuccess();
     ClearInputColor();
     ClearError();
     var username = document.getElementById("inputUsername");
@@ -144,6 +150,7 @@ function ValidateSecondPage(){
 }
 
 function ValidateCheckEmail(){
+    ClearSuccess();
     var email = document.getElementById("inputEmail");
     email.style.borderColor = 'var(--color-dark-variant)';
     document.getElementById("labError").textContent = "";
@@ -187,6 +194,6 @@ function isValidPhoneNumber(phone) {
 }
 
 function isValidFullName(input) {
-  var pattern = /^[a-zA-Z\s]{3,}/;
+  var pattern = /^[\p{L}\s]{3,}$/u;
   return pattern.test(input);
 }

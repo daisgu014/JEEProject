@@ -7,23 +7,67 @@ import com.JEEProject.TableStore.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import java.util.Random;
 import java.util.List;
 
 @Service
 public class UserService {
+    @Autowired
+    private MailSenderService mailSender;
     @Autowired
     AccountRepository accountRepository;
 
     @Autowired
     OrderRepository orderRepository;
 
-    @Value("${default.role:customer}")
+    @Value("${default.role:USER}")
     private String role;
 
     public void addNewAccount(Account account) {
         account.setRole(role);
         accountRepository.save(account);
+    }
+
+    public boolean findEmail(String email) {
+        Account account = accountRepository.findByEmail(email);
+        if (account != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean findUsername(String username) {
+        Account account = accountRepository.findByUsername(username);
+        if (account != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean findPhone(String phone) {
+        Account account = accountRepository.findByPhone(phone);
+        if (account != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Account getAccountByEmail(String email){
+        return accountRepository.findByEmail(email);
+    }
+
+    public void sendEmailUserPassword(Account account, String newPassword){
+        mailSender.sendSimpleEmail(
+                account.getEmail(),
+                "Thay đổi mật khẩu cho tài khoản: " + account.getUsername(),
+                String.format("Xin chào " + account.getFullname() + "\n" +
+                        "   Chúng tôi vừa nhận được yêu cầu thay đổi mật khẩu của bạn, đây sẽ là mật khẩu mới của bạn: " + newPassword + "\n" +
+                        "   Xin hãy đăng nhập tài khoản và thay đổi lại thông tin của bạn. \n" +
+                        "   Trân trọng!")
+        );
     }
 
     public boolean checkEmptyUsername(Account account){
@@ -47,7 +91,7 @@ public class UserService {
     public boolean checkUpdateEmail(Account account, String email){
         if (!email.equals(account.getEmail())){
             account.setEmail(email);
-            if (!checkEmptyEmail(account)) {
+            if (checkEmptyEmail(account) == false) {
                 return false;
             }
         }
@@ -56,7 +100,7 @@ public class UserService {
 
     public boolean checkUpdatePhone(Account account, String phone){
         if (!phone.equals(account.getPhone())){
-            account.setEmail(phone);
+            account.setPhone(phone);
             if (!checkEmptyPhone(account)) {
                 return false;
             }
@@ -64,9 +108,9 @@ public class UserService {
         return true;
     }
 
-    public boolean checkAccount (String username, String password){
+    public boolean checkAccount (String username){
         Account account = accountRepository.findByUsername(username);
-        if (account != null && account.getPassword().equals(password)) {
+        if (account != null) {
             return true;
         } else {
             return false;
@@ -77,19 +121,22 @@ public class UserService {
         return accountRepository.findByUsername(username);
     }
 
-    public void updateInformation(Account account,String fullname, String address){
-        account.setFullname(fullname);
-        account.setAddress(address);
-        accountRepository.save(account);
+    public String randomPassword (){
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            int index = random.nextInt(characters.length());
+            char randomChar = characters.charAt(index);
+            randomString.append(randomChar);
+        }
+
+        return randomString.toString();
     }
 
-    public boolean updatePassword(Account account, String password, String newPassword){
-        if (!password.equals(account.getPassword())){
-            return false;
-        }
-        account.setPassword(newPassword);
+    public void updateAccount(Account account){
         accountRepository.save(account);
-        return true;
     }
 
     public List<Order>getAllUserOrder(int user_id){

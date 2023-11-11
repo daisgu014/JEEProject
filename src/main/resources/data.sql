@@ -12,7 +12,7 @@ insert into products (name, color, price, in_stock, status, category_id, provide
 
 
 INSERT INTO users(username, password, full_name, role, phone, email, address) VALUES
-('AetherGS', 'paimon', 'Aether Tervat', 'customer', '0917862112', 'AetherGS@gmail.com', '1 Starfell Valley, Mondstadt, Tervat'),
+('DieterWalker', '$2a$10$5BPjlQFVTHk8e8VSN219WuI6MbNYG1TOtarUvptpA93S9QZOk6eJe', 'Nguyễn Quốc Duệ', 'USER', '0946883860', 'nguyenquocdue32@gmail.com', 'Cà Mau'),
 ('lengohau','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Lê Ngô Hậu','ADMIN','09876543212','hau@gmail.com','TP. Hồ Chí Minh'),
 ('daisgu014','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','ADMIN','09876543222','dai@gmail.com','Bình Định'),
 ('daisgu013','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','USER','09876542122','dai@gmail.com','Bình Định');

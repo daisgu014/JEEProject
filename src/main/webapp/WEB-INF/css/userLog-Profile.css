@@ -63,12 +63,20 @@
     transition-duration: 0.2s;
 }
 
-.error-log-text{
+.error-log-text, .success-log-text{
     display: block;
-    color: var(--color-danger);
     margin-left: 30px;
     margin-right:30px;
     cursor: default;
+}
+
+
+.error-log-text{
+    color: var(--color-danger);
+}
+
+.success-log-text{
+    color: var(--color-success);
 }
 
 .btn-log-submit, .btn-log-button{
