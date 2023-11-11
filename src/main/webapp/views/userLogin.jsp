@@ -16,7 +16,7 @@
 <body>
     <div class="Login">
         <div class="log-left">
-            <h1 style="color: white;">Không có gì :)))</h1>
+            <h1 style="color: white; display: none">Không có gì :)))</h1>
         </div>
         <div class="log-right">
             <div class="frm-login">

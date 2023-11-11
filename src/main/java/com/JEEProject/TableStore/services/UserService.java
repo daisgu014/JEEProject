@@ -60,13 +60,14 @@ public class UserService {
     }
 
     public void sendEmailUserPassword(Account account, String newPassword){
-        mailSender.sendSimpleEmail(
+        mailSender.sendHTMLEmail(
                 account.getEmail(),
                 "Thay đổi mật khẩu cho tài khoản: " + account.getUsername(),
-                String.format("Xin chào " + account.getFullname() + "\n" +
-                        "   Chúng tôi vừa nhận được yêu cầu thay đổi mật khẩu của bạn, đây sẽ là mật khẩu mới của bạn: " + newPassword + "\n" +
-                        "   Xin hãy đăng nhập tài khoản và thay đổi lại thông tin của bạn. \n" +
-                        "   Trân trọng!")
+                      "<p style='font-size: 16px'>Xin chào!</p>" + account.getFullname() + "</h1>" +
+                            "<p style='font-size: 16px'>Cữa hàng của chúng tôi vừa nhận được yêu cầu thay đổi mật khẩu của bạn, đây sẽ là mật khẩu mới của bạn: </p>" +
+                              "<p style='text-align: center; font-size: 18px; font-weight: bold;'>" + newPassword + "</p><br>" +
+                            "<p style='font-size: 16px'>Xin hãy đăng nhập tài khoản và thay đổi lại thông tin của bạn.</p><br>" +
+                            "<p style='font-size: 16px'>Trân trọng! (^-^)</p>"
         );
     }
 
