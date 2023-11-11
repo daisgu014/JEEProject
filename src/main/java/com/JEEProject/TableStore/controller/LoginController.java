@@ -25,6 +25,12 @@ public class LoginController {
             return "redirect:/user/profile";
         }
     }
+
+    @RequestMapping(value = "/login/getPassword")
+    public String getSendEmailPassword(ModelMap modelMap){
+        modelMap.addAttribute("error","");
+        return "userGetPassword";
+    }
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String checkLogin(ModelMap modelMap, @RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request) {
         if (userService.checkAccount(username,password)) {

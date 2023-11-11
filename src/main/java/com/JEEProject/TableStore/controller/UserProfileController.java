@@ -89,7 +89,7 @@ public class UserProfileController {
     public ModelAndView getAllUserPurchased(ModelMap modelMap, HttpSession session) {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
-            ModelAndView mv = new ModelAndView("/userPurchased");
+            ModelAndView mv = new ModelAndView("userPurchased");
             mv.addObject("orders",
                     StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false).toList());
             return mv;

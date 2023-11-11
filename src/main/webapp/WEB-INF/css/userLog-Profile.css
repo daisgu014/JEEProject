@@ -26,6 +26,11 @@
     color: var(--color-primary);
 }
 
+.log-header-content-gp{
+    padding: 10px 151px;
+    color: var(--color-primary);
+}
+
 .lab-log-content, .btn-log-button, .input-log-content, .log-getpass, .btn-log-sumbit {
     display: block;
     margin-bottom: 10px;

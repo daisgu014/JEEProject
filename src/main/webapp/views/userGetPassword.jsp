@@ -21,23 +21,17 @@
         <div class="log-right">
             <div class="frm-login">
                 <div class="log-header-frm" >
-                    <h1 class="log-header-content">Đăng nhập</h1>
+                    <h1 class="log-header-content-gp">Quên mật khẩu</h1>
                 </div>
-                <form action="/user/login" method="POST"  class="log-container-frm" onsubmit="return ValidateLogin()">
-                    <label class="lab-log-content">Tên đăng nhập</label>
-                    <input class="input-log-content" type="text" name="username" id="inputUsername" placeholder="Tên đăng nhập">
-                    <p class="error-log-text" id="labErrorUsername"></p>
-                    <label class="lab-log-content">Mật khẩu</label>
-                    <input class="input-log-content" type="password" name="password" id="inputPassword" placeholder="Mật khẩu">
-                    <p class="error-log-text" id="labErrorPassword"></p>
-                    <p class="error-log-text">${error}</p>
-                    <a href="/user/login/getPassword" class="log-getpass" href="">Quên mật khẩu!</a>
-                    <button class="btn-log-submit" type="submit">Đăng nhập</button>
+                <form action="/user/login/getPassword" method="POST"  class="log-container-frm" onsubmit="return ValidateCheckEmail()">
+                    <label class="lab-log-content">Email đã đăng ký!</label>
+                    <input class="input-log-content" type="text" name="password" id="inputEmail" placeholder="Email đã đăng ký!">
+                    <p class="error-log-text" id="labError">${error}</p>
+                    <button class="btn-log-submit" type="submit">Lấy mật khẩu</button>
                 </form>
                 <div class="log-footer-frm">
                     <hr class="log-hr">
-                    <label class="lab-log-content">Bạn chưa có tài khoản?</label>
-                    <a href="/user/register" style="text-decoration: none;"><button class="btn-log-button" type="button">Đăng ký</button></a>
+                    <a href="/user/login" style="text-decoration: none;"><button class="btn-log-button" type="button">Quay lại đăng nhập!</button></a>
                 </div>
             </div>
         </div>

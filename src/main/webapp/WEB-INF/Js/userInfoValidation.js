@@ -143,6 +143,25 @@ function ValidateSecondPage(){
     OpenPage1Only(); 
 }
 
+function ValidateCheckEmail(){
+    var email = document.getElementById("inputEmail");
+    email.style.borderColor = 'var(--color-dark-variant)';
+    document.getElementById("labError").textContent = "";
+    if (email.value === ""){
+        email.style.borderColor = 'var(--color-danger)';
+        document.getElementById("labError").textContent = "Email không được để trống!";
+        return false;
+    }
+
+    if (!isValidEmail(email.value)){
+        email.style.borderColor = 'var(--color-danger)';
+        document.getElementById("labError").textContent = "Email không hợp lệ!";
+        return false;
+    }
+
+    return true;
+}
+
 function OpenPage1(){
     document.getElementById("btnSubmit").style.display = "none";
     document.getElementById("Page2").style.display = "none";
