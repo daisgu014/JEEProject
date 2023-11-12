@@ -41,6 +41,7 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                                 .requestMatchers(antMatcher("/css/**")).permitAll()
                                 .requestMatchers(antMatcher("/js/**")).permitAll()
                                 .requestMatchers(antMatcher("/images/**")).permitAll()
+                                .requestMatchers(antMatcher("/components/**")).permitAll()
                                 .requestMatchers(antMatcher("/catalog/**")).permitAll()
                                 .requestMatchers(antMatcher("/user/**")).permitAll()
                                 .requestMatchers(antMatcher("/login/**")).permitAll()

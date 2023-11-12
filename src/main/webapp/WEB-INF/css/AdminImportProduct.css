@@ -13,7 +13,10 @@
     color: var(--color-primary);
     font-weight: 500;
 }
-.add-qty-content .input-qty input{
+.add-qty-content .input-qty{
+    width: 300px;
+ }
+ .add-qty-content .input-qty input{
     height: 40px;
     width: 100px;
     border-radius: var(--border-radius-2);
@@ -27,6 +30,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 .add-qty-content .btn-qty button{
+    margin-left: 5rem;
     width: 100px;
     height: 40px;
     border-radius: var(--border-radius-2);
@@ -39,5 +43,21 @@ input::-webkit-inner-spin-button {
     color: var(--color-primary);
     background: var(--color-white);
     border:solid 1px var(--color-primary);
-    transition: 0.5s ease-in;
+    transition: 0.3s ease-in;
+}
+.btn-save button{
+    margin-left: 7rem;
+    width: 150px;
+    height: 40px;
+    border-radius: var(--border-radius-2);
+    background: var(--color-success);
+    font-size: 16px;
+    color: var(--color-white);
+    box-shadow: var(--box-shadow);
+}
+.btn-save button:hover{
+    color: var(--color-success);
+    background: var(--color-white);
+    border:solid 1px var(--color-success);
+    transition: 0.3s ease-in;
 }
