@@ -28,10 +28,10 @@ public class OrderService {
         Order od = orderRepo.findById(orderId).get();
         od.setConfirm_id(confirmId);
         orderRepo.save(od);
-        mailSender.sendSimpleEmail(
+        mailSender.sendHTMLEmail(
                 od.getUser().getEmail(),
                 "Xác nhận đơn hàng",
-                String.format("Đơn hàng của bạn đã được xác nhận thành công!\n" +
+                String.format("<h1>Đơn hàng của bạn đã được xác nhận thành công!</h1>\n" +
                         "Mã đơn hàng: %s\nTổng tiền: %s",od.getId(),od.getTotal_price())
         );
     }

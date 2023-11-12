@@ -9,7 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 @Controller
@@ -32,5 +36,16 @@ public class OrderController {
         return mv;
     }
 
-
+    @GetMapping(value = "/search")
+    public ModelAndView getOrders(@RequestParam String svalue, @RequestParam String sday, @RequestParam String eday){
+        ModelAndView mv = new ModelAndView("adminOrders");
+        mv.addObject("orders",
+                StreamSupport.stream(orderService.findAll().spliterator(), false)
+                        .filter(e->{
+                            return e.orderBy(svalue) && e.isBefore(eday) && e.isAfter(sday);
+                        })
+                        .toList()
+        );
+        return mv;
+    }
 }

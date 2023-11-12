@@ -3,7 +3,7 @@
 
 
 <div class="table-container">
-                <table>
+                <table height=100%>
                     <thead>
                         <tr>
                             <th>No.</th>

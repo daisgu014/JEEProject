@@ -15,8 +15,19 @@
 <body>
     <div class="container">
         <jsp:include page="../components/sidebar.jsp"/>
-        <jsp:include page="./template/orderTable.jsp"/>
+        <div>
+            <form action="/admin/orders/search">
+                <input class="h-search" name="svalue" type="text" placeholder="Nhập mã đơn hàng hoặc mã khách hàng" name="search" id="search">
+                <label for="sday">From:</label>
+                <input type="date" id="sday" name="sday">
+                <label for="eday">To:</label>
+                <input type="date" id="eday" name="eday">
+                <input type="submit" value="Tìm">
+            </form>
+            <jsp:include page="./template/orderTable.jsp"/>
+        </div>
+        
     </div>
-    
+
 </body>
 </html>
