@@ -11,6 +11,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
 
@@ -48,6 +50,29 @@ public class Order implements Serializable {
 
     public List<OrderDetail> getDetails() {
         return details.stream().toList();
+    }
+
+    public boolean orderBy(String userId){
+        try {
+            return this.getUser().getId() == Integer.valueOf(userId).intValue();
+        }catch (Exception e){
+            return true;
+        }
+    }
+
+    public boolean isBefore(String date){
+        try {
+            return this.getCreate_at().compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(date)) <=0;
+        } catch (ParseException ex) {
+            return true;
+        }
+    }
+    public boolean isAfter(String date){
+        try {
+            return this.getCreate_at().compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(date)) >=0;
+        } catch (ParseException ex) {
+            return true;
+        }
     }
 
 }
