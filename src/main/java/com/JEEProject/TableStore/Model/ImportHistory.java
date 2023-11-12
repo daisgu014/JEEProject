@@ -1,53 +1,31 @@
 package com.JEEProject.TableStore.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.JEEProject.TableStore.Auth.user.User;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Timer;
 
 @Entity
 @Table(name = "import_history")
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ImportHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name = "time_import")
+    @Temporal(TemporalType.DATE)
     private Date timeImport;
-
-    public Integer getId() {
-        return id;
+    public String getTimeImport(){
+        return timeImport.toString();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public ImportHistory(Integer userId, Date timeImport) {
-        this.userId = userId;
-        this.timeImport = timeImport;
-    }
-
-    public ImportHistory() {
-    }
-
-    public Date getTimeImport() {
-        return timeImport;
-    }
-
-    public void setTimeImport(Date timeImport) {
-        this.timeImport = timeImport;
-    }
 }

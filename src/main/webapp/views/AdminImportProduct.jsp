@@ -7,6 +7,7 @@
     <title>Nhập sản phẩm </title>
     <link rel="stylesheet"  href="/css/productStyle.css">
     <link rel="stylesheet"  href="/css/AdminImportProduct.css">
+    <link rel="stylesheet" href="/css/importHistory.css">
     <link rel="stylesheet"  href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -104,7 +105,11 @@
             </div>
 
         </div>
-
+        <div class="pageBefore">
+            <a href="/admin/products">Quản lý sản phẩm </a>
+            <i class="fa-solid fa-right-long"></i>
+            <a href="">Nhập sản phẩm</a>
+        </div>
         <div class="tabular--wrapper">
            <div class="add-qty-content" style="display: flex">
                <select path="product" name="product" id="product" class="product-input">
@@ -116,13 +121,15 @@
                </select>
                 <div class="input-qty">
                     <input name="qty-product" id="qty-product" type="number" min=1 max=100>
+                    <div><span id="error-qty-products"></span></div>
                 </div>
                <div class="btn-qty"><button id="btn-qty">Thêm </button></div>
+               <div class="btn-save"><button id="btn-save">Lưu thay đổi</button></div>
            </div>
 
             <div class="title-table">
             <div class="table-container">
-                <table>
+                <table id="import-products-table">
                     <thead>
                     <tr>
                         <th>STT</th>
@@ -145,4 +152,5 @@
 </div>
 </div>
 <script src="/js/event.js" type="text/javascript"></script>
+<script src="/js/ImportProduct/event.js" type="module"></script>
 </body>

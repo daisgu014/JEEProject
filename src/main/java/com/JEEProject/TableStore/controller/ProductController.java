@@ -2,17 +2,12 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Auth.user.User;
 import com.JEEProject.TableStore.Auth.user.UserAuthRepository;
-import com.JEEProject.TableStore.Model.Category;
-import com.JEEProject.TableStore.Model.Product;
-import com.JEEProject.TableStore.Model.Provider;
-import com.JEEProject.TableStore.Model.ResponseObject;
+import com.JEEProject.TableStore.Model.*;
 import com.JEEProject.TableStore.config.JwtService;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.repositories.ProductRepository;
 import com.JEEProject.TableStore.repositories.ProviderRepository;
-import com.JEEProject.TableStore.services.CategoryService;
-import com.JEEProject.TableStore.services.ProductService;
-import com.JEEProject.TableStore.services.ProviderService;
+import com.JEEProject.TableStore.services.*;
 import com.JEEProject.TableStore.validation.ProductValidator;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.ServletContext;
@@ -72,6 +67,8 @@ public class ProductController {
     private final JwtService jwtService;
     private final HttpServletRequest HttpRequest;
     private final UserAuthRepository userRepository;
+    private final ImportHistoryService importHistoryService;
+    private final ImportDetailsService importDetailsService;
 
     @RequestMapping( value = "" ,method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('admin:read')")
@@ -259,7 +256,11 @@ public class ProductController {
                    new ResponseObject("failed","Sản phẩm không tìm thấy","")
            );
        }
-       product.setInStock(product.getInStock()+qtyValue);
+      HttpSession session = HttpRequest.getSession();
+        String name = jwtService.extractUsername((String) session.getAttribute("accessToken"));
+        User user = userRepository.findByUsername(name).get();
+        ImportHistory importHistory= importHistoryService.getImportHistory(user);
+       importDetailsService.saveImportDetail(importHistory,product,qtyValue);
        return ResponseEntity.status(HttpStatus.OK).body(
                new ResponseObject("ok","nhập sản phẩm "+product.getName()+" với số lượng: "+qtyValue,product)
        );
