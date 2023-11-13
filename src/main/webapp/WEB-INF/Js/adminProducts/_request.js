@@ -61,7 +61,6 @@ const deleteProducts=(selectedProductIds)=> {
             if (!response.ok) {
                 throw new Error('Lỗi xóa sản phẩm');
             }
-            return response.json()
         })
 }
 const deleteId = (productId)=>{

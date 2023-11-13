@@ -22,7 +22,6 @@ const saveProductQty=(dataList)=>{
     })
 }
 AddBtn.addEventListener('click',(e)=>{
-
     console.log(dataTempt)
     e.preventDefault();
     let newRow = document.createElement("tr");
@@ -91,7 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(dataTempt.length>0){
             saveProductQty(dataTempt).then(data=>{
                 alert(data.status)
-                tableBody.remove();
+                dataTempt = [];
+                tableBody.innerHTML = '';
             })
         }else {
             alert("Vui lòng thêm sản phẩm nhập và số lượng!!!!")

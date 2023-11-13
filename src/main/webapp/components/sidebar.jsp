@@ -20,6 +20,12 @@
                     <p>Thể loại</p>
                 </a>
             </li>
+            <li class="provider">
+                <a href="/admin/provider" >
+                    <i class="fas fa-warehouse"></i>
+                    <p>Nhà cung cấp</p>
+                </a>
+            </li>
 
             <li class="products">
                 <a href="/admin/products" >
@@ -40,7 +46,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/api/v1/auth/logout">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <p>Đăng xuất</p>
                 </a>

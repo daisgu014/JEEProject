@@ -58,6 +58,21 @@ function Init() {
     if(document.querySelector(".close-btn")!=null){
         document.querySelector(".close-btn").addEventListener("click", ()=>{
             document.querySelector(".products_popup").style.display="none";
+            editFormProduct.style.display="none";
+            document.querySelector("#overlay").style.display="none"
+
+        })
+    }
+    if(document.querySelector("#btn-edit-close")!=null){
+        document.querySelector("#btn-edit-close").addEventListener("click", ()=>{
+            editFormProduct.style.display="none";
+            document.querySelector("#overlay").style.display="none"
+
+        })
+    }
+    if(document.querySelector("#btn-close-add")!=null){
+        document.querySelector("#btn-close-add").addEventListener("click", ()=>{
+            document.querySelector('.qty_product_popup').style.display="none"
             document.querySelector("#overlay").style.display="none"
 
         })
@@ -121,7 +136,7 @@ const deleteButton = document.getElementById("deleteBtn");
 deleteButton.addEventListener("click",()=>{
     if(selectedProductIds.length>1){
         deleteProducts(selectedProductIds).then(data=>{
-            alert(data.message);
+            alert("Xóa thành công");
             location.reload()
         }).catch(error => {
             alert(error.message); // Hiển thị thông báo lỗi nếu có lỗi

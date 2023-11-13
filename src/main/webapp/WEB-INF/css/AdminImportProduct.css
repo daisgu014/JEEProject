@@ -1,5 +1,7 @@
 .add-qty-content{
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     height: 70px;
     width: 100%;
     align-items: center;
@@ -9,16 +11,18 @@
     height: 40px;
     border-radius: var(--border-radius-2);
     padding-left: 8px;
-    font-size: 16px;
+    font-size: 15px;
     color: var(--color-primary);
     font-weight: 500;
+    min-width: 200px;
+    max-width: 400px;
 }
 .add-qty-content .input-qty{
-    width: 300px;
+    max-width: 230px;
  }
  .add-qty-content .input-qty input{
     height: 40px;
-    width: 100px;
+    max-width: 100px;
     border-radius: var(--border-radius-2);
     padding-left: 8px;
     font-size: 16px;
@@ -30,7 +34,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 .add-qty-content .btn-qty button{
-    margin-left: 5rem;
     width: 100px;
     height: 40px;
     border-radius: var(--border-radius-2);
@@ -46,7 +49,6 @@ input::-webkit-inner-spin-button {
     transition: 0.3s ease-in;
 }
 .btn-save button{
-    margin-left: 7rem;
     width: 150px;
     height: 40px;
     border-radius: var(--border-radius-2);
@@ -60,4 +62,23 @@ input::-webkit-inner-spin-button {
     background: var(--color-white);
     border:solid 1px var(--color-success);
     transition: 0.3s ease-in;
+}
+@media (max-width: 1080px) {
+    .add-qty-content{
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 5px;
+        justify-items: start;
+        align-items: start;
+
+    }
+    .add-qty-content .product-input{
+        max-width: 300px;
+    }
+    .add-qty-content .input-qty{
+        max-width: 300px;
+    }
+
 }

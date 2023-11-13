@@ -16,57 +16,7 @@
 <body>
 <div id="overlay"></div>
 <div class="container" >
-    <div class="left">
-        <div class="logo">
-            <a href="#" style="    display: flex;
-    justify-content: center;">
-                <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
-            </a>
-        </div>
-        <div class="sidebar">
-
-            <ul class="menu">
-                <li >
-                    <a href="#">
-                        <i class="fa-sharp fa-solid fa-gauge"></i>
-                        <p>Quản lý</p>
-                    </a>
-                </li>
-                <li class="categories active">
-                    <a href="/admin/categories" >
-                        <i class="fa-solid fa-bars"></i>
-                        <p>Thể loại</p>
-                    </a>
-                </li>
-
-                <li class="products  ">
-                    <a href="/admin/products" >
-                        <i class="fa-solid fa-shop"></i>
-                        <p>Sản phẩm</p>
-                    </a>
-                </li>
-                <li class="users ">
-                    <a href="/admin/accoun  t" >
-                        <i class="fa-solid fa-user"></i>
-                        <p>Người dùng</p>
-                    </a>
-                </li>
-                <li class=order">
-                    <a href="/admin/orders" >
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>Đơn hàng</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        <p>Đăng xuất</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
+        <jsp:include page="../components/sidebar.jsp"/>
     <div class="main--content">
         <div class="header-wrapper">
             <div class="header--title">
@@ -206,7 +156,7 @@
 
 <div class="products_popup" id="category_popup" style="display: none;">
     <div class="title">
-        <p>Thêm thể loại mói</p>
+        <p>Thêm thể loại mới</p>
         <div class="close-btn">
             <i class="fa-solid fa-xmark"></i>
         </div>
@@ -214,12 +164,11 @@
     <form id="categoryAddForm" enctype="multipart/form-data">
         <div class="popup-add-content">
             <div class="input input-name">
-                <div>
+                <div class="input-category">
                     <p class="info-category">Tên thể loại</p>
                     <input type="text" name="name" id="name">
                 </div>
                 <div id="name-error" class="error">
-
                 </div>
             </div>
             <div class="insert-submit">
@@ -229,14 +178,13 @@
     </form>
 </div>
 <div class="edit-category-form" style="display: none">
-    <div class="title-edit">
+    <div class="title">
         <p>Chỉnh sửa thể loại</p>
-        <div class="close-btn-edit btn" id="close-btn-edit">
+        <div class="close-btn" id="close-btn-edit">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="popup-edit-content">
-            <div class="input input-name-edit">
-
+            <div class="input input-name">
                 <div>
                     <p class="info-category">Tên thể loại</p>
                     <input type="text" name="name" id="name-edit">
