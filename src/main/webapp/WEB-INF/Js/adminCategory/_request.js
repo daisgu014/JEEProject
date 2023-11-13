@@ -5,7 +5,6 @@ const create=  () =>{try{
         id:null,
         name:inputName.value.trim()
     }
-
     return fetch('/admin/categories/create',{
         method: 'POST',
         headers:{
