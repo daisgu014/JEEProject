@@ -16,7 +16,7 @@
 <body>
     <div class="Login">
         <div class="log-left">
-            <h1 style="color: white;">Không có gì :)))</h1>
+            <h1 style="color: white; display: none">Không có gì :)))</h1>
         </div>
         <div class="log-right">
             <div class="frm-login">
@@ -31,7 +31,7 @@
                     <input class="input-log-content" type="password" name="password" id="inputPassword" placeholder="Mật khẩu">
                     <p class="error-log-text" id="labErrorPassword"></p>
                     <p class="error-log-text">${error}</p>
-                    <a class="log-getpass" href="">Quên mật khẩu!</a>
+                    <a href="/user/login/getPassword" class="log-getpass" href="">Quên mật khẩu!</a>
                     <button class="btn-log-submit" type="submit">Đăng nhập</button>
                 </form>
                 <div class="log-footer-frm">

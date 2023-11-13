@@ -6,7 +6,9 @@ import com.JEEProject.TableStore.repositories.OrderRepository;
 import com.JEEProject.TableStore.services.OrderService;
 import com.JEEProject.TableStore.services.UserService;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +20,10 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(path = "user")
 public class UserProfileController {
+    private final PasswordEncoder passwordEncoder;
     @Autowired
     UserService userService;
     //  Trang thông tin sản phẩm
@@ -28,6 +32,7 @@ public class UserProfileController {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
             modelMap.addAttribute("error","");
+            modelMap.addAttribute("success", "");
             modelMap.addAttribute("account", user);
             return "userProfile";
         } else {
@@ -43,18 +48,26 @@ public class UserProfileController {
                                      @RequestParam("address") String address){
         Account user = (Account) session.getAttribute("account");
         if (!userService.checkUpdateEmail(user, email)){
-            modelMap.addAttribute("error","Email đã được sữ dụng, xin hãy nhập email khác!");
+            user = (Account) session.getAttribute("account");
+            modelMap.addAttribute("account", user);
+            modelMap.addAttribute("success", "");
+            modelMap.addAttribute("error","Email đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
             return "userProfile";
         }
-
-        if (!userService.checkUpdatePhone(user, phone)){
-            modelMap.addAttribute("error","Email đã được sữ dụng, xin hãy nhập email khác!");
+        if (!userService.checkUpdatePhone(user, phone)) {
+            user = (Account) session.getAttribute("account");
+            modelMap.addAttribute("account", user);
+            modelMap.addAttribute("success", "");
+            modelMap.addAttribute("error", "Số điện thoại đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
             return "userProfile";
         }
-
-        userService.updateInformation(user, fullname, address);
+        user.setFullname(fullname);
+        user.setAddress(address);
+        userService.updateAccount(user);
         session.setAttribute("account", user);
-        return "redirect:/user/profile";
+        modelMap.addAttribute("error", "");
+        modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
+        return "userProfile";
     }
 
 //  Trang đổi mật khẩu
@@ -63,6 +76,7 @@ public class UserProfileController {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
             modelMap.addAttribute("account", user);
+            modelMap.addAttribute("success", "");
             modelMap.addAttribute("error","");
             return "userPassword";
         } else {
@@ -75,11 +89,17 @@ public class UserProfileController {
                                       @RequestParam("password") String password,
                                       @RequestParam("newPassword") String newPassword){
         Account user = (Account) session.getAttribute("account");
-        if (!userService.updatePassword(user, password, newPassword)){
+        if (!passwordEncoder.matches(password, user.getPassword())){
+            modelMap.addAttribute("success", "");
             modelMap.addAttribute("error","Mật khẩu cũ không đúng!");
             return "userPassword";
         } else {
-            return "redirect:/user/password";
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userService.updateAccount(user);
+            session.setAttribute("account", user);
+            modelMap.addAttribute("error","");
+            modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
+            return "userPassword";
         }
     }
 
@@ -89,7 +109,7 @@ public class UserProfileController {
     public ModelAndView getAllUserPurchased(ModelMap modelMap, HttpSession session) {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
-            ModelAndView mv = new ModelAndView("/userPurchased");
+            ModelAndView mv = new ModelAndView("userPurchased");
             mv.addObject("orders",
                     StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false).toList());
             return mv;

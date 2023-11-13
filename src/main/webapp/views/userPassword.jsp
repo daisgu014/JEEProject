@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Password</title>
        <link rel="stylesheet" href="/css/style.css">
        <link rel="stylesheet" href="/css/userLog-Profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -70,6 +70,7 @@
                         <input class="user-input-password" type="password" id="inputReNewPassword"  placeholder="Nhập lại mật khẩu mới">
                     </div>
                     <p class="error-log-text" id="labError">${error}</p>
+                    <p class="success-log-text" id="labSuccess">${success}</p>
                     <button class="user-btn-submit" id="btnSubmit" type="submit">Xác nhận</button>
                     <button class="user-btn" id="btnCancel" type="button" onclick="ClearPassword()">Làm mới</button>
                 </form>

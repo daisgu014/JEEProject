@@ -20,7 +20,7 @@
                     <img src="/images/avt.png" style="padding: var(--padding-1);height: 80px; object-fit:cover;">
                 </a>
             </div>
-            <div class="user-head"><h1 class="user-lab-title">Đơn hàng đã mua<h1></div>
+            <div class="user-head"><h1 class="user-lab-title">Thông tin tài khoản<h1></div>
             <div class="user-menu">
                 <div>
                     <a href="/user/logout" id="user-back-to-shop" class="user-menu-list-exit">
@@ -78,6 +78,7 @@
                         <input class="user-input" type="text" name="address" id="inputAddress" value="${account.address}" placeholder="Địa chỉ" disabled>
                     </div>
                     <p class="error-log-text" id="labError">${error}</p>
+                    <p class="success-log-text" id="labSuccess">${success}</p>
                     <button class="user-btn-submit" id="btnOpen" type="button" onclick="OpenSetting()">Chỉnh sửa</button>
                     <button class="user-btn-submit" id="btnSubmit" style="display: none" type="submit">Xác nhận</button>
                     <button class="user-btn" id="btnCancel" style="display: none" type="button" onclick="CloseSetting()">Hủy bỏ</button>
