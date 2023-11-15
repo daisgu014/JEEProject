@@ -1,5 +1,6 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Auth.user.UserAuthService;
 import com.JEEProject.TableStore.Model.Order;
 import com.JEEProject.TableStore.services.MailSenderService;
 import com.JEEProject.TableStore.services.OrderService;
@@ -19,7 +20,7 @@ import java.util.stream.StreamSupport;
 @Controller
 
 @RequestMapping(path = "/admin/orders")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN','SALE')")
 public class OrderController {
 
     @Autowired
@@ -27,10 +28,13 @@ public class OrderController {
 
     @Autowired
     private MailSenderService mailSender;
+    @Autowired
+    private UserAuthService userAuthService;
 
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ModelAndView getOrders(){
         ModelAndView mv = new ModelAndView("adminOrders");
+        mv.addObject("user",userAuthService.getUser());
         mv.addObject("orders",
                 StreamSupport.stream(orderService.findAll().spliterator(), false).toList());
         return mv;

@@ -17,8 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.AntPathMatcher;
 
 import static com.JEEProject.TableStore.Auth.user.Permission.*;
-import static com.JEEProject.TableStore.Auth.user.Role.ADMIN;
-import static com.JEEProject.TableStore.Auth.user.Role.MANAGER;
+import static com.JEEProject.TableStore.Auth.user.Role.*;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -49,7 +48,8 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                                 .requestMatchers(antMatcher("/accessDenied/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/auth/**")).permitAll()
                                 .requestMatchers(antMatcher("/cart/**")).permitAll()
-                                .requestMatchers(antMatcher("/admin/**")).hasRole(ADMIN.name())
+                                .requestMatchers(antMatcher("/admin/**")).hasAnyRole(ADMIN.name(),SALE.name())
+                                .requestMatchers(antMatcher("/admin/orders/**")).hasAnyRole(ADMIN.name())
                                 .requestMatchers(antMatcher("/api/v1/product/**")).hasRole(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
