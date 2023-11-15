@@ -14,7 +14,14 @@
 </head>
 <body>
     <div class="container">
-        <jsp:include page="../components/sidebar.jsp"/>
+        <c:choose>
+            <c:when test="${user.role eq 'SALE'}">
+                <jsp:include page="../components/SidebarSale.jsp"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="../components/sidebar.jsp"/>
+            </c:otherwise>
+        </c:choose>
         <div>
             <form action="/admin/orders/search">
                 <input class="h-search" name="svalue" type="text" placeholder="Nhập mã đơn hàng hoặc mã khách hàng" name="search" id="search">
