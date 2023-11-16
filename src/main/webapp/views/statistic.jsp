@@ -17,6 +17,7 @@
       </head>
 
       <body>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <div class="container">
           <c:choose>
             <c:when test="${user.role eq 'SALE'}">
@@ -27,110 +28,72 @@
             </c:otherwise>
           </c:choose>
           <div class="main--content">
-            <div class="chart-container">
-              <canvas id="myChart"></canvas>
-              <table id="customerTable">
-                <thead>
-                  <tr>
-                    <th>Mã Khách Hàng</th>
-                    <th>Họ tên</th>
-                    <th>Số đơn đã mua</th>
-                    <th>Tổng tiền đã mua</th>
-                  </tr>
-                </thead>
-                
+            <div class="btnHolder">
+              <button id="customerBtn">Khách hàng</button>
+              <button id="salerBtn">Saler</button>
+            </div>
+            <div class="chart-container customer current">
+              <canvas id="mychart"></canvas>
+              <table id="dataTable">
               </table>
             </div>
-
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-            <script>
-              const ctx = document.getElementById('myChart');
-              function getData() {
-                const res = fetch("/admin/statistic/customer")
-                  .then((response) => response.json())
-                  .then((data) => {
-                    drawChart(data[0]);
-                    document.getElementById("customerTable").innerHTML += drawTable(data[0]);
-                  });
-              }
-              function drawTable(data) {
-                let len = data.id.length;
-                let s = "";
-                for (let i = 0; i < len; i++) {
-                  s += `<tr>
-                      <td>` + data.id[i] + `</td>
-                      <td>` + data.fullName[i] + `</td>
-                      <td>` + data.orderCount[i] + `</td>
-                      <td>` + data.total[i] + `</td>
-                    </tr>`
-                }
-                return s;
-              }
-
-              function drawChart(data) {
-                new Chart(ctx, {
-                  type: 'bar',
-                  data: {
-                    labels: data.fullName,
-                    datasets: [{
-                      label: 'Số đơn đã mua',
-                      data: data.orderCount,
-                      borderWidth: 1,
-                      yAxisID: 'orderCount'
-                    }, {
-                      label: 'Tổng tiền đã mua',
-                      data: data.total,
-                      borderWidth: 1,
-                      yAxisID: 'total'
-                    }]
-                  },
-                  options: {
-                    responsive: true,
-                    scales: {
-                      orderCount: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                      },
-                      total: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                      }
-                    },
-                    plugins: {
-                      title: {
-                        display: true,
-                        text: 'Top 5 Khách hàng mua nhiều nhất',
-                      }
-                    }
-                  }
-                });
-
-              }
-
-              getData();
-
-
-            </script>
+            
           </div>
+          <script type="application/javascript" src="/js/statistic/salerChart.js"></script>
+          <script type="application/javascript" src="/js/statistic/customerChart.js"></script>
+          
+
+          <script>
+            getCustomerData(document.getElementById('mychart'));
+            document.getElementById("customerBtn").addEventListener("click", e => {
+              clearChart();
+              getCustomerData(document.getElementById('mychart'));
+            });
+            document.getElementById("salerBtn").addEventListener("click", e => {
+              clearChart();
+              chart = getSalerData(document.getElementById('mychart'));
+            });
+            function clearChart() {
+              let cas = document.getElementById("mychart");
+              let pr = cas.parentElement;
+              cas.remove();
+              pr.innerHTML = `<canvas id="mychart"></canvas>
+                              <table id="dataTable">
+                              </table>`;
+            }
+          </script>
 
         </div>
         <style>
+          .btnHolder > button {
+            margin: 5px;
+            width: 150px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: var(--color-primary);
+            color: #fff;
+            cursor: pointer;
+          }
+
           .chart-container {
             height: 60%;
-            display: flex;
+            display: none;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
           }
-          #customerTable{
+
+          .h-table {
             width: 60%;
             font-size: 13px;
           }
+
           * {
             box-sizing: border-box;
+          }
+
+          .current {
+            display: flex;
           }
         </style>
       </body>
