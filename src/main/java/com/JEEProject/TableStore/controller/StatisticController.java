@@ -38,12 +38,6 @@ public class StatisticController {
         return mv;
     }
 
-    @GetMapping(path = "/test")
-    public ResponseEntity<Map<Account, List<Order>>> getOrder(){
-        return ResponseEntity.ok(st.groupOrderByAccount());
-    }
-
-
 
     @RequestMapping(path = "/customer")
     @ResponseBody
