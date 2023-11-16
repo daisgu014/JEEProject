@@ -1,15 +1,15 @@
 package com.JEEProject.TableStore.Auth.auth;
 
+import com.JEEProject.TableStore.Auth.user.User;
 import com.JEEProject.TableStore.Auth.user.UserAuthRepository;
+import com.JEEProject.TableStore.Auth.user.UserAuthService;
+import com.JEEProject.TableStore.Model.ResponseObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -20,6 +20,7 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
     private final UserAuthRepository repository;
+    private final UserAuthService userAuthService;
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
@@ -49,6 +50,14 @@ public class AuthenticationController {
             HttpServletResponse response
     ) throws IOException {
         service.refreshToken(request, response);
+    }
+    @PostMapping("/getUser")
+    @ResponseBody
+    public ResponseEntity<ResponseObject> getUser(){
+        User user = userAuthService.getUser();
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("Thành công","Lấy user hiện tại",user.getRole())
+        );
     }
 
 }

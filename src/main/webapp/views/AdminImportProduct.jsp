@@ -23,7 +23,6 @@
             </a>
         </div>
         <div class="sidebar">
-
             <ul class="menu">
                 <li >
                     <a href="#">
@@ -31,43 +30,46 @@
                         <p>Quản lý</p>
                     </a>
                 </li>
-                <li class="categories ">
+                <li class="categories active">
                     <a href="/admin/categories" >
                         <i class="fa-solid fa-bars"></i>
                         <p>Thể loại</p>
                     </a>
                 </li>
+                <li class="provider">
+                    <a href="/admin/provider" >
+                        <i class="fas fa-warehouse"></i>
+                        <p>Nhà cung cấp</p>
+                    </a>
+                </li>
 
-                <li class="products active ">
+                <li class="products">
                     <a href="/admin/products" >
                         <i class="fa-solid fa-shop"></i>
                         <p>Sản phẩm</p>
                     </a>
                 </li>
-                <li class="users ">
+                <li class="account">
                     <a href="/admin/account" >
                         <i class="fa-solid fa-user"></i>
                         <p>Người dùng</p>
                     </a>
                 </li>
-                <li class=order">
+                <li class="orders">
                     <a href="/admin/orders" >
                         <i class="fas fa-shopping-cart"></i>
                         <p>Đơn hàng</p>
                     </a>
                 </li>
                 <li>
-                    <div id="LogoutBtn">
-                        <a href="/api/v1/auth/logout">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <p>Đăng xuất</p>
-                        </a>
-                    </div>
+                    <a href="/api/v1/auth/logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <p>Đăng xuất</p>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
-
     <div class="main--content">
         <div class="header-wrapper">
             <div class="header--title">
