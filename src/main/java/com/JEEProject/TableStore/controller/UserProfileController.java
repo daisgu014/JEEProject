@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,6 +24,9 @@ public class UserProfileController {
     private final PasswordEncoder passwordEncoder;
     @Autowired
     UserService userService;
+    @Autowired
+    OrderService orderService;
+
     //  Trang thông tin sản phẩm
     @RequestMapping(value = "/profile")
     public String getAllUserProfile(ModelMap modelMap, HttpSession session) {
@@ -105,7 +106,7 @@ public class UserProfileController {
 
 
 // Trang thông tin đơn hàng đã mua
-    @RequestMapping(value = "/purchased")
+    @RequestMapping(value = "/purchased", method = RequestMethod.GET)
     public ModelAndView getAllUserPurchased(ModelMap modelMap, HttpSession session) {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
@@ -114,6 +115,30 @@ public class UserProfileController {
                     StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false).toList());
             return mv;
         } else {
+            ModelAndView mv = new ModelAndView("redirect:/user/login");
+            return mv;
+        }
+    }
+
+    @GetMapping(value = "/purchased/search")
+    public ModelAndView getOrders(@RequestParam(required = false) String orderID,
+                                  @RequestParam(required = false) String startDay,
+                                  @RequestParam(required = false) String endDay, HttpSession session){
+        Account user = (Account) session.getAttribute("account");
+        if (user != null){
+            if (orderID.isEmpty() && startDay.isEmpty() && endDay.isEmpty()) {
+                ModelAndView mv = new ModelAndView("redirect:/user/purchased");
+                return mv;
+            }
+                ModelAndView mv = new ModelAndView("userPurchased");
+                mv.addObject("orders", StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false)
+                        .filter(e->{
+                            return e.getId().toString().equals(orderID) && e.isBefore(endDay) && e.isAfter(startDay);
+                        })
+                        .toList()
+                );
+                return mv;
+            } else {
             ModelAndView mv = new ModelAndView("redirect:/user/login");
             return mv;
         }
