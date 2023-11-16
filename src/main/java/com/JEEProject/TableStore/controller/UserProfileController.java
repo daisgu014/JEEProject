@@ -48,27 +48,31 @@ public class UserProfileController {
                                      @RequestParam("email") String email,
                                      @RequestParam("address") String address){
         Account user = (Account) session.getAttribute("account");
-        if (!userService.checkUpdateEmail(user, email)){
-            user = (Account) session.getAttribute("account");
-            modelMap.addAttribute("account", user);
-            modelMap.addAttribute("success", "");
-            modelMap.addAttribute("error","Email đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
+        if (user != null){
+            if (!userService.checkUpdateEmail(user, email)){
+                user = (Account) session.getAttribute("account");
+                modelMap.addAttribute("account", user);
+                modelMap.addAttribute("success", "");
+                modelMap.addAttribute("error","Email đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
+                return "userProfile";
+            }
+            if (!userService.checkUpdatePhone(user, phone)) {
+                user = (Account) session.getAttribute("account");
+                modelMap.addAttribute("account", user);
+                modelMap.addAttribute("success", "");
+                modelMap.addAttribute("error", "Số điện thoại đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
+                return "userProfile";
+            }
+            user.setFullname(fullname);
+            user.setAddress(address);
+            userService.updateAccount(user);
+            session.setAttribute("account", user);
+            modelMap.addAttribute("error", "");
+            modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
             return "userProfile";
+        } else {
+            return "redirect:/user/login";
         }
-        if (!userService.checkUpdatePhone(user, phone)) {
-            user = (Account) session.getAttribute("account");
-            modelMap.addAttribute("account", user);
-            modelMap.addAttribute("success", "");
-            modelMap.addAttribute("error", "Số điện thoại đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
-            return "userProfile";
-        }
-        user.setFullname(fullname);
-        user.setAddress(address);
-        userService.updateAccount(user);
-        session.setAttribute("account", user);
-        modelMap.addAttribute("error", "");
-        modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
-        return "userProfile";
     }
 
 //  Trang đổi mật khẩu
@@ -90,17 +94,21 @@ public class UserProfileController {
                                       @RequestParam("password") String password,
                                       @RequestParam("newPassword") String newPassword){
         Account user = (Account) session.getAttribute("account");
-        if (!passwordEncoder.matches(password, user.getPassword())){
-            modelMap.addAttribute("success", "");
-            modelMap.addAttribute("error","Mật khẩu cũ không đúng!");
-            return "userPassword";
+        if (user != null){
+            if (!passwordEncoder.matches(password, user.getPassword())){
+                modelMap.addAttribute("success", "");
+                modelMap.addAttribute("error","Mật khẩu cũ không đúng!");
+                return "userPassword";
+            } else {
+                user.setPassword(passwordEncoder.encode(newPassword));
+                userService.updateAccount(user);
+                session.setAttribute("account", user);
+                modelMap.addAttribute("error","");
+                modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
+                return "userPassword";
+            }
         } else {
-            user.setPassword(passwordEncoder.encode(newPassword));
-            userService.updateAccount(user);
-            session.setAttribute("account", user);
-            modelMap.addAttribute("error","");
-            modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
-            return "userPassword";
+            return "redirect:/user/login";
         }
     }
 
