@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,6 +24,9 @@ public class UserProfileController {
     private final PasswordEncoder passwordEncoder;
     @Autowired
     UserService userService;
+    @Autowired
+    OrderService orderService;
+
     //  Trang thông tin sản phẩm
     @RequestMapping(value = "/profile")
     public String getAllUserProfile(ModelMap modelMap, HttpSession session) {
@@ -47,27 +48,31 @@ public class UserProfileController {
                                      @RequestParam("email") String email,
                                      @RequestParam("address") String address){
         Account user = (Account) session.getAttribute("account");
-        if (!userService.checkUpdateEmail(user, email)){
-            user = (Account) session.getAttribute("account");
-            modelMap.addAttribute("account", user);
-            modelMap.addAttribute("success", "");
-            modelMap.addAttribute("error","Email đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
+        if (user != null){
+            if (!userService.checkUpdateEmail(user, email)){
+                user = (Account) session.getAttribute("account");
+                modelMap.addAttribute("account", user);
+                modelMap.addAttribute("success", "");
+                modelMap.addAttribute("error","Email đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
+                return "userProfile";
+            }
+            if (!userService.checkUpdatePhone(user, phone)) {
+                user = (Account) session.getAttribute("account");
+                modelMap.addAttribute("account", user);
+                modelMap.addAttribute("success", "");
+                modelMap.addAttribute("error", "Số điện thoại đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
+                return "userProfile";
+            }
+            user.setFullname(fullname);
+            user.setAddress(address);
+            userService.updateAccount(user);
+            session.setAttribute("account", user);
+            modelMap.addAttribute("error", "");
+            modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
             return "userProfile";
+        } else {
+            return "redirect:/user/login";
         }
-        if (!userService.checkUpdatePhone(user, phone)) {
-            user = (Account) session.getAttribute("account");
-            modelMap.addAttribute("account", user);
-            modelMap.addAttribute("success", "");
-            modelMap.addAttribute("error", "Số điện thoại đã được tài khoản khác sữ dụng, xin hãy nhập email khác!");
-            return "userProfile";
-        }
-        user.setFullname(fullname);
-        user.setAddress(address);
-        userService.updateAccount(user);
-        session.setAttribute("account", user);
-        modelMap.addAttribute("error", "");
-        modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
-        return "userProfile";
     }
 
 //  Trang đổi mật khẩu
@@ -89,23 +94,27 @@ public class UserProfileController {
                                       @RequestParam("password") String password,
                                       @RequestParam("newPassword") String newPassword){
         Account user = (Account) session.getAttribute("account");
-        if (!passwordEncoder.matches(password, user.getPassword())){
-            modelMap.addAttribute("success", "");
-            modelMap.addAttribute("error","Mật khẩu cũ không đúng!");
-            return "userPassword";
+        if (user != null){
+            if (!passwordEncoder.matches(password, user.getPassword())){
+                modelMap.addAttribute("success", "");
+                modelMap.addAttribute("error","Mật khẩu cũ không đúng!");
+                return "userPassword";
+            } else {
+                user.setPassword(passwordEncoder.encode(newPassword));
+                userService.updateAccount(user);
+                session.setAttribute("account", user);
+                modelMap.addAttribute("error","");
+                modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
+                return "userPassword";
+            }
         } else {
-            user.setPassword(passwordEncoder.encode(newPassword));
-            userService.updateAccount(user);
-            session.setAttribute("account", user);
-            modelMap.addAttribute("error","");
-            modelMap.addAttribute("success", "Thay đổi thông tin thành công.");
-            return "userPassword";
+            return "redirect:/user/login";
         }
     }
 
 
 // Trang thông tin đơn hàng đã mua
-    @RequestMapping(value = "/purchased")
+    @RequestMapping(value = "/purchased", method = RequestMethod.GET)
     public ModelAndView getAllUserPurchased(ModelMap modelMap, HttpSession session) {
         Account user = (Account) session.getAttribute("account");
         if (user != null){
@@ -114,6 +123,30 @@ public class UserProfileController {
                     StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false).toList());
             return mv;
         } else {
+            ModelAndView mv = new ModelAndView("redirect:/user/login");
+            return mv;
+        }
+    }
+
+    @GetMapping(value = "/purchased/search")
+    public ModelAndView getOrders(@RequestParam(required = false) String orderID,
+                                  @RequestParam(required = false) String startDay,
+                                  @RequestParam(required = false) String endDay, HttpSession session){
+        Account user = (Account) session.getAttribute("account");
+        if (user != null){
+            if (orderID.isEmpty() && startDay.isEmpty() && endDay.isEmpty()) {
+                ModelAndView mv = new ModelAndView("redirect:/user/purchased");
+                return mv;
+            }
+                ModelAndView mv = new ModelAndView("userPurchased");
+                mv.addObject("orders", StreamSupport.stream(userService.getAllUserOrder(user.getId()).spliterator(), false)
+                        .filter(e->{
+                            return e.getId().toString().equals(orderID) && e.isBefore(endDay) && e.isAfter(startDay);
+                        })
+                        .toList()
+                );
+                return mv;
+            } else {
             ModelAndView mv = new ModelAndView("redirect:/user/login");
             return mv;
         }

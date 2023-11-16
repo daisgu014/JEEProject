@@ -183,7 +183,6 @@
     opacity: 1;
 }
 
-
 .user-menu-list{
     background-color: var(--color-white);
     color: var(--color-dark-variant);
@@ -317,6 +316,19 @@
 
 
  /* Css cho table */
+.userRight-purchased{
+    display: grid;
+    grid-template-columns: 250px auto;
+}
+
+.user-filter-purchased{
+    height: 95%;
+    padding: var(--padding-1);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-2);
+    margin: 10px;
+}
+
 .user-table{
     background-color: var(--color-background);
     margin: 20px;
@@ -373,4 +385,22 @@
     text-align: center;
     background-color: var(--color-background);
     color: var(--color-black)
+}
+
+
+.user-filter-button{
+    display: block;
+    padding: 7px 20px;
+    width: 100%;
+    border-radius: var(--border-radius-2);
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    transition-duration: 0.3s;
+    border: 1px var(--color-primary) solid;
+}
+
+.user-filter-button:hover{
+    color: var(--color-primary);
+    background-color: var(--color-white);
+    transition-duration: 0.3s;
 }
