@@ -9,8 +9,8 @@
     </div>
     <div class="sidebar">
                <ul class="menu">
-                   <li >
-                       <a href="#">
+                   <li class="statistic">
+                       <a href="/admin/statistic">
                            <i class="fa-sharp fa-solid fa-gauge"></i>
                            <p>Quản lý</p>
                        </a>

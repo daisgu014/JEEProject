@@ -1,7 +1,9 @@
 package com.JEEProject.TableStore.controller;
 
+import com.JEEProject.TableStore.Auth.user.UserAuthService;
 import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.Order;
+import com.JEEProject.TableStore.services.OrderService;
 import com.JEEProject.TableStore.services.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.StreamSupport;
 
 
 @Controller
@@ -24,16 +28,26 @@ public class StatisticController {
 
     @Autowired
     private StatisticService st;
+    @Autowired
+    private UserAuthService userAuthService;
 
+    @GetMapping
+    public ModelAndView getStatistic(){
+        ModelAndView mv = new ModelAndView("statistic");
+        mv.addObject("user",userAuthService.getUser());
+        return mv;
+    }
 
-    @GetMapping(value = "")
+    @GetMapping(path = "/test")
     public ResponseEntity<Map<Account, List<Order>>> getOrder(){
         return ResponseEntity.ok(st.groupOrderByAccount());
     }
 
+
+
     @RequestMapping(path = "/customer")
     @ResponseBody
-    public List<List<Object[]>> findTop5Customer(){
+    public List<Object> findTop5Customer(){
         try {
 
             return List.of(st.top5Customer(11,2023),st.top5Saler(11,2023));
