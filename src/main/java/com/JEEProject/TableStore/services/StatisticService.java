@@ -5,7 +5,10 @@ import com.JEEProject.TableStore.Model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 @Service
 public class StatisticService {
@@ -26,5 +29,28 @@ public class StatisticService {
         });
         System.out.println(map.keySet().size());
         return map;
+    }
+
+    public List<Object[]> top5Customer(Integer month, Integer year) throws ParseException {
+        return orderService.findTop5Customer(
+                String.format("%s-%s-%s",year,month,1),
+                String.format("%s-%s-%s",year,month+1,1));
+    }
+    public List<Object[]> top5Saler(Integer month, Integer year){
+        return orderService.findTop5Saler(
+                String.format("%s-%s-%s",year,month,1),
+                String.format("%s-%s-%s",year,month+1,1));
+    }
+
+    public void top10Product(){
+
+    }
+
+    public void totalRevenue(){
+
+    }
+
+    public void revenuePerDayInWeek(){
+
     }
 }
