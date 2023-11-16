@@ -31,7 +31,7 @@ public class StatisticService {
         return map;
     }
 
-    public List<Object[]> top5Customer(Integer month, Integer year) throws ParseException {
+    public OrderService.CustomerData top5Customer(Integer month, Integer year) throws ParseException {
         return orderService.findTop5Customer(
                 String.format("%s-%s-%s",year,month,1),
                 String.format("%s-%s-%s",year,month+1,1));
