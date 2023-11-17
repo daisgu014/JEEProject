@@ -37,10 +37,8 @@ const authenticate=(username,password)=>{
         if(response.ok){
             getUser().then(data=>{
                 if(data.data==='SALE'){
-                    alert("Bạn đăng truy cập với quyền Sale")
                     window.location.href='/admin/orders'
                 }else {
-                    alert("Bạn đang truy cập với quyền Admin")
                     window.location.href='/admin/products'
                 }
             }

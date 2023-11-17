@@ -25,4 +25,12 @@ public interface ProductRepository extends CrudRepository<Product,Integer> {
     @Query("SELECT p FROM Product p WHERE p.DeleteAt IS NULL")
     Iterable<Product> findAllByDeleteAt();
 
+     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<Product> findByStatus(String status, Pageable pageable);
+    Page<Product>findByProviderId(Integer providerId,Pageable pageable);
+    Page<Product>findByCategoryId(Integer categoryId,Pageable pageable);
+
+    Page<Product>findByPriceBetween(Integer minvalue,Integer maxValue, Pageable pageable);
+
+
 }
