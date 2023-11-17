@@ -30,7 +30,7 @@ function drawCustomerTable(data) {
                     <td>` + data.id[i] + `</td>
                     <td>` + data.fullName[i] + `</td>
                     <td>` + data.orderCount[i] + `</td>
-                    <td>` + data.total[i] + `</td>
+                    <td>` + data.total[i].toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) + `</td>
                 </tr>`
     }
     return s;

@@ -1,14 +1,13 @@
 function getRevenueData(month, DOMelement) {
-    fetch("/admin/statistic/customer",{
+    fetch("/admin/statistic/customer", {
         method: "POST",
-        headers:{
+        headers: {
             'Content-Type': "application/json",
         },
-        body:JSON.stringify(month.split("-"))
+        body: JSON.stringify(month.split("-"))
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
             document.getElementById("dataTable").innerHTML = drawRevenueTable(data[3]);
             return drawRevenueChart(DOMelement, data[3]);
         });
@@ -28,7 +27,7 @@ function drawRevenueTable(data) {
         s += `  <tr>
                     <td>` + data.dates[i] + `</td>
                     <td>` + data.orderCount[i] + `</td>
-                    <td>` + data.dailyRevenue[i] + `</td>
+                    <td>` + data.dailyRevenue[i].toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) + `</td>
                 </tr>`
     }
     return s;
