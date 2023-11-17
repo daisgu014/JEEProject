@@ -25,4 +25,11 @@ public interface OrderRepo extends CrudRepository<Order,Integer> {
             "GROUP BY confirm_id ")
     public List<Object[]> findTop5Saler(@Param("sd") Date sd, @Param("ed") Date ed);
 
+    @Query( "select ods.product_id, count(*) " +
+            "from Order o " +
+            "join o.details ods on o.id = ods.order_id " +
+            "where o.create_at BETWEEN :sd AND :ed " +
+            "GROUP BY ods.product_id " +
+            "ORDER BY count(*) LIMIT 10")
+    public List<Object[]> findTop10Product(@Param("sd") Date sd, @Param("ed") Date ed);
 }

@@ -42,9 +42,14 @@ public class StatisticController {
     @RequestMapping(path = "/customer")
     @ResponseBody
     public List<Object> findTop5Customer(){
+        Integer month = 11;
+        Integer year = 2023;
         try {
-
-            return List.of(st.top5Customer(11,2023),st.top5Saler(11,2023));
+            return List.of(
+                    st.top5Customer(month,year),
+                    st.top5Saler(month,year),
+                    st.top10Product(month,year)
+            );
         } catch (ParseException e) {
             return new ArrayList<>();
         }

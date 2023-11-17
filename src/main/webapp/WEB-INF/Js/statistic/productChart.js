@@ -1,47 +1,47 @@
-function getCustomerData(DOMelement) {
+function getProductData(DOMelement) {
     fetch("/admin/statistic/customer")
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            document.getElementById("dataTable").innerHTML = drawCustomerTable(data[0]);
-            return drawCustomerChart(DOMelement, data[0]);
+            document.getElementById("dataTable").innerHTML = drawProductTable(data[2]);
+            return drawProductChart(DOMelement, data[2]);
         });
 }
-function drawCustomerTable(data) {
+function drawProductTable(data) {
     let len = data.id.length;
     let s = `<table id="customerTable">
                 <thead>
                     <tr>
-                        <th>Mã Khách Hàng</th>
-                        <th>Họ tên</th>
-                        <th>Số đơn đã mua</th>
-                        <th>Tổng tiền đã mua</th>
+                        <th>Mã Sản Phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng đã bán</th>
+                        <th>Tổng doanh thu</th>
                     </tr>
                 </thead>
             </table>`;
     for (let i = 0; i < len; i++) {
         s += `  <tr>
                     <td>` + data.id[i] + `</td>
-                    <td>` + data.fullName[i] + `</td>
-                    <td>` + data.orderCount[i] + `</td>
+                    <td>` + data.productName[i] + `</td>
+                    <td>` + data.productCount[i] + `</td>
                     <td>` + data.total[i] + `</td>
                 </tr>`
     }
     return s;
 }
 
-function drawCustomerChart(DOMelement, data) {
+function drawProductChart(DOMelement, data) {
     new Chart(DOMelement, {
         type: 'bar',
         data: {
-            labels: data.fullName,
+            labels: data.productName,
             datasets: [{
-                label: 'Số đơn đã mua',
-                data: data.orderCount,
+                label: 'Số lượng đã bán',
+                data: data.productCount,
                 borderWidth: 1,
-                yAxisID: 'orderCount'
+                yAxisID: 'productCount'
             }, {
-                label: 'Tổng tiền đã mua',
+                label: 'Tổng doanh thu',
                 data: data.total,
                 borderWidth: 1,
                 yAxisID: 'total'
@@ -50,7 +50,7 @@ function drawCustomerChart(DOMelement, data) {
         options: {
             responsive: true,
             scales: {
-                orderCount: {
+                productCount: {
                     type: 'linear',
                     display: true,
                     position: 'left',
@@ -64,7 +64,7 @@ function drawCustomerChart(DOMelement, data) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Top 5 Khách hàng mua nhiều nhất',
+                    text: 'Top 10 Sản phẩm bán chạy nhất trong tháng',
                 }
             }
         }
