@@ -220,6 +220,12 @@ button#insert-button, button#update-button,button#add-qty-button{
     align-items: center;
     flex-direction: row;
 }
+.add_qty_sub{
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+}
 @media (max-width: 1560px) {
    .add_qty_sub{
        width: 100px;

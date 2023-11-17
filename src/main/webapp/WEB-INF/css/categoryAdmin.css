@@ -22,7 +22,7 @@ p.info-category{
     color: var(--color-primary);
 }
 .products_popup{
-    height: 180px;
+    height: 250px;
 }
 .popup-add-content, .popup-edit-content{
     display: flex;

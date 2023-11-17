@@ -114,7 +114,7 @@
                         </div>
                         <div class="max-price-input">
                             <span>Đến: </span>
-                            <input type="number" value="9999999999" max="9999999999" name="max-price" id="maxprice" >
+                            <input type="number" value="999999999" max="999999999" name="max-price" id="maxprice" >
                         </div>
 
                     </div>
@@ -137,9 +137,11 @@
                         </select>
                     </div>
                     <div class="btnFilter">
-                        <div class="ResetBtn">
-                            Đặt lại
-                        </div>
+                     <a href="/admin/products" style="text-decoration: none">
+                         <div class="ResetBtn">
+                             Đặt lại
+                         </div>
+                     </a>
                         <button type="submit" id="filter-submit">Lọc</button>
                     </div>
                 </div>
@@ -216,6 +218,7 @@
                     </ul>
                 </c:if>
             </div>
+
         </div>
     </div>
 </div>

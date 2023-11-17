@@ -19,4 +19,5 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
 
     @Query("SELECT c FROM Category c where c.deleteAt IS null ")
     Page<Category> findCategoriesWhereDeleteAtIsNull(Pageable pageable);
+    Page<Category> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }

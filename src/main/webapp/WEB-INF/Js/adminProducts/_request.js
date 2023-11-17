@@ -22,10 +22,8 @@ const edit=(formData, id)=>{
             method:'POST',
             body:formData
         }).then(response=>{
-            if(response.ok){
+            if(response.ok) {
                 alert("Chỉnh sửa sản phẩm thành công")
-            }else{
-                throw new Error("Lỗi chỉnh sửa sản phẩm")
             }
         })
     }catch (error){

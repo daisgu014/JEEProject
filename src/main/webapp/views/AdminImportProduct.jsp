@@ -30,7 +30,7 @@
                         <p>Quản lý</p>
                     </a>
                 </li>
-                <li class="categories active">
+                <li class="categories ">
                     <a href="/admin/categories" >
                         <i class="fa-solid fa-bars"></i>
                         <p>Thể loại</p>
@@ -43,7 +43,7 @@
                     </a>
                 </li>
 
-                <li class="products">
+                <li class="products active">
                     <a href="/admin/products" >
                         <i class="fa-solid fa-shop"></i>
                         <p>Sản phẩm</p>
