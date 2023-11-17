@@ -1,17 +1,28 @@
 package com.JEEProject.TableStore.services;
 
 import com.JEEProject.TableStore.Model.Order;
+import com.JEEProject.TableStore.repositories.AccountRepository;
 import com.JEEProject.TableStore.repositories.OrderRepo;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderService {
 
     @Autowired
     private OrderRepo orderRepo;
+
+    @Autowired
+    protected AccountRepository accountRepository;
 
     @Autowired
     private MailSenderService mailSender;

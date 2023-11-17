@@ -5,29 +5,29 @@
         <div class="logo">
             <a href="#" style="    display: flex;
     justify-content: center;">
-                <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
-            </a>
-        </div>
-        <div class="sidebar">
-            <ul class="menu">
-                <li >
-                    <a href="#">
-                        <i class="fa-sharp fa-solid fa-gauge"></i>
-                        <p>Quản lý</p>
-                    </a>
-                </li>
-                <li class="categories active">
-                    <a href="/admin/categories" >
-                        <i class="fa-solid fa-bars"></i>
-                        <p>Thể loại</p>
-                    </a>
-                </li>
-                <li class="provider">
-                    <a href="/admin/provider" >
-                        <i class="fas fa-warehouse"></i>
-                        <p>Nhà cung cấp</p>
-                    </a>
-                </li>
+           <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
+       </a>
+    </div>
+    <div class="sidebar">
+               <ul class="menu">
+                   <li class="statistic">
+                       <a href="/admin/statistic">
+                           <i class="fa-sharp fa-solid fa-gauge"></i>
+                           <p>Quản lý</p>
+                       </a>
+                   </li>
+                   <li class="categories active">
+                       <a href="/admin/categories" >
+                           <i class="fa-solid fa-bars"></i>
+                           <p>Thể loại</p>
+                       </a>
+                   </li>
+                   <li class="provider">
+                       <a href="/admin/provider" >
+                           <i class="fas fa-warehouse"></i>
+                           <p>Nhà cung cấp</p>
+                       </a>
+                   </li>
 
                 <li class="products">
                     <a href="/admin/products" >
