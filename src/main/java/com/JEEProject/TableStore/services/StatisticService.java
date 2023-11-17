@@ -1,7 +1,9 @@
 package com.JEEProject.TableStore.services;
 
+import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.repositories.AccountRepository;
 import com.JEEProject.TableStore.repositories.OrderRepo;
+import com.JEEProject.TableStore.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,9 @@ public class StatisticService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private ProductRepository productRepo;
+
 
     public CustomerData top5Customer(Integer month, Integer year) throws ParseException {
         return findTop5Customer(
@@ -33,9 +38,14 @@ public class StatisticService {
                 String.format("%s-%s-%s",year,month+1,1));
     }
 
-    public void top10Product(){
-
+    public ProductData top10Product(Integer month, Integer year){
+        return findTop10Product(
+                String.format("%s-%s-%s",year,month,1),
+                String.format("%s-%s-%s",year,month+1,1)
+        );
     }
+
+
 
     public void totalRevenue(){
 
@@ -45,6 +55,13 @@ public class StatisticService {
 
     }
 
+    private ProductData findTop10Product(String sd, String ed) {
+        ProductData list = new ProductData();
+        orderRepo.findTop10Product(java.sql.Date.valueOf(sd), java.sql.Date.valueOf(ed))
+                .forEach(list::addData);
+        return list;
+
+    }
 
     public CustomerData findTop5Customer(String sd, String ed){
         CustomerData list = new CustomerData();
@@ -60,6 +77,30 @@ public class StatisticService {
         return list;
     }
 
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    class ProductData{
+        List<Integer> id;
+        List<String> productName;
+        List<Long> productCount;
+        List<Long> total;
+
+        public ProductData() {
+            this.id = new ArrayList<>();
+            this.productName = new ArrayList<>();
+            this.productCount = new ArrayList<>();
+            this.total = new ArrayList<>();
+        }
+
+        public void addData(Object[] rawData){
+            Product p = productRepo.findById((Integer) rawData[0]).get();
+            this.id.add((Integer) rawData[0]);
+            this.productName.add(p.getName());
+            this.productCount.add((Long) rawData[1]);
+            this.total.add(p.getPrice()*(Long) rawData[1]);
+        }
+    }
 
     @AllArgsConstructor
     @Getter

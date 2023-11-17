@@ -31,8 +31,9 @@
             <div class="btnHolder">
               <button id="customerBtn">Khách hàng</button>
               <button id="salerBtn">Saler</button>
+              <button id="productBtn">Sản phẩm</button>
             </div>
-            <div class="chart-container customer current">
+            <div class="chart-container current">
               <canvas id="mychart"></canvas>
               <table id="dataTable">
               </table>
@@ -41,6 +42,7 @@
           </div>
           <script type="application/javascript" src="/js/statistic/salerChart.js"></script>
           <script type="application/javascript" src="/js/statistic/customerChart.js"></script>
+          <script type="application/javascript" src="/js/statistic/productChart.js"></script>
           
 
           <script>
@@ -52,6 +54,10 @@
             document.getElementById("salerBtn").addEventListener("click", e => {
               clearChart();
               chart = getSalerData(document.getElementById('mychart'));
+            });
+            document.getElementById("productBtn").addEventListener("click", e => {
+              clearChart();
+              chart = getProductData(document.getElementById('mychart'));
             });
             function clearChart() {
               let cas = document.getElementById("mychart");
@@ -65,6 +71,11 @@
 
         </div>
         <style>
+          @keyframes slide {
+            0%{
+              transform: translateY(100%);
+            }
+          }
           .btnHolder > button {
             margin: 5px;
             width: 150px;
@@ -81,6 +92,8 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+            animation: slide .5s;
+            
           }
 
           .h-table {
