@@ -43,6 +43,7 @@ public class OrderController {
     @GetMapping(value = "/search")
     public ModelAndView getOrders(@RequestParam String svalue, @RequestParam String sday, @RequestParam String eday){
         ModelAndView mv = new ModelAndView("adminOrders");
+        mv.addObject("user",userAuthService.getUser());
         mv.addObject("orders",
                 StreamSupport.stream(orderService.findAll().spliterator(), false)
                         .filter(e->{

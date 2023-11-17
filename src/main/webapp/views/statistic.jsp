@@ -29,9 +29,11 @@
           </c:choose>
           <div class="main--content">
             <div class="btnHolder">
+              <input id="monthpicker" type="month" value="2023-11">
               <button id="customerBtn">Khách hàng</button>
               <button id="salerBtn">Saler</button>
               <button id="productBtn">Sản phẩm</button>
+              <button id="revenueBtn">Doanh thu</button>
             </div>
             <div class="chart-container current">
               <canvas id="mychart"></canvas>
@@ -43,22 +45,43 @@
           <script type="application/javascript" src="/js/statistic/salerChart.js"></script>
           <script type="application/javascript" src="/js/statistic/customerChart.js"></script>
           <script type="application/javascript" src="/js/statistic/productChart.js"></script>
+          <script type="application/javascript" src="/js/statistic/revenueChart.js"></script>
           
 
           <script>
-            getCustomerData(document.getElementById('mychart'));
+            getCustomerData(
+              document.getElementById("monthpicker").value,
+              document.getElementById('mychart')
+            );
             document.getElementById("customerBtn").addEventListener("click", e => {
               clearChart();
-              getCustomerData(document.getElementById('mychart'));
+              getCustomerData(
+                document.getElementById("monthpicker").value,
+                document.getElementById('mychart')
+              );
             });
             document.getElementById("salerBtn").addEventListener("click", e => {
               clearChart();
-              chart = getSalerData(document.getElementById('mychart'));
+              chart = getSalerData(
+                document.getElementById("monthpicker").value,
+                document.getElementById('mychart')
+                );
             });
             document.getElementById("productBtn").addEventListener("click", e => {
               clearChart();
-              chart = getProductData(document.getElementById('mychart'));
+              chart = getProductData(
+                document.getElementById("monthpicker").value,
+                document.getElementById('mychart')
+              );
             });
+            document.getElementById("revenueBtn").addEventListener("click", e => {
+              clearChart();
+              chart = getRevenueData(
+                document.getElementById("monthpicker").value,
+                document.getElementById('mychart')
+              );
+            });
+            
             function clearChart() {
               let cas = document.getElementById("mychart");
               let pr = cas.parentElement;

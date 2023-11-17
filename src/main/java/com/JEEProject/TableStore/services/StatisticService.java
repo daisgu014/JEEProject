@@ -46,12 +46,18 @@ public class StatisticService {
     }
 
 
-
-    public void totalRevenue(){
-
+    public DailyRevenueData dailyRevenue(Integer month, Integer year){
+        return findDailyRevenue(
+                String.format("%s-%s-%s",year,month,1),
+                String.format("%s-%s-%s",year,month+1,1)
+        );
     }
 
-    public void revenuePerDayInWeek(){
+    private DailyRevenueData findDailyRevenue(String sd, String ed) {
+        DailyRevenueData list = new DailyRevenueData();
+        orderRepo.dailyRevenue(java.sql.Date.valueOf(sd), java.sql.Date.valueOf(ed))
+                .forEach(list::addData);
+        return list;
 
     }
 
@@ -63,18 +69,42 @@ public class StatisticService {
 
     }
 
-    public CustomerData findTop5Customer(String sd, String ed){
+    private CustomerData findTop5Customer(String sd, String ed){
         CustomerData list = new CustomerData();
         orderRepo.findTop5Customer(java.sql.Date.valueOf(sd), java.sql.Date.valueOf(ed))
                 .forEach(list::addData);
         return list;
     }
 
-    public SalerData findTop5Saler(String sd, String ed){
+    private SalerData findTop5Saler(String sd, String ed){
         SalerData list = new SalerData();
         orderRepo.findTop5Saler(java.sql.Date.valueOf(sd), Date.valueOf(ed))
                 .forEach(list::addData);
         return list;
+    }
+
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    class DailyRevenueData{
+        List<Date> dates;
+        List<Integer> orderCount;
+        List<Long> dailyRevenue;
+        Long total;
+
+        public DailyRevenueData() {
+            this.dates = new ArrayList<>();
+            this.orderCount = new ArrayList<>();
+            this.dailyRevenue = new ArrayList<>();
+            this.total = 0L;
+        }
+
+        public void addData(Object[] rawData){
+            this.dates.add((Date)rawData[0]);
+            this.orderCount.add(Integer.valueOf(rawData[1].toString()));
+            this.dailyRevenue.add((Long)rawData[2]);
+            this.total += (Long)rawData[2];
+        }
     }
 
     @AllArgsConstructor

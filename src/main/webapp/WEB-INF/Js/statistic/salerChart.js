@@ -1,9 +1,14 @@
 
-function getSalerData(DOMelement) {
-    fetch("/admin/statistic/customer")
+function getSalerData(month, DOMelement) {
+    fetch("/admin/statistic/customer",{
+        method: "POST",
+        headers:{
+            'Content-Type': "application/json",
+        },
+        body:JSON.stringify(month.split("-"))
+    })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
             document.getElementById("dataTable").innerHTML = drawSalerTable(data[1]);
             return drawSalerChart(DOMelement, data[1]);
         });

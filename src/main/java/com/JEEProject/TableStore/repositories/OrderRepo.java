@@ -32,4 +32,10 @@ public interface OrderRepo extends CrudRepository<Order,Integer> {
             "GROUP BY ods.product_id " +
             "ORDER BY count(*) LIMIT 10")
     public List<Object[]> findTop10Product(@Param("sd") Date sd, @Param("ed") Date ed);
+
+    @Query( "select o.create_at , count(*) , sum(o.total_price)" +
+            "from Order o " +
+            "where o.create_at BETWEEN :sd AND :ed " +
+            "GROUP BY o.create_at " )
+    public List<Object[]> dailyRevenue(@Param("sd") Date sd, @Param("ed") Date ed);
 }
