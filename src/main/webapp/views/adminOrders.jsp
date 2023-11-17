@@ -25,12 +25,12 @@
         </c:choose>
         <div class="main--content">
             <form class="filter-form" action="/admin/orders/search">
-                <input class="h-search" name="svalue" type="text" placeholder="Nhập mã đơn hàng hoặc mã khách hàng" name="search" id="search">
+                <input class="h-search" name="svalue" type="text" placeholder="Nhập mã đơn hàng để tìm kiếm" name="search" id="search">
                 <label for="sday">From:</label>
                 <input class="h-day" type="date" id="sday" name="sday">
                 <label for="eday">To:</label>
                 <input class="h-day" type="date" id="eday" name="eday">
-                <input type="submit" value="Tìm">
+                <input class="h-btn" type="submit" value="Tìm">
             </form>
             <jsp:include page="./template/orderTable.jsp"/>
         </div>
@@ -47,10 +47,22 @@
             display: flex;
             flex-wrap: wrap;
         }
+        .filter-form > * {
+            margin: 0 5px;
+        }
         .h-day{
             width: max(100px,15%);
             height: 35px;
             border-radius: 8px;
+        }
+        .h-btn{
+            margin: 5px;
+            width: 150px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: var(--color-primary);
+            color: #fff;
+            cursor: pointer;
         }
     </style>
 </body>

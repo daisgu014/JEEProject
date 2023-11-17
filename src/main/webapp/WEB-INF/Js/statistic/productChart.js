@@ -1,5 +1,11 @@
-function getProductData(DOMelement) {
-    fetch("/admin/statistic/customer")
+function getProductData(month, DOMelement) {
+    fetch("/admin/statistic/customer",{
+        method: "POST",
+        headers:{
+            'Content-Type': "application/json",
+        },
+        body:JSON.stringify(month.split("-"))
+    })
         .then((response) => response.json())
         .then((data) => {
             console.log(data);

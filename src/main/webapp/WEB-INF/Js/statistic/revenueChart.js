@@ -1,4 +1,4 @@
-function getCustomerData(month, DOMelement) {
+function getRevenueData(month, DOMelement) {
     fetch("/admin/statistic/customer",{
         method: "POST",
         headers:{
@@ -9,48 +9,45 @@ function getCustomerData(month, DOMelement) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            document.getElementById("dataTable").innerHTML = drawCustomerTable(data[0]);
-            return drawCustomerChart(DOMelement, data[0]);
+            document.getElementById("dataTable").innerHTML = drawRevenueTable(data[3]);
+            return drawRevenueChart(DOMelement, data[3]);
         });
 }
-function drawCustomerTable(data) {
-    let len = data.id.length;
+function drawRevenueTable(data) {
+    let len = data.dailyRevenue.length;
     let s = `<table id="customerTable">
                 <thead>
                     <tr>
-                        <th>Mã Khách Hàng</th>
-                        <th>Họ tên</th>
-                        <th>Số đơn đã mua</th>
-                        <th>Tổng tiền đã mua</th>
+                        <th>Ngày</th>
+                        <th>Số đơn</th>
+                        <th>Doanh thu</th>
                     </tr>
                 </thead>
             </table>`;
     for (let i = 0; i < len; i++) {
         s += `  <tr>
-                    <td>` + data.id[i] + `</td>
-                    <td>` + data.fullName[i] + `</td>
+                    <td>` + data.dates[i] + `</td>
                     <td>` + data.orderCount[i] + `</td>
-                    <td>` + data.total[i] + `</td>
+                    <td>` + data.dailyRevenue[i] + `</td>
                 </tr>`
     }
     return s;
 }
 
-function drawCustomerChart(DOMelement, data) {
+function drawRevenueChart(DOMelement, data) {
     new Chart(DOMelement, {
-        type: 'bar',
         data: {
-            labels: data.fullName,
+            labels: data.dates,
             datasets: [{
-                label: 'Số đơn đã mua',
+                type: 'line',
+                label: 'Số đơn',
                 data: data.orderCount,
-                borderWidth: 1,
                 yAxisID: 'orderCount'
             }, {
-                label: 'Tổng tiền đã mua',
-                data: data.total,
-                borderWidth: 1,
-                yAxisID: 'total'
+                type: 'bar',
+                label: 'Doanh thu',
+                data: data.dailyRevenue,
+                yAxisID: 'dailyRevenue'
             }]
         },
         options: {
@@ -60,17 +57,19 @@ function drawCustomerChart(DOMelement, data) {
                     type: 'linear',
                     display: true,
                     position: 'left',
+                    beginAtZero: true,
                 },
-                total: {
+                dailyRevenue: {
                     type: 'linear',
                     display: true,
                     position: 'right',
+                    beginAtZero: true
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: 'Top 5 Khách hàng mua nhiều nhất',
+                    text: 'Doanh thu hằng ngày',
                 }
             }
         }
