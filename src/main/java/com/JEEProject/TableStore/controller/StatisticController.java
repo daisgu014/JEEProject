@@ -38,7 +38,6 @@ public class StatisticController {
         System.err.println(monthData);
         Integer month = monthData.get(1);
         Integer year = monthData.get(0);
-
         try {
             return List.of(
                     st.top5Customer(month,year),
