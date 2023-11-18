@@ -7,6 +7,7 @@
     <title>Nhập sản phẩm </title>
     <link rel="stylesheet"  href="/css/productStyle.css">
     <link rel="stylesheet"  href="/css/AdminImportProduct.css">
+    <link rel="stylesheet" href="/css/importHistory.css">
     <link rel="stylesheet"  href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -22,7 +23,6 @@
             </a>
         </div>
         <div class="sidebar">
-
             <ul class="menu">
                 <li >
                     <a href="#">
@@ -36,37 +36,40 @@
                         <p>Thể loại</p>
                     </a>
                 </li>
+                <li class="provider">
+                    <a href="/admin/provider" >
+                        <i class="fas fa-warehouse"></i>
+                        <p>Nhà cung cấp</p>
+                    </a>
+                </li>
 
-                <li class="products active ">
+                <li class="products active">
                     <a href="/admin/products" >
                         <i class="fa-solid fa-shop"></i>
                         <p>Sản phẩm</p>
                     </a>
                 </li>
-                <li class="users ">
+                <li class="account">
                     <a href="/admin/account" >
                         <i class="fa-solid fa-user"></i>
                         <p>Người dùng</p>
                     </a>
                 </li>
-                <li class=order">
+                <li class="orders">
                     <a href="/admin/orders" >
                         <i class="fas fa-shopping-cart"></i>
                         <p>Đơn hàng</p>
                     </a>
                 </li>
                 <li>
-                    <div id="LogoutBtn">
-                        <a href="/api/v1/auth/logout">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            <p>Đăng xuất</p>
-                        </a>
-                    </div>
+                    <a href="/api/v1/auth/logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <p>Đăng xuất</p>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
-
     <div class="main--content">
         <div class="header-wrapper">
             <div class="header--title">
@@ -104,7 +107,11 @@
             </div>
 
         </div>
-
+        <div class="pageBefore">
+            <a href="/admin/products">Quản lý sản phẩm </a>
+            <i class="fa-solid fa-right-long"></i>
+            <a href="">Nhập sản phẩm</a>
+        </div>
         <div class="tabular--wrapper">
            <div class="add-qty-content" style="display: flex">
                <select path="product" name="product" id="product" class="product-input">
@@ -116,13 +123,15 @@
                </select>
                 <div class="input-qty">
                     <input name="qty-product" id="qty-product" type="number" min=1 max=100>
+                    <div><span id="error-qty-products"></span></div>
                 </div>
                <div class="btn-qty"><button id="btn-qty">Thêm </button></div>
+               <div class="btn-save"><button id="btn-save">Lưu thay đổi</button></div>
            </div>
 
             <div class="title-table">
             <div class="table-container">
-                <table>
+                <table id="import-products-table">
                     <thead>
                     <tr>
                         <th>STT</th>
@@ -145,4 +154,5 @@
 </div>
 </div>
 <script src="/js/event.js" type="text/javascript"></script>
+<script src="/js/ImportProduct/event.js" type="module"></script>
 </body>

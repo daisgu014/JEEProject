@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Purchased</title>
        <link rel="stylesheet" href="/css/style.css">
        <link rel="stylesheet" href="/css/userLog-Profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -54,11 +54,31 @@
                 </div>
             </div>
         </div>
-        <div class="userRight">
+        <div class="userRight-purchased">
+            <form class="user-filter-purchased" action="/user/purchased/search">
+                <label class="user-lab" style="font-size:22px;">Lọc Đơn hàng</label>
+                <div>
+                    <label class="user-lab">Mã đơn hàng</label>
+                    <input class="user-input-password" name="orderID">
+                </div>
+                <div>
+                    <label class="user-lab">Ngày mua</label>
+                    <div class="user-filter-input" style="display: grid; grid-template-columns: 50px auto;">
+                        <label class="user-lab">Từ</label>
+                        <input type="date" name="startDay" class="user-input-password">
+                    </div>
+                    <hr class="log-hr">
+                    <div class="user-filter-input" style="display: grid; grid-template-columns: 50px auto;">
+                        <label class="user-lab">Đến</label>
+                        <input type="date" name="endDay" class="user-input-password">
+                    </div>
+                    <button class="user-filter-button" type="submit">Tìm kiếm</button>
+                </div>
+            </form>
             <div class="user-content">
                 <div class="user-table">
                     <div class="user-table-header">
-                        <p>STT</p>
+                        <p>Mã đơn hàng</p>
                         <p>Ngày mua</p>
                         <p>Tổng giá</p>
                         <p>Tình trạng</p>
@@ -66,10 +86,10 @@
                     <div class="user-table-data">
                         <c:set var="count" value="0" scope="page"></c:set>
                         <c:forEach var="order" items="${orders}">
-                            <c:set var="count" value="${count + 1}" scope="page"></c:set>
+
                             <div class="user-order">
                                 <div class="user-main-data">
-                                    <p>${count}</p>
+                                    <p>${order.getId()}</p>
                                     <p>${order.getCreate_at()}</p>
                                     <p>${String.format("%,d",order.getTotal_price())}</p>
                                     <c:choose>

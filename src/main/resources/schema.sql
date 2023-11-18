@@ -79,14 +79,14 @@ create TABLE token(
                       FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE TABLE import_history(
-                               id INT ZEROFILL NOT NULL,
+                               id INT ZEROFILL AUTO_INCREMENT NOT NULL,
                                user_id INT ZEROFILL,
                                time_import TIMESTAMP DEFAULT CURRENT_TIME(),
                                PRIMARY KEY (id),
                                FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE TABLE import_details(
-                               id INT ZEROFILL NOT NULL,
+                               id INT ZEROFILL AUTO_INCREMENT NOT NULL,
                                import_id INT ZEROFILL NOT NULL,
                                product_id INT ZEROFILL NOT NULL,
                                qty_import INT NOT NULL check ( qty_import >0 ),

@@ -1,6 +1,24 @@
 import {getToken, saveToken} from "./AuthHelper.js";
 
 const authenticate_URL="/api/v1/auth/authenticate"
+const authenticate_USER = "/api/v1/auth/getUser"
+const getUser=()=>{
+    const headers = new Headers({
+        "Authorization": `Bearer ${getToken()}`
+    });
+    return fetch('/api/v1/auth/getUser',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            headers
+        }
+    }).then(response =>{
+        if(!response.ok){
+            throw new Error()
+        }
+        return response.json();
+    })
+}
 const authenticate=(username,password)=>{
     const request={
         "username": username,
@@ -17,7 +35,14 @@ const authenticate=(username,password)=>{
             alert("Tài khoản không tồn tại!!!")
         }
         if(response.ok){
-            window.location.href='/admin/products'
+            getUser().then(data=>{
+                if(data.data==='SALE'){
+                    window.location.href='/admin/orders'
+                }else {
+                    window.location.href='/admin/products'
+                }
+            }
+            )
         }
         return response.json();
     }).catch(err=>{

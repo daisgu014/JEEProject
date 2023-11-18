@@ -23,7 +23,13 @@ function ClearPassword(){
     reNewPassword.value ="";
 }
 
+function ClearSuccess(){
+    var attention = document.getElementById("labSuccess");
+    attention.textContent = "";
+}
+
 function ValidatePassword(){
+    ClearSuccess();
     password.style.border = "1px var(--color-info-dark) solid";
     newPassword.style.border = "1px var(--color-info-dark) solid";
     reNewPassword.style.border = "1px var(--color-info-dark) solid";
@@ -134,6 +140,8 @@ function ClearError(){
 
 
 function ValidateProfile(){
+    ClearSuccess();
+    full_name.style.border = "1px var(--color-info-dark) solid";
     email.style.border = "1px var(--color-info-dark) solid";
     phone.style.border = "1px var(--color-info-dark) solid";
     address.style.border = "1px var(--color-info-dark) solid";
@@ -231,6 +239,6 @@ function isValidPhoneNumber(phone) {
 }
 
 function isValidFullName(input) {
-  var pattern = /^[a-zA-Z\s]{3,}$/;
+  var pattern = /^[\p{L}\s]{3,}$/u;
   return pattern.test(input);
 }

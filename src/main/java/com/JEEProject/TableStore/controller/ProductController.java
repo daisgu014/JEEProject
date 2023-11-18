@@ -1,55 +1,25 @@
 package com.JEEProject.TableStore.controller;
-
 import com.JEEProject.TableStore.Auth.user.User;
-import com.JEEProject.TableStore.Auth.user.UserAuthRepository;
-import com.JEEProject.TableStore.Model.Category;
-import com.JEEProject.TableStore.Model.Product;
-import com.JEEProject.TableStore.Model.Provider;
-import com.JEEProject.TableStore.Model.ResponseObject;
-import com.JEEProject.TableStore.config.JwtService;
-import com.JEEProject.TableStore.repositories.CategoryRepository;
-import com.JEEProject.TableStore.repositories.ProductRepository;
+import com.JEEProject.TableStore.Auth.user.UserAuthService;
+import com.JEEProject.TableStore.Model.*;
 import com.JEEProject.TableStore.repositories.ProviderRepository;
-import com.JEEProject.TableStore.services.CategoryService;
-import com.JEEProject.TableStore.services.ProductService;
-import com.JEEProject.TableStore.services.ProviderService;
-import com.JEEProject.TableStore.validation.ProductValidator;
+import com.JEEProject.TableStore.services.*;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
@@ -57,7 +27,7 @@ import java.util.*;
 @RequestMapping(path = "admin/products")
 @PreAuthorize("hasRole('ADMIN')")
 public class ProductController {
-       @Autowired
+    @Autowired
     ProductService productService;
     @Autowired
     CategoryService categoryService;
@@ -67,21 +37,15 @@ public class ProductController {
     ProviderRepository providerRepository;
     @Autowired
     ServletContext servletContext;
-    @Autowired
-    private HttpServletRequest request;
-    private final JwtService jwtService;
-    private final HttpServletRequest HttpRequest;
-    private final UserAuthRepository userRepository;
+    private final UserAuthService userAuthService;
+    private final ImportHistoryService importHistoryService;
+    private final ImportDetailsService importDetailsService;
 
     @RequestMapping( value = "" ,method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('admin:read')")
     public String getProduct(ModelMap modelMap,
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "6") int size){
-        String token = (String) request.getSession().getAttribute("accessToken");
-        System.err.println(token);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Authorization", "Bearer " + token);
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
         Page<Product> productPage = productService.getAllWhereDeleteAtIsNull(pageable);
         if (!productPage.hasContent()) {
@@ -99,7 +63,6 @@ public class ProductController {
         List<Provider> providerFilters = new ArrayList<>();
         providerFilters.add(new Provider(-1,"Tất cả"));
         providerFilters.addAll((Collection<? extends Provider>)providers);
-
         modelMap.addAttribute("categories",categories);
         modelMap.addAttribute("providers",providers);
         modelMap.addAttribute("categoriesFilter",filterCategory);
@@ -259,39 +222,30 @@ public class ProductController {
                    new ResponseObject("failed","Sản phẩm không tìm thấy","")
            );
        }
-       product.setInStock(product.getInStock()+qtyValue);
+        User user = userAuthService.getUser();
+        ImportHistory importHistory= importHistoryService.getImportHistory(user);
+       importDetailsService.saveImportDetail(importHistory,product,qtyValue);
        return ResponseEntity.status(HttpStatus.OK).body(
                new ResponseObject("ok","nhập sản phẩm "+product.getName()+" với số lượng: "+qtyValue,product)
        );
     }
-//    @PostMapping("/search")
-//    @ResponseBody
-//    public ResponseEntity<ResponseObject> search(@RequestParam("name") String name,
-//                                                 @RequestParam("min-price") Integer minPrice,
-//                                                 @RequestParam("max-price") Integer maxPrice,
-//                                                 @RequestParam("category") Integer categoryId,
-//                                                 @RequestParam("status") String status,
-//                                                 @RequestParam("provider") Integer providerId){
-//
-//        System.err.println(name+" "+minPrice+" "+maxPrice+" "+categoryId+" "+status+ " "+providerId);
-//        return ResponseEntity.status(HttpStatus.OK).body(
-//                new ResponseObject("ok","providerId: "+providerId,"")
-//        );
-//
-//    }
     @GetMapping("/search")
     public String search(ModelMap modelMap,
+                         @RequestParam(defaultValue = "0") int page,
+                         @RequestParam(defaultValue = "100") int size,
                          @RequestParam(value = "nameFilter",defaultValue = "") String name,
                          @RequestParam(value = "min-price",defaultValue = "0") String minPrice,
-                         @RequestParam(value = "max-price",defaultValue = "999999999999") String maxPrice,
+                         @RequestParam(value = "max-price",defaultValue = "999999999") String maxPrice,
                          @RequestParam("category") Integer categoryId,
                          @RequestParam("status") String status,
-                         @RequestParam("provider") Integer providerId,
-                         @RequestParam(defaultValue = "0") int page,
-                         @RequestParam(defaultValue = "6") int size){
-        System.err.println(name+" "+minPrice+" "+maxPrice+" "+categoryId+" "+status+ " "+providerId);
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
-        Page<Product> productPage = productService.getAllWhereDeleteAtIsNull(pageable);
+                         @RequestParam("provider") Integer providerId){
+        Pageable pageable = PageRequest.of(page,size, Sort.by("id"));
+        // Kiểm tra và chuyển đổi minPrice
+        Integer minValue = Integer.parseInt(minPrice);
+
+        // Kiểm tra và chuyển đổi maxPrice
+        Integer maxValue = Integer.parseInt(maxPrice);
+        Page<Product> productPage = productService.filter(pageable,name,minValue,maxValue,categoryId,providerId,status);
         Iterable<Category> categories = categoryService.getAll();
         Iterable<Provider> providers = providerService.getAll();
         List<Category> filterCategory = new ArrayList<>();
@@ -300,7 +254,6 @@ public class ProductController {
         List<Provider> providerFilters = new ArrayList<>();
         providerFilters.add(new Provider(-1,"Tất cả"));
         providerFilters.addAll((Collection<? extends Provider>)providers);
-
         modelMap.addAttribute("categories",categories);
         modelMap.addAttribute("providers",providers);
         modelMap.addAttribute("categoriesFilter",filterCategory);
@@ -310,9 +263,7 @@ public class ProductController {
     }
     @GetMapping(value = "/importProducts")
     public String getImportProducts(ModelMap modelMap){
-        HttpSession session = HttpRequest.getSession();
-        String name = jwtService.extractUsername((String) session.getAttribute("accessToken"));
-        User user = userRepository.findByUsername(name).get();
+        User user = userAuthService.getUser();
         Iterable<Product> products = productService.getAll();
         modelMap.addAttribute("products",products);
         modelMap.addAttribute("user",user);

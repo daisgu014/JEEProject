@@ -9,10 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/importHistory.css">
+    <link rel="stylesheet" href="/css/productStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+    <title>Lịch sử nhập hàng</title>
 </head>
 <body>
 <div class="container">
@@ -81,29 +82,45 @@
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Người nhập</th>
-                        <th>Giờ</th>
                         <th>Ngày</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td class="info_product">
-                            <span>Bàn công thái học</span></td>
-                        <td>Bàn</td>
-                        <td>Đen</td>
-                        <td>3.400.000VNĐ</td>
-                        <td>10</td>
-                        <td>Nguyễn Hoàng Gia Đại </td>
-                        <td>7:30</td>
-                        <td>15/10/2023</td>
-                    </tr>
-
+                    <c:if test="${not empty imports}">
+                        <c:forEach var="item" items="${imports.content}">
+                            <tr>
+                                <td>${item.getId()}</td>
+                                <td class="info_product">
+                                    <span>${item.getProductId().getName()}</span></td>
+                                <td>${item.getProductId().getCategory().getName()}</td>
+                                <td>${item.getProductId().getColor()}</td>
+                                <td>${item.getProductId().getPrice()}VNĐ</td>
+                                <td style="color: var(--color-success); font-weight: 600;">${item.getQty()}</td>
+                                <td>${item.getImportHistory().getUser().getFull_name()} </td>
+                                <td>${item.getImportHistory().getTimeImport()}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                     </tbody>
                     <tfoot>
-                    <td colspan="9">Tổng số lần nhập sản phẩm: 1</td>
                     </tfoot>
                 </table>
+            </div>
+            <div class="pagination">
+                <c:if test="${imports.totalPages > 1}">
+                    <ul>
+                        <c:forEach begin="0" end="${imports.totalPages - 1}" varStatus="page">
+                            <c:set var="pageIndex" value="${page.index}"/>
+                            <li class="<c:if test='${pageIndex == imports.number}'>active</c:if>">
+                                <c:url value="/admin/products/import-history" var="pageUrl">
+                                    <c:param name="page" value="${pageIndex}"/>
+                                    <c:param name="size" value="${imports.size}"/>
+                                </c:url>
+                                <a href="${pageUrl}">${pageIndex + 1}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
             </div>
         </div>
     </div>

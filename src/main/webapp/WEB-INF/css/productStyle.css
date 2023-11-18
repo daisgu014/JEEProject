@@ -22,11 +22,11 @@
 .filter-modal{
     display: flex;
     width: 100%;
-    height: 100px;
+    height: 150px;
     flex-direction: row;
     justify-self: start;
-    justify-content: start;
-    gap: 3rem;
+    justify-content: flex-start;
+    gap: 1rem;
     background: var(--color-white);
     border-radius: 15px;
     box-shadow: var(--box-shadow);
@@ -80,7 +80,7 @@
 
 }
 .products_popup{
-    height: 500px;
+    height: 650px;
     width: 450px;
     position: fixed;
     top: 50%;
@@ -94,6 +94,39 @@
     align-items: center;
     align-content: center;
     z-index: 2;
+}
+.popup-add-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.input .product-name-qty{
+    width: 300px;
+}
+.input{
+    margin-top: 5px;
+    width: 300px;
+}
+.input input{
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid var(--color-primary);
+}
+.input p{
+    color: var(--color-primary);
+    font-size: 16px;
+    font-weight: 550;
+}
+button#insert-button, button#update-button,button#add-qty-button{
+    margin-top: 10px;
+    width: 120px;
+    height: 30px;
+    align-items: center;
+    background: var(--color-primary);
+    color:var(--color-white);
+    border-radius: 10px;
 }
 .pagination ul{
     display: flex;
@@ -129,9 +162,11 @@
     background: transparent;
 }
 .imagePre{
+    margin-top: 10px;
     height: 50px;
     width: 50px;
     border-radius: 50%;
+    border: 1px solid var(--color-primary);
 }
 .imagePre img{
     height: 50px;
@@ -141,7 +176,7 @@
 }
 .edit_product_popup{
     position: fixed;
-    width: 400px;
+    width: 600px;
     height: 600px;
     top: 50%;
     left: 50%;
@@ -165,7 +200,7 @@
 .qty_product_popup{
     position: fixed;
     width: 400px;
-    height: 200px;
+    height: 300px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -180,9 +215,21 @@
 }
 .filter-modal-content{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-content: center;
-    gap: 20px;
     align-items: center;
     flex-direction: row;
+}
+.add_qty_sub{
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+}
+@media (max-width: 1560px) {
+   .add_qty_sub{
+       width: 100px;
+       text-align: center;
+       margin-top: 15px;
+   }
 }

@@ -17,8 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.AntPathMatcher;
 
 import static com.JEEProject.TableStore.Auth.user.Permission.*;
-import static com.JEEProject.TableStore.Auth.user.Role.ADMIN;
-import static com.JEEProject.TableStore.Auth.user.Role.MANAGER;
+import static com.JEEProject.TableStore.Auth.user.Role.*;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -41,6 +40,7 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                                 .requestMatchers(antMatcher("/css/**")).permitAll()
                                 .requestMatchers(antMatcher("/js/**")).permitAll()
                                 .requestMatchers(antMatcher("/images/**")).permitAll()
+                                .requestMatchers(antMatcher("/components/**")).permitAll()
                                 .requestMatchers(antMatcher("/catalog/**")).permitAll()
                                 .requestMatchers(antMatcher("/productDetail/**")).permitAll()
                                 .requestMatchers(antMatcher("/user/**")).permitAll()
@@ -49,7 +49,6 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                                 .requestMatchers(antMatcher("/accessDenied/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/auth/**")).permitAll()
                                 .requestMatchers(antMatcher("/cart/**")).permitAll()
-                                .requestMatchers(antMatcher("/admin/**")).hasRole(ADMIN.name())
                                 .requestMatchers(antMatcher("/api/v1/product/**")).hasRole(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
