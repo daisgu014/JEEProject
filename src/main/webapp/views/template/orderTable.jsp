@@ -23,19 +23,13 @@
                             <td>${order.getId()}</td>
                             <td>${order.getCreate_at()}</td>
                             <td>
-                                <c:choose>
-                                    <c:when test="${!order.isConfirm()}">
-                                        "Đang chờ xác nhận"
-                                        <br />
-                                    </c:when>
-                                    <c:otherwise>
-                                        "Đã xác nhận"
-                                        <br />
-                                    </c:otherwise>
-                                </c:choose>
+                                ${order.getState().getValue()}
                             </td>
                             <td>${String.format("%,d",order.getTotal_price())}</td>
-                            <td><a href="/admin/orders/confirm/?id=${order.getId()}">Edit</a></td>
+                            <td>
+                                <a href="/admin/orders/confirm/?id=${order.getId()}">Edit</a>
+                                <a href="/admin/orders/cancel/?id=${order.getId()}">Cancel</a>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="6">
