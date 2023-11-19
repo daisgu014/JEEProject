@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<div style="width: 15%">
+<div style="width: 21%">
     <div class="left" style="position: fixed;">
         <div class="logo">
             <a href="#" style="    display: flex;
     justify-content: center;">
-           <img src="/images/avt.png" style="height: 100px; width: 100px; object-fit:cover;">
+           <img src="/images/avt.png" style="height:60px; width: 60px; object-fit:cover; margin: 1rem">
        </a>
     </div>
     <div class="sidebar">

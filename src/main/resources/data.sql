@@ -42,7 +42,19 @@ INSERT INTO users(username, password, full_name, role, phone, email, address) VA
 ('DieterWalker', '$2a$10$5BPjlQFVTHk8e8VSN219WuI6MbNYG1TOtarUvptpA93S9QZOk6eJe', 'Nguyễn Quốc Duệ', 'USER', '0946883860', 'nguyenquocdue32@gmail.com', 'Cà Mau'),
 ('lengohau','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Lê Ngô Hậu','ADMIN','09876543212','hau@gmail.com','TP. Hồ Chí Minh'),
 ('daisgu014','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','ADMIN','09876543222','dai@gmail.com','Bình Định'),
-('daisgu013','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','SALE','09876542122','dai@gmail.com','Bình Định');
+('daisgu013','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hữu Đại','SALE','09876542192','dai0@gmail.com','Bình Định'),
+('sale1','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Thị Thanh Huyền','SALE','07875542122','daismt1230@gmail.com','Bình Định'),
+('sale2','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Hoàng Gia Đại','SALE','09876532122','daibucky@gmail.com','Bình Định'),
+('user1','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Quốc Duệ','USER','09816542122','dai1@gmail.com','Hồ Chí Minh'),
+('user2','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Thanh Huyền','USER','09826542122','dai2@gmail.com','Bình Định'),
+('user3','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nguyễn Thị Thanh Huyền','USER','09836542122','dai3@gmail.com','Đồng Nai'),
+('user4','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nguuyễn Hoàng Gia Đại','USER','09846542122','dai4@gmail.com','Bình Phươước'),
+('user5','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Ngô Hậu','USER','09856542122','dai5@gmail.com','Hội An, Quản Nam'),
+('user6','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Hữu Đại','USER','09866542122','daisgu014@gmail.com','Núi Thành, Đà Nẵng'),
+('user7','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nuyễn Song Hà Giang','USER','09876542122','dai7@gmail.com','Đà Lạt'),
+('user8','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Gia Đại','USER','09886542122','dai8@gmail.com','Bình Định'),
+('user9','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','User 9','USER','09896542122','dai9@gmail.com','Quy Nhơn, Bình Định'),
+('user10','$2a$10$UndjvYOSrlNG1XkJC1fP4OpEXigvJmFfXuoTNs4qqcT0TEH/knacS','Nguyễn Trung ','USER','09806542122','dai10@gmail.com','Bình Định');
 
 
 insert into orders (total_price, create_at, user_id, place) values (10670000, '2023-8-7', 1, 'null'),
