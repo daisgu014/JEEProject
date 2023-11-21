@@ -1,5 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+let footer= `
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link type="text/css" href="/css/footer.css" rel="stylesheet">
 <div id="footer">
@@ -50,3 +49,8 @@
     </div>
     <div class="copyright text-center ">Bản quyền © 2023 Mọi quyền được bảo lưu | Mẫu này được thực hiện bởi Table Store</div>
 </div>
+`;
+
+function includeFooter(id) {
+     document.getElementById(id).innerHTML = footer;
+}
