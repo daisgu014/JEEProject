@@ -40,13 +40,13 @@
               <table id="dataTable">
               </table>
             </div>
-            
+
           </div>
           <script type="application/javascript" src="/js/statistic/salerChart.js"></script>
           <script type="application/javascript" src="/js/statistic/customerChart.js"></script>
           <script type="application/javascript" src="/js/statistic/productChart.js"></script>
           <script type="application/javascript" src="/js/statistic/revenueChart.js"></script>
-          
+
 
           <script>
             getCustomerData(
