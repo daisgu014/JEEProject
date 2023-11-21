@@ -295,6 +295,8 @@ input[type="checkbox"] {
     width: 100%;
     border-radius: 6px;
     transition: transform .5s ease;
+    height: 280px;
+    max-width: 280px;
 }
 
 .catalog--products-content .item img:hover {
@@ -322,7 +324,14 @@ input[type="checkbox"] {
 }
 
 .item--name {
-    max-height: 60px;
+    line-height: 2rem;
+    height: 4rem;
+    -webkit-box-orient: vertical;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
 }
 
 .item--price {

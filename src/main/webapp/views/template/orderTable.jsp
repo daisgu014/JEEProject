@@ -18,65 +18,80 @@
                     <c:set var="count" value="0" scope="page"></c:set>
                     <c:forEach var="order" items="${orders}">
                         <c:set var="count" value="${count + 1}" scope="page" />
+
                         <tr class="od-info">
                             <td>${count}</td>
                             <td>${order.getId()}</td>
                             <td>${order.getCreate_at()}</td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${!order.isConfirm()}">
-                                        "Đang chờ xác nhận"
-                                        <br />
-                                    </c:when>
-                                    <c:otherwise>
-                                        "Đã xác nhận"
-                                        <br />
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
+                            <c:choose>
+                                <c:when test="${order.getState() == 'WAITING'}">
+                                    <td class="yl-bg">
+                                        ${order.getState().getValue()}
+                                    </td>
+                                </c:when>
+                                <c:when test="${order.getState() == 'DONE'}">
+                                    <td class="gr-bg">
+                                        ${order.getState().getValue()}
+                                    </td>
+                                </c:when>
+                                <c:when test="${order.getState() == 'CANCEL'}">
+                                    <td class="rd-bg">
+                                        ${order.getState().getValue()}
+                                    </td>
+                                </c:when>
+                            </c:choose>
+
                             <td>${String.format("%,d",order.getTotal_price())}</td>
-                            <td><a href="/admin/orders/confirm/?id=${order.getId()}">Edit</a></td>
+                            <td class="action-tag">
+                                <a href="/admin/orders/confirm/?id=${order.getId()}">
+                                    <i class="fa-regular fa-circle-check fa-2xl"></i>
+                                </a>
+                                <a href="/admin/orders/cancel/?id=${order.getId()}">
+                                    <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="6">
                                 <table>
                                     <tbody>
-                                        <tr>
-                                            <td colspan="3">Mã khách hàng: ${order.getUser().getId()}</td>
-                                            <td colspan="3">Tên khách hàng: ${order.getUser().getUsername()}l</td>
-                                        </tr>
                                         <tr class="od-show">
                                             <td colspan="6">
-                                                <h3>Chi tiết sản phẩm
-                                                    <input type="checkbox" name="hide" class="show-item"> Hiện
-                                                </h3>
-                                            </td>
-                                        </tr>
-                                        <tr class="od-details">
-                                            <td colspan="6">
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Mã sản phẩm</th>
-                                                            <th>Tên sản phẩm</th>
-                                                            <th>Màu sản phẩm</th>
-                                                            <th>Số lượng</th>
-                                                            <th>Đơn giá</th>
-                                                        </tr>
-                                                        <c:forEach var="od" items="${order.getDetails()}">
-                                                            <c:set var="p" value="${od.getProduct()}" />
+                                                <details class="od-details">
+                                                    <summary>
+                                                        Chi tiết sản phẩm <i class="fa-solid fa-table-list"></i>
+                                                    </summary>
+                                                    <table class="od-details-table">
+                                                        <tbody>
                                                             <tr>
-                                                                <th>${p.getId()}</th>
-                                                                <td>${p.getName()}</td>
-                                                                <td>${p.getColor()}</td>
-                                                                <td>${od.getQty()}</td>
-                                                                <td>${String.format("%,d",p.getPrice())}</td>
+                                                                <td colspan="2">Mã khách hàng:
+                                                                    ${order.getUser().getId()}</td>
+                                                                <td colspan="3">Tên khách hàng:
+                                                                    ${order.getUser().getUsername()}l</td>
                                                             </tr>
-                                                        </c:forEach>
-                                                    </tbody>
-                                                </table>
+                                                            <tr>
+                                                                <th>Mã sản phẩm</th>
+                                                                <th>Tên sản phẩm</th>
+                                                                <th>Màu sản phẩm</th>
+                                                                <th>Số lượng</th>
+                                                                <th>Đơn giá</th>
+                                                            </tr>
+                                                            <c:forEach var="od" items="${order.getDetails()}">
+                                                                <c:set var="p" value="${od.getProduct()}" />
+                                                                <tr>
+                                                                    <th>${p.getId()}</th>
+                                                                    <td>${p.getName()}</td>
+                                                                    <td>${p.getColor()}</td>
+                                                                    <td>${od.getQty()}</td>
+                                                                    <td>${String.format("%,d",p.getPrice())}</td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </details>
                                             </td>
                                         </tr>
+
 
                                     </tbody>
                                 </table>
@@ -93,23 +108,82 @@
             </table>
         </div>
         <style>
-            .od-details {
-                display: none;
-                transition: all 0.5s ease;
+            .action-tag i {
+                height: 15px;
+            }
+
+            .action-tag .fa-circle-xmark {
+                color: #FF5B22;
+            }
+
+            .action-tag .fa-circle-check {
+                color: #219C90;
+            }
+
+            .gr-bg {
+                color: #fff;
+                background-color: #219C90;
+                border-radius: 10px;
+            }
+
+            .yl-bg {
+                color: #fff;
+                background-color: #E9B824;
+                border-radius: 10px;
+            }
+
+            .rd-bg {
+                color: #fff;
+                background-color: #FF5B22;
+                border-radius: 10px;
+            }
+
+            .od-details * {
+                transition: all 1s ease;
+            }
+
+            .od-details>summary {
+                list-style-type: none;
+                cursor: pointer;
+                margin: 5px;
+            }
+
+            input[type="date"],
+            ::placeholder {
+                text-align: center;
+            }
+
+            .od-details[open]>summary>i {
+                display: block;
+            }
+
+            .od-details>summary>i {
+                color: #6C9BCF;
             }
 
             .table-container {
-                height: 100%;
+                padding: auto;
+                height: 90%;
                 width: 100%;
                 overflow-y: scroll;
             }
 
-            .od-show:has(input[type="checkbox"]:checked)~.od-details {
-                display: table-row;
-                height: auto;
+            .order-main-table>tbody {
+                overflow-y: scroll;
             }
 
-            tbody, tr, td , th{
-                transition: all 2s ease-in-out;
+            .order-main-table>tbody>tr:nth-child(even) {
+                margin: 5px;
+                border-top: 2px solid #6C9BCF;
+            }
+
+            .order-main-table thead {
+                position: sticky;
+                inset-block-start: 0;
+            }
+
+            .order-main-table tfoot {
+                position: sticky;
+                inset-block-end: 0;
             }
         </style>

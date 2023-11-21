@@ -91,6 +91,45 @@ a:hover{
    background-color: #1E1E1E;
 }
 
+#header-top .btn-user {
+    position: relative;
+}
+
+#header-top .btn-user:hover{
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+#header-top .btn-user div {
+    display: none;
+    position: absolute;
+    font-size: 1rem;
+    min-width: 170px;
+    padding: 4px;
+    background-color: whitesmoke;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    left: calc(17px - 85px);
+    border-radius: 8px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+#header-top .btn-user a {
+    display: block;
+    color: #1E1E1E;
+    padding: 12px;
+    flex: 1;
+}
+
+#header-top .btn-user a:hover {
+    color: var(--color-primary);
+}
+
+#header-top .btn-user:hover div{
+    display: flex;
+}
+
 #header-nav {
     display: flex;
     align-items: center;

@@ -111,6 +111,7 @@ CREATE TABLE orders(
                        delete_at Date DEFAULT NULL,
                        place VARCHAR(500) NOT Null,
                        confirm_id INT ZEROFILL,
+                       state int DEFAULT 0,
                        confirm_date DATE DEFAULT NULL,
                        user_id INT ZEROFILL,
                        PRIMARY KEY(id),

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -29,6 +30,7 @@ public class Order implements Serializable {
     private Date create_at;
     private Date delete_at;
     private String place;
+    private ORDERSTATE state;
     private Integer confirm_id;
     private Integer user_id;
     private Date confirm_date;

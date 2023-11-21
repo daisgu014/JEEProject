@@ -1,5 +1,6 @@
 package com.JEEProject.TableStore.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,27 +30,7 @@ public class Cart {
         this.qty = qty;
     }
 
-    public Integer getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Integer userID) {
-        this.userID = userID;
-    }
-
-    public Integer getProductID() {
-        return productID;
-    }
-
-    public void setProductID(Integer productID) {
-        this.productID = productID;
-    }
-
     public Integer getQty() {
         return qty;
-    }
-
-    public void setQty(Integer qty) {
-        this.qty = qty;
     }
 }

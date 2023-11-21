@@ -30,7 +30,7 @@ public class CatalogController {
     public String getCatalog(ModelMap modelMap,
                              @RequestParam("page")Optional<Integer> page
     ){
-        Pageable pageable = PageRequest.of(page.orElse(0), 6);
+        Pageable pageable = PageRequest.of(page.orElse(0), 8);
         Page<Product> products = catalogService.searchProducts(criteria, pageable);
         modelMap.addAttribute("productPages", products);
         modelMap.addAttribute("categories", catalogService.findAllCategories());
@@ -53,7 +53,7 @@ public class CatalogController {
             criteria.setMaxPrice("");
             criteria.setMinPrice("");
         }
-        Pageable pageable = PageRequest.of(page.orElse(0), 6);
+        Pageable pageable = PageRequest.of(page.orElse(0), 8);
         Page<Product> products = catalogService.searchProducts(criteria, pageable);
         modelMap.addAttribute("productPages", products);
         modelMap.addAttribute("categories", catalogService.findAllCategories());
