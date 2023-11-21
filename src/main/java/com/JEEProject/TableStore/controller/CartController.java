@@ -2,14 +2,24 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.Cart;
+import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.services.CartService;
+import com.JEEProject.TableStore.services.CatalogService;
+import com.JEEProject.TableStore.services.ProductService;
+import com.JEEProject.TableStore.services.ProviderService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -17,8 +27,36 @@ import java.util.Optional;
 public class CartController {
     @Autowired
     CartService cartService;
-    public String getCart() {
-        return "index";
+
+    @Autowired
+    CatalogService catalogService;
+    @RequestMapping(path = "{userID}")
+    public String getCart(@PathVariable("userID") Optional<Integer> userID,
+                          ModelMap modelMap,
+                          HttpServletRequest request) {
+        if(userID.isPresent()) {
+            int total = 0;
+            int qty = 0;
+            List<Cart> carts = cartService.findCartByUserID(userID.get());
+            List<Product> products = new ArrayList<>();
+            for (Cart c: carts) {
+                products.add(catalogService.findProductByID(c.getProductID()).get());
+                total += c.getQty() * catalogService.findProductByID(c.getProductID()).get().getPrice();
+                qty += c.getQty();
+            }
+
+            modelMap.addAttribute("carts", carts);
+            modelMap.addAttribute("products", products);
+            modelMap.addAttribute("length", !carts.isEmpty() ? (carts.size() - 1) : 0);
+            modelMap.addAttribute("total", total);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("cart-qty", qty);
+            return "cart";
+        } else {
+            return "messageNotLogin";
+        }
+
     }
 
     @PostMapping(path = "/add")

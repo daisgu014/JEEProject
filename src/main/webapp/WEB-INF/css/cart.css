@@ -1,0 +1,82 @@
+span {
+    color: #1E1E1E;
+}
+
+a {
+    text-decoration: none;
+}
+
+#cart--slider {
+    background:  url("/images/banner2.png") #00000099 no-repeat;
+    width: 100%;
+    height: 391px;
+    margin-bottom: 40px;
+    background-size: cover;
+    position: relative;
+}
+
+#cart--slider .overlay {
+    width: 100%;
+    height: 100%;
+    background-color: #00000099;
+}
+
+#cart--slider p {
+    display: block;
+    width: 200px;
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    margin-top: -32px;
+    margin-left: -100px;
+    left: 50%;
+    font-size: 3rem;
+}
+
+#cart--wrapper td {
+    margin: 0 40px;
+}
+
+#cart--wrapper .cart-total {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#cart--wrapper .cart-actions, #cart--wrapper .cart-total {
+    margin-top: 80px;
+    margin-right: 60px;
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+}
+
+#cart--wrapper .product-button {
+    display: flex;
+    padding: 16px 80px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--color-primary);
+    color: var(--color-background);
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+#cart--wrapper .product-button:hover {
+    opacity: 0.8;
+}
+
+#cart--wrapper .deleteBtn {
+    padding: 16px 50px;
+    background: #fff;
+    border: solid 2px var(--color-primary);
+    color: var(--color-primary);
+}
+
+#cart--wrapper .deleteBtn:hover {
+    background: var(--color-primary);
+    color: var(--color-background);
+}
+

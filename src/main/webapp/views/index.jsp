@@ -12,7 +12,5 @@
 <body>
 <%--    <button id="btn_click">Button</button>--%>
 <%--    <h1>Tự code đi nha :)))</h1>--%>
-    <jsp:include page="../components/header.jsp"/>
-    <jsp:include page="../components/footer.jsp"/>
 </body>
 </html>
