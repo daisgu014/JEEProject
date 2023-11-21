@@ -28,10 +28,9 @@
                 HttpServletRequest httpServletRequest = (HttpServletRequest) pageContext.getRequest();
                 HttpSession session2 = httpServletRequest.getSession();
                 Account account = (Account) session2.getAttribute("account");
-                String total = session2.getAttribute("cart-qty").toString();
             %>
-            <% if(account!=null && total!=null) {%>
-            <a href="/cart/<%= account.getId() %>" class="shopping-cart" qty="<%= total %>"><i class='bx bx-cart'></i></a>
+            <% if(account!=null) {%>
+            <a href="/cart/<%= account.getId() %>" class="shopping-cart" qty="0"><i class='bx bx-cart'></i></a>
             <i class='bx bx-user btn-user'>
                 <div>
                     <a href="#">Tải Khoản Của Tôi</a>
