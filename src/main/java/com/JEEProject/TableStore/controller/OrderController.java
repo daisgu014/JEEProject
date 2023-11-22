@@ -2,6 +2,7 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Auth.user.UserAuthService;
 import com.JEEProject.TableStore.Model.Order;
+import com.JEEProject.TableStore.Model.OrderDetail;
 import com.JEEProject.TableStore.services.MailSenderService;
 import com.JEEProject.TableStore.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,11 @@ public class OrderController {
                         .toList()
         );
         return mv;
+    }
+
+    @GetMapping(value = "/create")
+    public void createNewOrder(@RequestBody List<OrderDetail> details){
+        Order order = orderService.createOrder();
+        details.forEach(detail->orderService.addDetail(order,detail));
     }
 }
