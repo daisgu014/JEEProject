@@ -30,14 +30,16 @@ public class CartController {
 
     @Autowired
     CatalogService catalogService;
-    @RequestMapping(path = "{userID}")
-    public String getCart(@PathVariable("userID") Optional<Integer> userID,
+    @RequestMapping()
+    public String getCart(
                           ModelMap modelMap,
-                          HttpServletRequest request) {
-        if(userID.isPresent()) {
+                          HttpServletRequest request, HttpSession session) {
+
+        try {
+            Integer userID = ((Account)session.getAttribute("account")).getId();
             int total = 0;
             int qty = 0;
-            List<Cart> carts = cartService.findCartByUserID(userID.get());
+            List<Cart> carts = cartService.findCartByUserID(userID);
             List<Product> products = new ArrayList<>();
             for (Cart c: carts) {
                 products.add(catalogService.findProductByID(c.getProductID()).get());
@@ -50,10 +52,9 @@ public class CartController {
             modelMap.addAttribute("length", !carts.isEmpty() ? (carts.size() - 1) : 0);
             modelMap.addAttribute("total", total);
 
-            HttpSession session = request.getSession();
             session.setAttribute("cart-qty", qty);
             return "cart";
-        } else {
+        } catch (Exception ex){
             return "messageNotLogin";
         }
 
