@@ -15,44 +15,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<div id="header">
-    <div id="header-top">
-        <a href="/" style="display: flex; justify-content: center; align-items: center; gap: 4px" class="logo">
-            <img src="/images/avt.png" style="height: 60px; width: 60px; object-fit:cover;">
-            <h3 style="font-size: 1.4rem">Table Store</h3>
-        </a>
-        <div class="header-top-actions">
-            <a href="/">FAQ</a>
-            <a href="/">Theo dõi đơn hàng</a>
-            <%
-                HttpServletRequest httpServletRequest = (HttpServletRequest) pageContext.getRequest();
-                HttpSession session2 = httpServletRequest.getSession();
-                Account account = (Account) session2.getAttribute("account");
-            %>
-            <% if(account!=null) {%>
-            <a href="/cart/<%= account.getId() %>" class="shopping-cart" qty="0"><i class='bx bx-cart'></i></a>
-            <i class='bx bx-user btn-user'>
-                <div>
-                    <a href="#">Tải Khoản Của Tôi</a>
-                    <a href="#">Đăng xuất</a>
-                </div>
-            </i>
-            <% } else{  %>
-            <a href="/messageNotLogin" class="shopping-cart" qty="0"><i class='bx bx-cart'></i></a>
-            <a href="/user/login" class="btn-login">Đăng nhập</a>
-            <% }%>
-
-        </div>
-    </div>
-    <div class="header-bottom" id="sticky-bar">
-        <div id="header-nav">
-            <a href="/home">Home</a>
-            <a href="/catalog">Catalog</a>
-            <a href="/">Giới thiệu</a>
-            <a href="/">Liên hệ</a>
-        </div>
-    </div>
-</div>
+    <jsp:include page="/header" />
 
     <div id="wrapper">
         <div class="product-detail-breadcrumb">

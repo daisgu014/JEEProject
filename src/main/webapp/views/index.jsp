@@ -16,6 +16,7 @@
 </head>
 <body>
     <jsp:include page="/header" />
+    <jsp:include page="/category" />
     <jsp:include page="/footer" />
 
 </body>
