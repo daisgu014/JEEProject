@@ -2,6 +2,7 @@ package com.JEEProject.TableStore.services;
 
 import com.JEEProject.TableStore.Model.ORDERSTATE;
 import com.JEEProject.TableStore.Model.Order;
+import com.JEEProject.TableStore.Model.OrderDetail;
 import com.JEEProject.TableStore.repositories.AccountRepository;
 import com.JEEProject.TableStore.repositories.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class OrderService {
 
     @Autowired
     private MailSenderService mailSender;
+
+    @Autowired
+    private ProductService productService;
 
     public Iterable<Order> findAll(){
         return orderRepo.findAll();
@@ -53,5 +57,23 @@ public class OrderService {
                         "Đơn hàng %s của bạn đã hủy\n" +
                         "Hẹn gặp lại bạn trong tương lai!",od.getId(),od.getTotal_price())
         );
+    }
+
+    public Order createOrder(){
+        return orderRepo.save(new Order());
+    }
+
+    public void addDetail(Order od, Integer productId, Integer qty){
+        od.addProduct(productId,qty);
+        od.increaseTotalPrice(productService.findById(productId).get().getPrice()*qty);
+        orderRepo.save(od);
+    }
+
+    public void addDetail(Order od, OrderDetail dt){
+        od.addProduct(dt);
+        od.increaseTotalPrice(
+                productService.findById(dt.getProduct_id()).get().getPrice()
+                        *dt.getQty());
+        orderRepo.save(od);
     }
 }
