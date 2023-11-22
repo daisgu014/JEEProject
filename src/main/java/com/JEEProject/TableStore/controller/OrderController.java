@@ -1,10 +1,13 @@
 package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Auth.user.UserAuthService;
+import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.Order;
 import com.JEEProject.TableStore.Model.OrderDetail;
+import com.JEEProject.TableStore.repositories.AccountRepository;
 import com.JEEProject.TableStore.services.MailSenderService;
 import com.JEEProject.TableStore.services.OrderService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -56,8 +59,9 @@ public class OrderController {
     }
 
     @GetMapping(value = "/create")
-    public void createNewOrder(@RequestBody List<OrderDetail> details){
+    public void createNewOrder(@RequestBody List<OrderDetail> details, HttpSession session){
         Order order = orderService.createOrder();
+        order.setUser_id(((Account)session.getAttribute("account")).getId());
         details.forEach(detail->orderService.addDetail(order,detail));
     }
 }
