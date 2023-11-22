@@ -1,6 +1,7 @@
 package com.JEEProject.TableStore.repositories;
 
 import com.JEEProject.TableStore.Model.Product;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Primary
 public interface ProductRepository extends CrudRepository<Product,Integer> {
     @Modifying
     @Query("UPDATE Product c SET c.DeleteAt = NOW() WHERE c.id = :product_id")
