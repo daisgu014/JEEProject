@@ -46,12 +46,10 @@ public class CartController {
                 total += c.getQty() * catalogService.findProductByID(c.getProductID()).get().getPrice();
                 qty += c.getQty();
             }
-
             modelMap.addAttribute("carts", carts);
             modelMap.addAttribute("products", products);
-            modelMap.addAttribute("length", !carts.isEmpty() ? (carts.size() - 1) : 0);
+            modelMap.addAttribute("length", carts.size());
             modelMap.addAttribute("total", total);
-
             session.setAttribute("cart-qty", qty);
             return "cart";
         } catch (Exception ex){
@@ -75,7 +73,7 @@ public class CartController {
                     existingCart.setQty(existingCart.getQty() + qty.orElse(1));
                     cartService.addToCart(existingCart);
                 } else {
-                    Cart cart = new Cart(userID, productID, qty.orElse(1));
+                    Cart cart = new Cart(userID, productID, qty.orElse(1),true);
                     cartService.addToCart(cart);
                 }
             } else {
