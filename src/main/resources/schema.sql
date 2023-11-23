@@ -99,6 +99,7 @@ CREATE TABLE cart_infos(
                            user_id INT ZEROFILL,
                            product_id INT ZEROFILL NOT NULL,
                            qty INT NOT NULL CHECK( qty > 0),
+                           state BIT not null,
                            PRIMARY KEY(user_id, product_id),
                            FOREIGN KEY(product_id) REFERENCES products(id),
                            FOREIGN KEY(user_id) REFERENCES users(id)

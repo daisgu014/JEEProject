@@ -1,23 +1,38 @@
 package com.JEEProject.TableStore.controller;
 
 
+import com.JEEProject.TableStore.Model.Account;
+import com.JEEProject.TableStore.Model.CartRequest;
+import com.JEEProject.TableStore.Model.ResponseObject;
+import com.JEEProject.TableStore.services.CartService;
 import com.JEEProject.TableStore.services.CategoryService;
 import com.JEEProject.TableStore.services.ProductService;
 import com.JEEProject.TableStore.services.ProductServiceExt;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
+@RequiredArgsConstructor
 public class AppController {
 
     @Autowired
     ProductServiceExt ps;
     @Autowired
     CategoryService cs;
+    @Autowired
+    CartService cartService;
+    private final HttpServletRequest HttpRequest;
+
     @GetMapping(path = {"","/","/home"})
     public String getHome(){
         return "index";
@@ -45,7 +60,33 @@ public class AppController {
         mv.addObject("products", ps.getByCategoryId(cateId));
         return mv;
     }
-
+    @PostMapping(path = "/deleteCart")
+    public ResponseEntity<ResponseObject> deleteCart(@RequestBody List<CartRequest> list){
+        HttpSession httpSession = HttpRequest.getSession();
+        try{
+            if(list.size()<0){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject(
+                                "Thất bại","Chưa chọn sản phẩm cần xóa",""
+                        )
+                );
+            }else {
+               Account account= ((Account)httpSession.getAttribute("account"));
+               cartService.deleteCart(list,account);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject(
+                                "Thành công","Xóa khỏi giỏ hàng thành công",""
+                        )
+                );
+            }
+        }catch (Exception e ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(
+                            "Thất bại","Lỗi:"+e.toString(),""
+                    )
+            );
+        }
+    }
 
     @GetMapping(path = "/category")
     public ModelAndView getCategory(){

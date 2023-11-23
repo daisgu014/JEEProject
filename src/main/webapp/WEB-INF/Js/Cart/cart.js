@@ -1,0 +1,66 @@
+let checked_sub_list = document.querySelectorAll('.sub_checkbox_cart');
+let listSelect = [];
+function checkEx(array,productId){
+    return array.some(item => item.productID === productId);
+}
+function addValueToArray(array, value) {
+    if(!checkEx(array,value.productID)){
+        array.push(value)
+    }
+}
+function removeFromArray(arr, value, property='productID') {
+    const index = arr.findIndex(item => item[property] === value[property]);
+    if (index !== -1) {
+        arr.splice(index, 1);
+    }
+}
+checked_sub_list.forEach(checkbox=>{
+    checkbox.addEventListener('click', function (){
+        for (let i = 0; i < checked_sub_list.length; i++) {
+            if (checked_sub_list[i].checked) {
+                addValueToArray(listSelect,{"productID":parseInt(checked_sub_list[i].closest('tr').querySelector('.product-id').textContent),
+                                                    "qty":parseInt(checked_sub_list[i].closest('tr').querySelector('.cart-qty').textContent)})
+                console.log(i)
+                console.log(listSelect)
+            }else{
+                removeFromArray(listSelect,{"productID":parseInt(checked_sub_list[i].closest('tr').querySelector('.product-id').textContent),
+                    "qty":parseInt(checked_sub_list[i].closest('tr').querySelector('.cart-qty').textContent)})
+
+            }
+
+        }
+
+    })
+})
+const deleteCart=(list)=>{
+    return fetch("/deleteCart",{
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(list)
+    }).then(response=>{
+        if(!response.ok){
+            throw new Error()
+        }
+        return response.json();
+    })
+}
+const payment=(list)=>{
+
+}
+document.querySelector('.deleteBtn').addEventListener('click',(e)=>{
+    e.preventDefault();
+    if(listSelect.length===0){
+        alert("Vui lòng chọn sản phẩm xóa")
+    }else {
+        deleteCart(listSelect).then(data=>{
+            alert(data.message)
+            window.location.reload();
+        })
+    }
+})
+document.querySelector('.paymentBtn').addEventListener('click',(e)=>{
+    e.preventDefault();
+    alert("Nút mua hàng nè")
+})

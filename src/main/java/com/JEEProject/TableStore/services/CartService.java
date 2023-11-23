@@ -1,10 +1,11 @@
 package com.JEEProject.TableStore.services;
 
-import com.JEEProject.TableStore.Model.Cart;
-import com.JEEProject.TableStore.Model.CartKey;
-import com.JEEProject.TableStore.Model.Product;
+import com.JEEProject.TableStore.Model.*;
 import com.JEEProject.TableStore.repositories.CartRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -25,8 +26,17 @@ public class CartService {
     }
 
     public List<Cart> findCartByUserID(Integer userID) {
-        return cartRepository.findCartByUserID(userID);
+        return cartRepository.findCartByUser(userID);
     }
-
+    public boolean deleteCart(List<CartRequest> list, Account account){
+        if(list.size()>0){
+            list.forEach(item->{
+                cartRepository.deleteCart(item.getProductID(),account.getId(), item.getQty());
+            });
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }

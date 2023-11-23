@@ -29,6 +29,7 @@
             <thead>
                 <tr>
                     <th></th>
+                    <th>Id sản phẩm</th>
                     <th>Sản phẩm</th>
                     <th>Màu sắc</th>
                     <th>Đơn giá</th>
@@ -38,9 +39,10 @@
             </thead>
             <tbody>
             <c:if test="${length > 0}">
-                <c:forEach var="i" begin="0" end="${length}">
+                <c:forEach var="i" begin="0" end="${length-1}">
                     <tr>
-                        <td style="padding-left: 60px"><input type="checkbox" class="sub_checkbox_category"></td>
+                        <td style="padding-left: 60px"><input type="checkbox" class="sub_checkbox_cart"></td>
+                        <td class="product-id">${products[i].getId()}</td>
                         <td>
                             <img src="/images/products/${products[i].getImgPath()}" style="height: 60px; width: 60px; object-fit:cover;">
                             <p>${products[i].getName()}</p>
@@ -50,7 +52,7 @@
                             <fmt:setLocale value="vi_VN"/>
                             <fmt:formatNumber value="${products[i].getPrice()}" type="currency" currencyCode="VND" maxFractionDigits="0"/>
                         </td>
-                        <td>${carts[i].getQty()}</td>
+                        <td class="cart-qty">${carts[i].getQty()}</td>
                         <td>
                             <fmt:formatNumber value="${carts[i].getQty() * products[i].getPrice()}" type="currency" currencyCode="VND" maxFractionDigits="0"/>
                         </td>
@@ -65,10 +67,11 @@
         </div>
         <div class="cart-actions">
             <button type="submit" class="product-button deleteBtn ">Xóa khỏi giỏ hàng</button>
-            <button type="submit" class="product-button">Mua hàng</button>
+            <button type="submit" class="product-button paymentBtn">Mua hàng</button>
         </div>
     </div>
     <jsp:include page="/footer" />
 </div>
+<script src="/js/Cart/cart.js" type="text/javascript"></script>
 </body>
 </html>
