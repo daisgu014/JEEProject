@@ -94,4 +94,9 @@ public class AppController {
         mv.addObject("categories", cs.getAll());
         return mv;
     }
+
+    @GetMapping(path = "/slide")
+    public String getSlide(){
+        return "static/slide";
+    }
 }
