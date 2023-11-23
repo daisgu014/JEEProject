@@ -4,6 +4,7 @@ import com.JEEProject.TableStore.Model.Category;
 import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.swing.text.html.Option;
 import java.util.*;
 
-@Service
+@Service @Primary
 public class ProductService {
     @Autowired
     ProductRepository productRepository;

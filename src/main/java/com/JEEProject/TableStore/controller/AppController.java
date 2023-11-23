@@ -38,8 +38,19 @@ public class AppController {
         return "index";
     }
     @GetMapping(path = {"/header"})
-    public String getHeader(){
-        return "template/header";
+    public ModelAndView getHeader(HttpSession session){
+        ModelAndView mv = new ModelAndView("template/header");
+        try {
+            mv.addObject(
+                    "cartSize",
+                    cartService.findCartByUserID(
+                                    ((Account) session.getAttribute("account")).getId())
+                            .size());
+        }catch (Exception ex) {
+            mv.addObject(
+                    "cartSize",0);
+        }
+        return mv;
     }
     @GetMapping(path = {"/footer"})
     public String getFooter(){
