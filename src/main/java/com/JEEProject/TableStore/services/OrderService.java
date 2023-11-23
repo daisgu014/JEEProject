@@ -70,10 +70,15 @@ public class OrderService {
     }
 
     public void addDetail(Order od, OrderDetail dt){
-        od.addProduct(dt);
-        od.increaseTotalPrice(
-                productService.findById(dt.getProduct_id()).get().getPrice()
-                        *dt.getQty());
-        orderRepo.save(od);
+        try {
+            od.addProduct(dt);
+            dt.setProduct(productService.findById(dt.getProduct_id()).get());
+            od.increaseTotalPrice(
+                    dt.getProduct().getPrice()
+                            *dt.getQty());
+            orderRepo.save(od);
+        }catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 }

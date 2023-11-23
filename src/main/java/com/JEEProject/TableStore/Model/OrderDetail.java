@@ -21,12 +21,12 @@ public class OrderDetail {
     private Integer qty;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id",insertable = false,updatable = false)
     @JsonBackReference
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id",insertable = false,updatable = false)
     private Product product;
 
 }

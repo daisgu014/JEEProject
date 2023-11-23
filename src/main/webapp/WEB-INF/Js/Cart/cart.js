@@ -47,7 +47,19 @@ const deleteCart=(list)=>{
     })
 }
 const payment=(list)=>{
-
+    return fetch("/payment",{
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(list)
+        }).then(response=>{
+            if(!response.ok){
+                console.log(response)
+                throw new Error()
+            }
+            return response.json();
+        })
 }
 document.querySelector('.deleteBtn').addEventListener('click',(e)=>{
     e.preventDefault();
@@ -62,5 +74,12 @@ document.querySelector('.deleteBtn').addEventListener('click',(e)=>{
 })
 document.querySelector('.paymentBtn').addEventListener('click',(e)=>{
     e.preventDefault();
-    alert("Nút mua hàng nè")
+    if(listSelect.length===0){
+            alert("Vui lòng chọn sản phẩm xóa")
+        }else {
+            payment(listSelect).then(data=>{
+                alert(data.message)
+                window.location.reload();
+            })
+        }
 })

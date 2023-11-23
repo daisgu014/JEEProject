@@ -11,16 +11,15 @@
                     <div class="header-top-actions">
                         <c:choose>
                             <c:when test="${sessionScope.account != null}">
-                                <a href="/">FAQ</a>
-                                <a href="/">Theo dõi đơn hàng</a>
+                                <a href="/user/purchased">Theo dõi đơn hàng</a>
 
-                                <a href="/cart" class="shopping-cart" qty="0">
+                                <a href="/cart" class="shopping-cart" qty="${cartSize}">
                                     <i class='bx bx-cart'></i>
                                 </a>
                                 <i class='bx bx-user btn-user'>
                                     <div>
-                                        <a href="#">Tải Khoản Của Tôi</a>
-                                        <a href="#">Đăng xuất</a>
+                                        <a href="/user/profile">Tải Khoản Của Tôi</a>
+                                        <a href="/user/logout">Đăng xuất</a>
                                     </div>
                                 </i>
                                 <br />

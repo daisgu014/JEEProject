@@ -26,6 +26,7 @@
     height: 50%;
     width: 80%;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    z-index: -10;
 }
 .slide{
     position: absolute;
