@@ -31,6 +31,7 @@
                     <th></th>
                     <th>Id sản phẩm</th>
                     <th>Sản phẩm</th>
+                    <th>Chi tiết</th>
                     <th>Màu sắc</th>
                     <th>Đơn giá</th>
                     <th>Số lượng</th>
@@ -41,11 +42,20 @@
             <c:if test="${length > 0}">
                 <c:forEach var="i" begin="0" end="${length-1}">
                     <tr>
-                        <td style="padding-left: 60px"><input type="checkbox" class="sub_checkbox_cart"></td>
+
+                        <td style="padding-left: 60px"><input type="checkbox" class="sub_checkbox_cart"
+                        <c:if test="${products[i].getInStock() < carts[i].getQty() or products[i].getStatus() eq 'Ngừng kinh doanh'}">
+                                                              style="display: none"
+                        </c:if>
+                        ></td>
                         <td class="product-id">${products[i].getId()}</td>
                         <td>
                             <img src="/images/products/${products[i].getImgPath()}" style="height: 60px; width: 60px; object-fit:cover;">
                             <p>${products[i].getName()}</p>
+                        </td>
+                        <td class="product-info">
+                            <span class="product-inStock" style="display: block">${products[i].getInStock()}</span>
+                            <span class="product-status" style="color: #1B9C85; font-weight: 600">${products[i].getStatus()}</span>
                         </td>
                         <td>${products[i].getColor()}</td>
                         <td>
