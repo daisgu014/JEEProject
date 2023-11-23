@@ -105,11 +105,11 @@ CREATE TABLE cart_infos(
 );
 CREATE TABLE orders(
                        id INT ZEROFILL AUTO_INCREMENT NOT NULL,
-                       total_price INT NOT NULL check(total_price > 0),
+                       total_price INT NOT NULL check(total_price >= 0),
                        bill_file_name VARCHAR(100) DEFAULT NULL,
                        create_at Date DEFAULT CURRENT_DATE(),
                        delete_at Date DEFAULT NULL,
-                       place VARCHAR(500) NOT Null,
+                       place VARCHAR(500) Null,
                        confirm_id INT ZEROFILL,
                        state int DEFAULT 0,
                        confirm_date DATE DEFAULT NULL,

@@ -50,6 +50,7 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                                 .requestMatchers(antMatcher("/accessDenied/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/auth/**")).permitAll()
                                 .requestMatchers(antMatcher("/cart/**")).permitAll()
+                                .requestMatchers(antMatcher("/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/product/**")).hasRole(ADMIN.name())
                                 .anyRequest()
                                 .authenticated()
