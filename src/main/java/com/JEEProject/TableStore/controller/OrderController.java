@@ -58,7 +58,8 @@ public class OrderController {
         return mv;
     }
 
-    @GetMapping(value = "/create")
+    @PostMapping(value = "/create")
+    @ResponseBody
     public void createNewOrder(@RequestBody List<OrderDetail> details, HttpSession session){
         Order order = orderService.createOrder();
         order.setUser_id(((Account)session.getAttribute("account")).getId());

@@ -72,6 +72,7 @@
                                                             <tr>
                                                                 <th>Mã sản phẩm</th>
                                                                 <th>Tên sản phẩm</th>
+                                                                <th>Hình ảnh</th>
                                                                 <th>Màu sản phẩm</th>
                                                                 <th>Số lượng</th>
                                                                 <th>Đơn giá</th>
@@ -81,6 +82,10 @@
                                                                 <tr>
                                                                     <th>${p.getId()}</th>
                                                                     <td>${p.getName()}</td>
+                                                                    <td>
+                                                                            <img src="/images/products/${p.getImgPath()}"
+                                                                            style="object-fit: cover; border-radius: 50%; width: 60px; height: 60px">
+                                                                    </td>
                                                                     <td>${p.getColor()}</td>
                                                                     <td>${od.getQty()}</td>
                                                                     <td>${String.format("%,d",p.getPrice())}</td>
