@@ -40,8 +40,7 @@
                     <div id="header-nav">
                         <a href="/home">Home</a>
                         <a href="/catalog">Catalog</a>
-                        <a href="/">Giới thiệu</a>
-                        <a href="/">Liên hệ</a>
+                        <a href="/about">Giới thiệu</a>
                     </div>
                 </div>
             </div>

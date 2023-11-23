@@ -34,6 +34,10 @@ public class AppController {
     public String getLogin(){
         return "loginAdmin";
     }
+    @GetMapping(path = "/about")
+    public String getAbout(){
+        return "Intro";
+    }
 
     @GetMapping(path = "/product/{cateId}")
     public ModelAndView getProduct(@PathVariable Integer cateId){
