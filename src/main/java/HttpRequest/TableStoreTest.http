@@ -1,0 +1,44 @@
+//Đăng nhập
+POST http://localhost:8083/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+  "username": "daisgu014",
+  "password": "123456"
+}
+
+> {% client.global.set("auth-token", response.body.access_token);  %}
+###
+//Gửi Request không kèm token
+GET http://localhost:8083/api/v1/product/getAll
+###
+//Gửi Request check quyền của user hiện tai
+POST http://localhost:8083/api/v1/auth/getUser
+###
+//Gửi Request kèm token nhưng không đủ quyền
+POST http://localhost:8083/api/v1/product/getProduct/1
+Authorization: Bearer {{auth-token}}
+
+//Gửi Request kèm token thành công
+###
+//Lấy danh sách sản phẩm
+GET http://localhost:8083/api/v1/product/getAll
+Authorization: Bearer {{auth-token}}
+###
+//Lấy sản phẩm theo Id
+POST http://localhost:8083/api/v1/product/getProduct/1
+Authorization: Bearer {{auth-token}}
+###
+//Thêm thể loại mới
+POST http://localhost:8083/admin/categories/create
+Authorization: Bearer {{auth-token}}
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "Bàn công thái gaming"
+}
+###
+//Xóa thể loại
+DELETE http://localhost:8083/admin/categories/delete-categories/7
+Authorization: Bearer {{auth-token}}
