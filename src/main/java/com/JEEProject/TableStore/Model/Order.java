@@ -46,6 +46,8 @@ public class Order implements Serializable {
 
     public Order() {
         this.total_price = 0;
+        this.create_at = new Date(new java.util.Date().getTime());
+        this.state = ORDERSTATE.WAITING;
         this.details  = new ArrayList<>();
     }
 

@@ -2,6 +2,7 @@ package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Auth.user.UserAuthService;
 import com.JEEProject.TableStore.Model.*;
+import com.JEEProject.TableStore.services.CartService;
 import com.JEEProject.TableStore.services.OrderService;
 import com.JEEProject.TableStore.services.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class OrderAction {
 
     @Autowired
     ProductService ps;
+
+    @Autowired
+    CartService cs;
     @Autowired
     private UserAuthService userAuthService;
 
@@ -57,9 +61,8 @@ public class OrderAction {
     public ResponseEntity<ResponseObject> createNewOrder(@RequestBody List<CartRequest> reqs){
         try {
             Order order = orderService.createOrder();
-            order.setUser_id(((Account) HttpRequest.getSession().getAttribute("account")).getId());
-            System.out.println(order);
-
+            Account account = (Account) HttpRequest.getSession().getAttribute("account");
+            order.setUser_id(account.getId());
             reqs.forEach(e ->
                     {
                         OrderDetail tmp = new OrderDetail();
@@ -72,6 +75,7 @@ public class OrderAction {
                                 );
                     }
             );
+            cs.deleteCart(reqs,account);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Thành công","Đơn hàng đặt thành công",""));
         }catch (Exception ex){

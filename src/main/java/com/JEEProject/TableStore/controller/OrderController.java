@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.StreamSupport;
@@ -40,7 +41,9 @@ public class OrderController {
         ModelAndView mv = new ModelAndView("adminOrders");
         mv.addObject("user",userAuthService.getUser());
         mv.addObject("orders",
-                StreamSupport.stream(orderService.findAll().spliterator(), false).toList());
+                StreamSupport.stream(orderService.findAll().spliterator(), false)
+                        .sorted((Comparator.comparing(Order::getId).reversed()))
+                        .toList());
         return mv;
     }
 
@@ -53,6 +56,7 @@ public class OrderController {
                         .filter(e->{
                             return e.orderBy(svalue) && e.isBefore(eday) && e.isAfter(sday);
                         })
+                        .sorted((Comparator.comparing(Order::getId).reversed()))
                         .toList()
         );
         return mv;
