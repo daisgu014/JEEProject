@@ -3,6 +3,7 @@ package com.JEEProject.TableStore.services;
 import com.JEEProject.TableStore.Model.ORDERSTATE;
 import com.JEEProject.TableStore.Model.Order;
 import com.JEEProject.TableStore.Model.OrderDetail;
+import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.repositories.AccountRepository;
 import com.JEEProject.TableStore.repositories.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,13 @@ public class OrderService {
 
     public void addDetail(Order od, OrderDetail dt){
         try {
+            Product product = productService.findById(dt.getProduct_id()).get();
             od.addProduct(dt);
-            dt.setProduct(productService.findById(dt.getProduct_id()).get());
             od.increaseTotalPrice(
-                    dt.getProduct().getPrice()
+                    productService.findById(dt.getProduct_id()).get().getPrice()
                             *dt.getQty());
+            product.setInStock(product.getInStock()-dt.getQty());
+            productService.saveProduct(product);
             orderRepo.save(od);
         }catch (Exception exception) {
             exception.printStackTrace();

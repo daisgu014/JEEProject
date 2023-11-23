@@ -116,5 +116,8 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public void saveProduct(Product product){
+        productRepository.save(product);
+    }
 
 }
