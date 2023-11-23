@@ -1,0 +1,55 @@
+@keyframes hideandshow {
+    0%{
+        opacity: 0;
+    }
+    5%{
+        opacity: 1;
+    }
+    30%{
+        opacity: .7;
+    }
+    35%{
+        opacity: .2;
+    }
+    40%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+.slides{
+    margin-left: 10%;
+    position: relative;
+    overflow: hidden;
+    height: 50%;
+    width: 80%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+.slide{
+    position: absolute;
+    animation-name: hideandshow;
+    animation-duration: 10.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    margin-left: auto;
+    object-fit: cover;
+    opacity: 0;
+    transition: all 1s linear;
+    filter: sepia(30%);
+    top: -50%;
+}
+
+.s1{
+    animation-delay: 0s;
+}
+.s2{
+    animation-delay: 2.5s
+}
+.s3{
+    animation-delay: 5.5s;
+}
+.s4{
+    animation-delay: 8s;
+}
