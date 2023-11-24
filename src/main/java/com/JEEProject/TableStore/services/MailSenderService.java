@@ -38,8 +38,7 @@ public class MailSenderService {
             helper.setFrom("hau.ln.fm090794@gmail.com");
             helper.setSubject(subject);
             message.setContent(body,"text/html; charset=utf-8");
-            mailSender.send(message);
-            System.out.println("Mail Send...");
+            new Thread(() -> mailSender.send(message)).start();
         } catch (MessagingException e) {
             System.out.println("mail send error");
             throw new RuntimeException(e);
