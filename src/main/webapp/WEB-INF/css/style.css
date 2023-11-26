@@ -31,8 +31,10 @@
 html{
     font-size: 14px;
 }
+body{
+    overflow-x: hidden;
+}
 .container{
-    height: 100vh;
     width: 100vw;
     display: flex;
     flex-wrap: unset;
@@ -40,20 +42,21 @@ html{
     overflow-x: hidden;
     color: var(--color-dark);
     background-color: var(--color-background);
-}a{
+    min-height: 100vh;
+}
+a{
      color: var(--color-dark);
 
  }
 h1{
-    font-weight: 800px;
+    font-weight: 800;
     font-size: 1.8rem;
 }
 h3{
-    font-weight: 500px;
+    font-weight: 500;
     font-size: 0.87rem;
 }
 .left{
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,7 +76,7 @@ h3{
     position: relative;
     top:1.5rem;
     cursor: pointer;
-    transition: all 0.3 ease;
+    transition: all 0.3s ease;
 }
 .sidebar li{
     display: flex;
@@ -96,7 +99,7 @@ h3{
     padding: 1rem;
 }
 .sidebar li a i{
-    font-size: 1,6rem;
+    font-size: 1.6rem;
     transition:  all 0.3s ease;
 }
 .sidebar li:last-child{
@@ -202,7 +205,7 @@ h3{
 }
 .user_sub span{
     color: var(--color-white);
-    transition: all 0,3s ease;
+    transition: all 0.3s ease;
 }
 .user-sub-menu{
     display: flex;
@@ -226,7 +229,7 @@ h3{
 .search-box{
     background: rgb(237,237,237);
     border-radius: 15px;
-    color: --color-dark;
+    color: var(--color-dark);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -235,11 +238,12 @@ h3{
 .search-box input{
     background: transparent;
     padding: 10px;
+    width: 160px;
 }
 .search-box i{
-    font-size: 1,2rem;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: all 05,s ease-out;
+    transition: all 0.5s ease-out;
 }
 .search-box i:hover{
     transform: scale(1.2);
@@ -290,7 +294,7 @@ h3.main-title{
     background-color: var(--color-background);
     margin-top: 1rem;
     border-radius: 10px;
-    padding: 2rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -302,6 +306,9 @@ h3.main-title{
 table{
     width: 100%;
     border-collapse: collapse;
+}
+.order-main-table{
+    height: 90vh;
 }
 thead{
     background-color: var(--color-primary);

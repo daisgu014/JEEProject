@@ -2,8 +2,8 @@
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
-        <div class="table-container">
-            <table class="order-main-table">
+        <div class="table-container" style="height: 100%">
+            <table class="order-main-table" >
                 <thead>
                     <tr>
                         <th>No.</th>

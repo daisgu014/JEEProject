@@ -312,3 +312,34 @@ filter_form.addEventListener("submit",function (e){
     const FilterData = new FormData(this);
 
 })
+function getURLParameters() {
+    let searchParams = new URLSearchParams(window.location.search);
+    let params = {};
+
+    for (let [key, value] of searchParams) {
+        params[key] = value;
+    }
+
+    return params;
+}
+
+// Sử dụng hàm để lấy các tham số từ URL
+let urlParameters = getURLParameters();
+if(location.href.includes("http://localhost:8083/admin/products/search?")){
+    // Truy cập các giá trị cụ thể
+    let nameFilter = urlParameters['nameFilter'];
+    let category = urlParameters['category'];
+    let minPrice = urlParameters['min-price'];
+    let maxPrice = urlParameters['max-price'];
+    let status = urlParameters['status'];
+    let provider = urlParameters['provider'];
+    document.getElementById('nameFilterProduct').value=nameFilter;
+    document.getElementById('category-filter').value=category;
+    document.getElementById('minpice').value=minPrice
+    document.getElementById('maxprice').value=maxPrice
+    document.getElementById('status-filter').value=status;
+    document.getElementById('provider-filter').value=provider;
+
+}
+
+

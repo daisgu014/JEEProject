@@ -1,8 +1,6 @@
 package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.Category;
-import com.JEEProject.TableStore.Model.Product;
-import com.JEEProject.TableStore.repositories.CategoryRepository;
 import com.JEEProject.TableStore.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,7 +59,6 @@ public class CategoryController {
             return new ResponseEntity<>("Lỗi không cập nhật được thể loại", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-
     }
     @PostMapping("/delete-categories/")
     @ResponseBody
@@ -72,7 +69,6 @@ public class CategoryController {
                     int id = Integer.parseInt(ids[i]);
                     categoryService.DeletebyId(id);
                 } catch (NumberFormatException e) {
-                    // Xử lý trường hợp chuỗi không phải là số
                     System.err.println("Lỗi: Chuỗi không phải là số - " + ids[i]);
                 }
             }
@@ -84,6 +80,16 @@ public class CategoryController {
     public ResponseEntity<String> deleteId(@PathVariable Integer id) {
         categoryService.DeletebyId(id);
         return ResponseEntity.ok("Xóa thành công");
+    }
+    @GetMapping("/search")
+    public String FilterCategory(ModelMap modelMap,
+                                 @RequestParam(value = "nameFilter",defaultValue = "") String name,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "6") int size){
+        Pageable pageable = PageRequest.of(page,size, Sort.by("id"));
+        Page<Category> categoryPage = categoryService.filter(pageable,name);
+        modelMap.addAttribute("categoryPage",categoryPage);
+        return "adminCategory";
     }
 }
 

@@ -16,18 +16,9 @@
 <div class="container">
     <jsp:include page="../components/sidebar.jsp"/>
     <div class="main--content">
-        <div class="header-wrapper">
-            <div class="header--title">
-                <span>Riêng tư</span>
-                <h2>Quản lý Nhà Cung Cấp</h2>
-            </div>
-            <div class="header-search">
-            </div>
-            <div class="user--info">
-                <img src="./image/img.jpg" alt="">
-            </div>
-
-        </div>
+        <jsp:include page="/headerAdmin">
+            <jsp:param name="title" value="Quản lý nhà cung cấp"/>
+        </jsp:include>
         <div class="container-provider" style="width: 100%">
             <div class="header-provider">
                 <div class="search-container-provider">

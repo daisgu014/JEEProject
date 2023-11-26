@@ -1,6 +1,7 @@
 package com.JEEProject.TableStore.controller;
 
 
+import com.JEEProject.TableStore.Auth.user.UserAuthService;
 import com.JEEProject.TableStore.Model.Account;
 import com.JEEProject.TableStore.Model.CartRequest;
 import com.JEEProject.TableStore.Model.ResponseObject;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,6 +34,7 @@ public class AppController {
     @Autowired
     CartService cartService;
     private final HttpServletRequest HttpRequest;
+    private final UserAuthService us;
 
     @GetMapping(path = {"","/","/home"})
     public String getHome(){
@@ -55,6 +58,11 @@ public class AppController {
     @GetMapping(path = {"/footer"})
     public String getFooter(){
         return "template/footer";
+    }
+    @GetMapping(path = "/headerAdmin")
+    public String getHeaderAdmin(ModelMap modelMap){
+        modelMap.addAttribute("user",us.getUser());
+        return "headerAdmin";
     }
     @GetMapping(path = {"/login"})
     public String getLogin(){

@@ -1,14 +1,17 @@
 package com.JEEProject.TableStore.services;
 
 import com.JEEProject.TableStore.Model.Category;
+import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,5 +65,13 @@ public class CategoryService {
             return  true;
         }
         return  false;
+    }
+    public Page<Category> filter(Pageable pageable, String name){
+        Page<Category> products = getAllCategoriesWhereDeleteAtIsNull(pageable);
+        List<Category> filteredProducts = new ArrayList<>();
+        if(name!=null && !name.equalsIgnoreCase("")){
+            return categoryRepository.findByNameContainingIgnoreCase(name,pageable);
+        }
+        return  products;
     }
 }

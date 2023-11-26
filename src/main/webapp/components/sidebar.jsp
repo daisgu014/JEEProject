@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<div style="width: 21%">
-    <div class="left" style="position: fixed;">
+<div style="width: 19.5%;">
+    <div class="left" style="position: fixed;width: 20%">
         <div class="logo">
             <a href="#" style="    display: flex;
     justify-content: center;">
