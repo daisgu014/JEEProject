@@ -18,44 +18,9 @@
     <jsp:include page="../components/sidebar.jsp"/>
 
     <div class="main--content">
-        <div class="header-wrapper">
-            <div class="header--title">
-                <span>Riêng tư</span>
-                <h2>Quản lý sản phẩm</h2>
-            </div>
-            <div class="user--info">
-                <img src="/images/products/user1_a.jpg" alt="">
-            </div>
-            <div class="user-modal" id="user-modal">
-                <ul>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <span>Hồ sơ</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
-                            <span>Đơn hàng</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </div>
-                            <span>Đăng xuất</span>
-                        </a>
-                    </l1>
-                </ul>
-            </div>
-
-        </div>
+        <jsp:include page="/headerAdmin">
+            <jsp:param name="title" value="Quản lý sản phẩm"/>
+        </jsp:include>
         <div class="tabular--wrapper">
             <div class="title-table">
                 <div class="filter">
@@ -92,7 +57,7 @@
                     <div class="search-container" style="margin-left: 30px;" >
                         <div class="search-box" style="width: 200px">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Tìm kiếm" name="nameFilter"/>
+                            <input type="text" placeholder="Tìm kiếm" name="nameFilter" id="nameFilterProduct"/>
                         </div>
                     </div>
                     <div class="category-filter">
@@ -426,7 +391,6 @@
     </form>
 </div>
 
-<script src="/js/event.js" type="text/javascript"></script>
 <script src="/js/productEvent.js" type="module"></script>
 <script src="/js/adminProducts/_request.js" type="module"></script>
 <script src="/js/adminProducts/validation.js" type="module"></script>

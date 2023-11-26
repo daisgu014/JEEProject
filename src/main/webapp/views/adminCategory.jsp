@@ -18,44 +18,9 @@
 <div class="container" >
         <jsp:include page="../components/sidebar.jsp"/>
     <div class="main--content">
-        <div class="header-wrapper">
-            <div class="header--title">
-                <span>Riêng tư</span>
-                <h2>Quản lý thể loại</h2>
-            </div>
-            <div class="user--info">
-                <img src="./image/img.jpg" alt="">
-            </div>
-            <div class="user-modal" id="user-modal">
-                <ul>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <span>Hồ sơ</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
-                            <span>Đơn hàng</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </div>
-                            <span>Đăng xuất</span>
-                        </a>
-                    </l1>
-                </ul>
-            </div>
-
-        </div>
+        <jsp:include page="/headerAdmin">
+            <jsp:param name="title" value="Quản lý thể loại"/>
+        </jsp:include>
         <div class="tabular--wrapper">
             <div class="title-table">
                 <div class="filter">
@@ -75,20 +40,22 @@
                 </div>
 
             </div>
-            <form id="product--filter" style="width: 100%" action="" method="get">
+            <form id="category--filter" style="width: 100%" action="/admin/categories/search" method="get">
                 <div class="filter-modal">
                     <div class=filter-modal-content>
                         <div class="search-container" style="margin-left: 30px;" >
                             <div class="search-box" style="width: 200px">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" placeholder="Tìm kiếm" name="nameFilter"/>
+                                <input type="text" placeholder="Tìm kiếm" name="nameFilter" id="nameFilterCategory"/>
                             </div>
                         </div>
                         </div>
                         <div class="btnFilter" style="display: flex; align-items: center; gap: 50px" >
-                            <div class="ResetBtn" >
-                                Đặt lại
-                            </div>
+                          <a href="/admin/categories" style="text-decoration: none">
+                              <div class="ResetBtn" >
+                                  Đặt lại
+                              </div>
+                          </a>
                             <button type="submit" id="filter-submit" style="margin-top: 0px">Lọc</button>
                         </div>
                     </div>
@@ -199,6 +166,5 @@
     </div>
 </div>
 <script src="/js/CategoryEvent.js" type="module"></script>
-<script src="/js/event.js" type="text/javascript"></script>
 </body>
 </html>

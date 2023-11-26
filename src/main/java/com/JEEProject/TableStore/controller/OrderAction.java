@@ -3,6 +3,7 @@ package com.JEEProject.TableStore.controller;
 import com.JEEProject.TableStore.Auth.user.UserAuthService;
 import com.JEEProject.TableStore.Model.*;
 import com.JEEProject.TableStore.services.CartService;
+import com.JEEProject.TableStore.services.MailSenderService;
 import com.JEEProject.TableStore.services.OrderService;
 import com.JEEProject.TableStore.services.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ public class OrderAction {
 
     @Autowired
     ProductService ps;
+    @Autowired
+    private MailSenderService mailSender;
 
     @Autowired
     CartService cs;
@@ -76,6 +79,14 @@ public class OrderAction {
                     }
             );
             cs.deleteCart(reqs,account);
+            mailSender.sendHTMLEmail(
+                    account.getEmail(),
+                    "Xác nhận đơn hàng",
+                    String.format("<h1>Đặt hàng thành công!</h1>\n" +
+                            "Mã đơn hàng: "+order.getId()+"\n" +
+                            "Trạng thái đơn hàng: Chờ xác nhận \n" +
+                            "Cảm ơn bạn đã mua của chúng tôi!")
+            );
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Thành công","Đơn hàng đặt thành công",""));
         }catch (Exception ex){

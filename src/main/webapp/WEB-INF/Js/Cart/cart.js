@@ -75,11 +75,11 @@ document.querySelector('.deleteBtn').addEventListener('click',(e)=>{
 document.querySelector('.paymentBtn').addEventListener('click',(e)=>{
     e.preventDefault();
     if(listSelect.length===0){
-            alert("Vui lòng chọn sản phẩm xóa")
+            alert("Vui lòng chọn sản phẩm cần thanh toán")
         }else {
             payment(listSelect).then(data=>{
                 alert(data.message)
-                window.location.reload();
+                window.location.href="http://localhost:8083/home";
             })
         }
 })

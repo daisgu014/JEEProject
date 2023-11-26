@@ -1,7 +1,6 @@
 package com.JEEProject.TableStore.controller;
 
 import com.JEEProject.TableStore.Model.ImportDetails;
-import com.JEEProject.TableStore.Model.Product;
 import com.JEEProject.TableStore.services.ImportDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
