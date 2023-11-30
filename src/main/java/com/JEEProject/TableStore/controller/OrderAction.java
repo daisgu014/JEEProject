@@ -16,8 +16,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,7 +60,58 @@ public class OrderAction {
         orderService.cancelOrder(Integer.valueOf(id),((Account)session.getAttribute("account")).getId());
         return "redirect:/user/purchased";
     }
+    public String formatPrice(int price) {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        String formattedPrice = currencyVN.format(price);
+        return formattedPrice;
+    }
+    public String listDetails(Order order){
+        StringBuilder detailsString = new StringBuilder();
+        order.getDetails().forEach(item-> {
+            detailsString.append(
+                  " <tr>\n" +
+            "                    <td  style=\"display: flex;\">\n" +
 
+                    "                        <p>"+item.getProduct().getName()+"</p>\n" +
+                    "                    </td>\n" +
+                    "                    <td>"+item.getProduct().getColor()+"</td>\n" +
+                    "                    <td>" +
+                                       formatPrice(item.getProduct().getPrice())+
+                    "                    </td>\n" +
+                    "                    <td class=\"cart-qty\">"+item.getQty()+"</td>\n" +
+                    "                    <td>\n" +
+                                       formatPrice( item.getProduct().getPrice()* item.getQty())+
+                    "                    </td>\n" +
+                    "                </tr>\n"
+            );
+        });
+        return detailsString.toString();
+    }
+    public String mailHtmlBody(Order order){
+        return " <div style=\"width: 500px;font-family: sans-serif;\">\n" +
+                "        <h3 style=\"text-align: center;\">ĐƠN ĐẶT HÀNG : "+order.getId()+"</h3>\n" +
+                "        <table style=\"font-size: 12px; width: 100%; border-collapse: collapse;\">\n" +
+                "            <thead style=\"background-color:#6C9BCF; color: #ffff;\">\n" +
+                "                <tr>\n" +
+                "                    <th>Sản phẩm</th>\n" +
+                "                    <th>Màu sắc</th>\n" +
+                "                    <th>Đơn giá</th>\n" +
+                "                    <th>Số lượng</th>\n" +
+                "                    <th>Tổng tiền</th>\n" +
+                "                </tr>\n" +
+                "            </thead>\n" +
+                "            <tbody style=\"background:#f6f6f9\">\n" +
+                "            </tbody>\n" +
+                             listDetails(order)+
+                "            <tfoot>\n" +
+                "                <td colspan=\"6\" style=\"font-weight: bold;\">Tổng tiền: "+formatPrice(order.getTotal_price())+"</td>\n" +
+                "            </tfoot>\n" +
+                "        </table>\n" +
+                "        <span style=\"font-weight: bold;\">Trạng thái đơn hàng: Chờ xác thực</span>\n" +
+                "        <p style=\"font-weight: bold;\">Cảm ơn anh/chị đã mua hàng của chúng !!!</p>\n" +
+                "    </div>";
+    }
     @PostMapping(value = "/payment")
     @ResponseBody
     public ResponseEntity<ResponseObject> createNewOrder(@RequestBody List<CartRequest> reqs){
@@ -66,11 +119,13 @@ public class OrderAction {
             Order order = orderService.createOrder();
             Account account = (Account) HttpRequest.getSession().getAttribute("account");
             order.setUser_id(account.getId());
+            List details = new ArrayList<>();
             reqs.forEach(e ->
                     {
                         OrderDetail tmp = new OrderDetail();
                         tmp.setOrder_id(order.getId());
                         tmp.setProduct_id(e.getProductID());
+                        tmp.setProduct(ps.findById(e.getProductID()).get());
                         tmp.setQty(e.getQty());
                         orderService.addDetail(
                                 order,
@@ -82,10 +137,7 @@ public class OrderAction {
             mailSender.sendHTMLEmail(
                     account.getEmail(),
                     "Xác nhận đơn hàng",
-                    String.format("<h1>Đặt hàng thành công!</h1>\n" +
-                            "Mã đơn hàng: "+order.getId()+"\n" +
-                            "Trạng thái đơn hàng: Chờ xác nhận \n" +
-                            "Cảm ơn bạn đã mua của chúng tôi!")
+                    mailHtmlBody(order)
             );
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Thành công","Đơn hàng đặt thành công",""));

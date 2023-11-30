@@ -73,7 +73,7 @@ public class CartController {
                     existingCart.setQty(existingCart.getQty() + qty.orElse(1));
                     cartService.addToCart(existingCart);
                 } else {
-                    Cart cart = new Cart(userID, productID, qty.orElse(1),true);
+                    Cart cart = new Cart(userID, productID, qty.orElse(1));
                     cartService.addToCart(cart);
                 }
             } else {

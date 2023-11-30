@@ -16,10 +16,10 @@ import java.util.List;
 @Repository
 public interface CartRepository extends CrudRepository<Cart, CartKey> {
     @Modifying
-    @Query("SELECT  c FROM Cart c WHERE  c.userID= :userId AND c.state = true")
+    @Query("SELECT  c FROM Cart c WHERE  c.userID= :userId")
     public List<Cart> findCartByUser(@Param("userId") Integer userID);
     @Modifying
-    @Query("UPDATE Cart c SET c.state = false WHERE c.productID = :product_id AND c.userID= :userId AND c.qty = :qty")
+    @Query("delete   FROM Cart c WHERE c.productID = :product_id AND c.userID= :userId AND c.qty= :qty")
     @Transactional
     void deleteCart(@Param("product_id") Integer id,
                     @Param("userId") Integer userId,
