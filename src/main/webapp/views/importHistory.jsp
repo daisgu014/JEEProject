@@ -18,44 +18,9 @@
 <body>
 <div class="container">
     <div class="main--content">
-        <div class="header-wrapper">
-            <div class="header--title">
-                <span>Riêng tư</span>
-                <h2>Nhập ký nhập sản phẩm</h2>
-            </div>
-            <div class="user--info">
-                <img src="./image/img.jpg" alt="">
-            </div>
-            <div class="user-modal" id="user-modal">
-                <ul>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <span>Hồ sơ</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
-                            <span>Đơn hàng</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </div>
-                            <span>Đăng xuất</span>
-                        </a>
-                    </l1>
-                </ul>
-            </div>
-
-        </div>
+        <jsp:include page="/headerAdmin">
+            <jsp:param name="title" value="Lịch sử nhập hàng"/>
+        </jsp:include>
         <div class="pageBefore">
             <a href="/admin/products">Quản lý sản phẩm </a>
             <i class="fa-solid fa-right-long"></i>
@@ -126,7 +91,6 @@
     </div>
 
 </div>
-<script src="./event.js"></script>
 <script src="./pageBefore.js"></script>
 </body>
 </html>

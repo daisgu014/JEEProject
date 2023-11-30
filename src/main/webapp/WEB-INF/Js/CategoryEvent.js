@@ -168,3 +168,20 @@ BtnEdits.forEach(btn=>{
 document.getElementById("update").addEventListener("click",()=>{
     updateCategory(id);
 })
+function getURLParameters() {
+    let searchParams = new URLSearchParams(window.location.search);
+    let params = {};
+
+    for (let [key, value] of searchParams) {
+        params[key] = value;
+    }
+
+    return params;
+}
+let urlParameters = getURLParameters();
+if(location.href.includes("http://localhost:8083/admin/categories/search")){
+    // Truy cập các giá trị cụ thể
+    let nameFilter = urlParameters['nameFilter'];
+    document.getElementById('nameFilterCategory').value=nameFilter;
+
+}

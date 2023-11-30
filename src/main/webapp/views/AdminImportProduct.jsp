@@ -73,42 +73,9 @@
         </div>
     </div>
     <div class="main--content">
-        <div class="header-wrapper">
-            <div class="header--title">
-                <span>Riêng tư</span>
-                <h2>Nhập sản phẩm</h2>
-            </div>
-            <span style="color: #07B3F9; font-weight: 600; font-size:16px" data-id="${user.getId()}">${user.getFull_name()}</span>
-            <div class="user-modal" id="user-modal">
-                <ul>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <span>Hồ sơ</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
-                            <span>Đơn hàng</span>
-                        </a>
-                    </l1>
-                    <l1 class="user_sub">
-                        <a class="user-sub-menu">
-                            <div>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </div>
-                            <span>Đăng xuất</span>
-                        </a>
-                    </l1>
-                </ul>
-            </div>
-
-        </div>
+        <jsp:include page="/headerAdmin">
+            <jsp:param name="title" value="Nhập số lượng sản phẩm"/>
+        </jsp:include>
         <div class="pageBefore">
             <a href="/admin/products">Quản lý sản phẩm </a>
             <i class="fa-solid fa-right-long"></i>
@@ -155,6 +122,5 @@
     </div>
 </div>
 </div>
-<script src="/js/event.js" type="text/javascript"></script>
 <script src="/js/ImportProduct/event.js" type="module"></script>
 </body>
