@@ -20,17 +20,14 @@ public class Cart {
 
    @Column(name = "qty")
    private Integer qty;
-   @Column(name = "state")
-   private boolean state;
 
     public Cart() {
     }
 
-    public Cart(Integer userID, Integer productID, Integer qty, boolean state) {
+    public Cart(Integer userID, Integer productID, Integer qty) {
         this.userID = userID;
         this.productID = productID;
         this.qty = qty;
-        this.state=state;
     }
 
     public Integer getQty() {
