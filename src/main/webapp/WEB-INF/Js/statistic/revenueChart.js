@@ -8,8 +8,8 @@ function getRevenueData(month, DOMelement) {
     })
         .then((response) => response.json())
         .then((data) => {
-            document.getElementById("dataTable").innerHTML = drawRevenueTable(data[3]);
-            return drawRevenueChart(DOMelement, data[3]);
+            document.getElementById("dataTable").innerHTML = drawRevenueTable(dataConvert(data[3]));
+            return drawRevenueChart(DOMelement, dataConvert(data[3]));
         });
 }
 function drawRevenueTable(data) {
@@ -24,13 +24,46 @@ function drawRevenueTable(data) {
                 </thead>
             </table>`;
     for (let i = 0; i < len; i++) {
+        if(!data.dailyRevenue[i])
+            data.dailyRevenue[i] = 0;
+        if(!data.orderCount[i])
+            data.orderCount[i] = 0;
         s += `  <tr>
                     <td>` + data.dates[i] + `</td>
                     <td>` + data.orderCount[i] + `</td>
-                    <td>` + data.dailyRevenue[i].toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) + `</td>
+                    <td>` + 
+                        data.dailyRevenue[i].toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) + 
+                    `</td>
                 </tr>`
     }
     return s;
+}
+
+function dataConvert(data) {
+    let date = [];
+    let rev = [];
+    let cnt = [];
+    let s = new Date(new Date(data.dates[0]).getFullYear(),new Date(data.dates[0]).getMonth(),1);
+    let e = new Date(new Date(data.dates[0]).getFullYear(),new Date(data.dates[0]).getMonth()+1,1);
+    while(s<e){
+        date.push(new Date(s).toDateString());
+        s.setDate(s.getDate()+1);
+    }
+    rev.fill(0,0,date.length)
+    cnt.fill(0,0,date.length)
+    console.log(rev);
+    for(let i = 0; i<data.dates.length; i++){
+        rev[new Date(data.dates[i]).getDate()-1] = data.dailyRevenue[i];
+        cnt[new Date(data.dates[i]).getDate()-1] = data.orderCount[i];
+    }
+    console.log(date);
+    console.log(rev);
+    console.log(cnt);
+    data.dates = date;
+    data.dailyRevenue = rev;
+    data.orderCount = cnt;
+    return data;
+
 }
 
 function drawRevenueChart(DOMelement, data) {
