@@ -42,12 +42,15 @@
             <c:if test="${length > 0}">
                 <c:forEach var="i" begin="0" end="${length-1}">
                     <tr>
+                        <c:choose>
+                            <c:when test="${products[i].getInStock() < carts[i].getQty() or products[i].getStatus() eq 'Ngừng kinh doanh' }">
+                                <td><button class="BtnDeleteCartItem" style="width: 80px; height:50px; text-align:center; background: #e74c3c; color: #F1F6F9; border-radius: 20px ">Xóa</button></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td style="padding-left: 60px"><input type="checkbox" class="sub_checkbox_cart"></td>
+                            </c:otherwise>
+                        </c:choose>
 
-                        <td style="padding-left: 60px"><input type="checkbox" class="sub_checkbox_cart"
-                        <c:if test="${products[i].getInStock() < carts[i].getQty() or products[i].getStatus() eq 'Ngừng kinh doanh'}">
-                                                              style="display: none"
-                        </c:if>
-                        ></td>
                         <td class="product-id">${products[i].getId()}</td>
                         <td>
                             <img src="/images/products/${products[i].getImgPath()}" style="height: 60px; width: 60px; object-fit:cover;">
