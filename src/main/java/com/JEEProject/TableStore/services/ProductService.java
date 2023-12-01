@@ -80,7 +80,7 @@ public class ProductService {
                 p.get().setStatus(product.getStatus());
             }
             if(!p.get().getImgPath().equalsIgnoreCase(product.getImgPath())
-                || !product.getImgPath().equalsIgnoreCase("Vui lòng chọn ảnh")){
+                && !product.getImgPath().equalsIgnoreCase("Vui lòng chọn ảnh")){
                 p.get().setImgPath(product.getImgPath());
             }
             if(p.get().getCategory()!=product.getCategory()){

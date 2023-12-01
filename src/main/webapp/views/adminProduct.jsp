@@ -318,7 +318,7 @@
             <div class="input input-status">
                 <p>Trạng thái: </p>
                 <select class="input-status" name="status" id="status-edit">
-                    <option value="Đang kinh doanh<"> Đang kinh doanh</option>
+                    <option value="Đang kinh doanh"> Đang kinh doanh</option>
                     <option value="Ngừng kinh doanh"> Ngừng kinh doanh</option>
                 </select>
             </div>
