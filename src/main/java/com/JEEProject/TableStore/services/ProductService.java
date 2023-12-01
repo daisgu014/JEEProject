@@ -98,7 +98,24 @@ public class ProductService {
         return productRepository.findById(id);
     }
     public void addProduct(Product product){
-        productRepository.save(product);
+        if(productRepository.findByName(product.getName()).isPresent()
+                && productRepository.findByName(product.getName()).get().getDeleteAt()!=null){
+            Product p = productRepository.findByName(product.getName()).get();
+            if(p.getCategory().equals(product.getCategory())
+            && p.getProvider().equals(product.getProvider())
+            && p.getColor().equalsIgnoreCase(product.getColor())
+            && p.getPrice()==product.getPrice()){
+                productRepository.createProductEx(product.getImgPath(),
+                        product.getName(),
+                        product.getCategory(),
+                        product.getProvider(),
+                        product.getColor(),
+                        product.getPrice());
+            }
+        }else {
+            productRepository.save(product);
+        }
+
     }
     public void saveProduct(Product product){
         productRepository.save(product);

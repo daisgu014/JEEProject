@@ -43,9 +43,15 @@ public class CategoryService {
         return null;
     }
     public void addCategory(Category category){
-        Date currentDate = new Date();
-        category.setCreateAt(currentDate);
-        categoryRepository.save(category);
+        if(categoryRepository.findByName(category.getName()).isPresent()
+        && categoryRepository.findByName(category.getName()).get().getDeleteAt() !=null){
+            categoryRepository.createExName(category.getName());
+        }else {
+            Date currentDate = new Date();
+            category.setCreateAt(currentDate);
+            categoryRepository.save(category);
+        }
+
     }
     public Optional<Category> findById(Integer id){
         return categoryRepository.findById(id);

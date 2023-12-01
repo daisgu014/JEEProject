@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Integer> {
     @Modifying
@@ -20,4 +22,11 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
     @Query("SELECT c FROM Category c where c.deleteAt IS null ")
     Page<Category> findCategoriesWhereDeleteAtIsNull(Pageable pageable);
     Page<Category> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    @Transactional
+    @Modifying
+    @Query("UPDATE Category c SET c.deleteAt = null WHERE c.name LIKE %:categoryName% AND c.deleteAt IS NOT NULL")
+    void createExName(@Param("categoryName") String categoryName);
+
+    Optional<Category> findByName(String name);
+
 }
