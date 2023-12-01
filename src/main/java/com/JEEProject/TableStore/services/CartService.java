@@ -38,5 +38,13 @@ public class CartService {
             return false;
         }
     }
+    public boolean deleteCart(CartRequest item, Account account){
+        if(item!=null){
+                cartRepository.deleteCart(item.getProductID(),account.getId(), item.getQty());
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }

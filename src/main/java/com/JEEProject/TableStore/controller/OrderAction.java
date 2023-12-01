@@ -109,7 +109,7 @@ public class OrderAction {
                 "            </tfoot>\n" +
                 "        </table>\n" +
                 "        <span style=\"font-weight: bold;\">Trạng thái đơn hàng: Chờ xác thực</span>\n" +
-                "        <p style=\"font-weight: bold;\">Cảm ơn anh/chị đã mua hàng của chúng !!!</p>\n" +
+                "        <p style=\"font-weight: bold;\">Cảm ơn anh/chị đã mua hàng của chúng tôi !!!</p>\n" +
                 "    </div>";
     }
     @PostMapping(value = "/payment")
@@ -119,7 +119,6 @@ public class OrderAction {
             Order order = orderService.createOrder();
             Account account = (Account) HttpRequest.getSession().getAttribute("account");
             order.setUser_id(account.getId());
-            List details = new ArrayList<>();
             reqs.forEach(e ->
                     {
                         OrderDetail tmp = new OrderDetail();

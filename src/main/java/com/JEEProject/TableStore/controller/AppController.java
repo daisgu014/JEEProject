@@ -106,7 +106,26 @@ public class AppController {
             );
         }
     }
+    @PostMapping(path = "/deleteCartItem")
+    public ResponseEntity<ResponseObject> deleteCartItem(@RequestBody CartRequest item){
+        HttpSession httpSession = HttpRequest.getSession();
+        try{
+                Account account= ((Account)httpSession.getAttribute("account"));
+                cartService.deleteCart(item,account);
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject(
+                                "Thành công","Xóa khỏi giỏ hàng thành công",""
+                        )
+                );
 
+        }catch (Exception e ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(
+                            "Thất bại","Lỗi:"+e.toString(),""
+                    )
+            );
+        }
+    }
     @GetMapping(path = "/category")
     public ModelAndView getCategory(){
         ModelAndView mv = new ModelAndView("template/category");
