@@ -18,13 +18,13 @@ checked_sub_list.forEach(checkbox=>{
     checkbox.addEventListener('click', function (){
         for (let i = 0; i < checked_sub_list.length; i++) {
             if (checked_sub_list[i].checked) {
-                addValueToArray(listSelect,{"productID":parseInt(checked_sub_list[i].closest('tr').querySelector('.product-id').textContent),
-                                                    "qty":parseInt(checked_sub_list[i].closest('tr').querySelector('.cart-qty').textContent)})
-                console.log(i)
-                console.log(listSelect)
+                addValueToArray(listSelect,
+                    {"productID":parseInt(checked_sub_list[i].closest('tr').querySelector('.product-id').textContent),
+                                 "qty":parseInt(checked_sub_list[i].closest('tr').querySelector('.cart-qty').textContent)})
             }else{
-                removeFromArray(listSelect,{"productID":parseInt(checked_sub_list[i].closest('tr').querySelector('.product-id').textContent),
-                    "qty":parseInt(checked_sub_list[i].closest('tr').querySelector('.cart-qty').textContent)})
+                removeFromArray(listSelect,
+                    {"productID":parseInt(checked_sub_list[i].closest('tr').querySelector('.product-id').textContent),
+                                 "qty":parseInt(checked_sub_list[i].closest('tr').querySelector('.cart-qty').textContent)})
 
             }
 
@@ -105,5 +105,5 @@ document.querySelector('.BtnDeleteCartItem').addEventListener('click',(e)=>{
     }
     deleteCartItem(item).then(data=>{
         alert(data.message)
-        window.location.href="http://localhost:8083/home";})
+        window.location.href="http://localhost:8083/cart";})
 })

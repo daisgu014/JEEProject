@@ -41,6 +41,7 @@ public class CategoryController {
     public ResponseEntity<?> addCategory (@RequestBody Category category
     ){
         try {
+
             Category category1 = new Category(category.getName());
             categoryService.addCategory(category1);
             return new ResponseEntity<>("Thêm thể loại thành công", HttpStatus.CREATED);

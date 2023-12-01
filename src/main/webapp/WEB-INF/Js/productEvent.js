@@ -203,7 +203,7 @@ const findOptionValue=(selectElement, optionName)=>{
     var options=selectElement.options;
     let value=null;
     for(var i=0;i<options.length;i++){
-        if(options[i].textContent.localeCompare(optionName)){
+        if(options[i].text===(optionName.trim())){
             value=options[i].value
         }
     }
@@ -218,7 +218,7 @@ btnEdits.forEach(btn=>{
         inputNameEdit.value = btn.closest('tr').querySelector('.info_product .product-name').textContent;
         inputColorEdit.value=btn.closest('tr').querySelector('.product-color').textContent;
         inputPriceEdit.value=btn.closest('tr').querySelector('.product-price').textContent;
-        statusEdit.value=findOptionValue(statusEdit,(btn.closest('tr').querySelector('.product-status').textContent));
+        statusEdit.value=btn.closest('tr').querySelector('.product-status').textContent;
         categoryEdit.value=findOptionValue(categoryEdit,(btn.closest('tr').querySelector('.product-category').textContent));
         providerEdit.value=findOptionValue(providerEdit,(btn.closest('tr').querySelector('.product-provider').textContent))
         preImage.innerHTML=

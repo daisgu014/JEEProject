@@ -76,7 +76,7 @@
         </table>
         <div class="cart-total">
             <p>Thành tiền</p>
-            <fmt:formatNumber value="${total}" type="currency" currencyCode="VND" maxFractionDigits="0"/>
+            <p class="totalPrice"><fmt:formatNumber value="${total}" type="currency" currencyCode="VND" maxFractionDigits="0"/></p>
         </div>
         <div class="cart-actions">
             <button type="submit" class="product-button deleteBtn ">Xóa khỏi giỏ hàng</button>
